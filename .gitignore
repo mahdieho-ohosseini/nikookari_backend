@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+
+.env
+env
+logs/
+*.log
+.pytest_cache/
+
+.vscode/
+.idea/
+
+alembic/__pycache__/
+alembic/versions/__pycache__/

@@ -1,0 +1,80 @@
+import asyncio
+import smtplib
+from email.header import Header
+from email.mime.text import MIMEText
+
+import redis.asyncio as redis
+from loguru import logger
+
+from app.core.circuit_breaker import CircuitBreaker
+from app.core.config import get_settings
+from app.services1.base_service import BaseService
+
+
+class EmailService(BaseService):
+    def __init__(self, redis_client=None):
+        super().__init__()
+        self.settings = get_settings()
+
+        self.redis = redis_client or redis.Redis(
+            host="localhost",
+            port=6379,
+            db=0,
+            decode_responses=True,
+        )
+
+        self.circuit_breaker = CircuitBreaker(
+            redis_client=self.redis,
+            name="email_service",
+            failure_threshold=3,
+            recovery_timeout_seconds=120,
+            failure_window_seconds=300,
+        )
+
+    async def send_email(self, to_email: str, subject: str, body: str):
+        await self.circuit_breaker.before_call()
+
+        msg = MIMEText(body, "plain", "utf-8")
+        msg["Subject"] = str(Header(subject, "utf-8"))
+        msg["From"] = self.settings.EMAIL_FROM
+        msg["To"] = to_email
+
+        def _send():
+            email_host = self.settings.EMAIL_HOST
+            email_port = int(self.settings.EMAIL_PORT)
+            email_username = self.settings.EMAIL_USERNAME
+            email_password = self.settings.EMAIL_PASSWORD.replace(" ", "")
+            email_from = self.settings.EMAIL_FROM
+
+            if email_port == 465:
+                with smtplib.SMTP_SSL(email_host, email_port, timeout=30) as smtp:
+                    smtp.login(email_username, email_password)
+                    smtp.sendmail(email_from, [to_email], msg.as_string())
+            else:
+                with smtplib.SMTP(email_host, email_port, timeout=30) as smtp:
+                    smtp.ehlo()
+                    smtp.starttls()
+                    smtp.ehlo()
+                    smtp.login(email_username, email_password)
+                    smtp.sendmail(email_from, [to_email], msg.as_string())
+
+        try:
+            loop = asyncio.get_running_loop()
+            await loop.run_in_executor(None, _send)
+
+            await self.circuit_breaker.record_success()
+
+            logger.info(f"Email sent successfully | to={to_email}")
+
+        except Exception as error:
+            await self.circuit_breaker.record_failure()
+
+            logger.error(
+                f"Email sending failed | to={to_email} | error={error}"
+            )
+
+            raise
+
+
+def get_email_service():
+    return EmailService()
