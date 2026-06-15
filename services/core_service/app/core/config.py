@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     DATABASE_PORT: int
     DATABASE_USERNAME: str
     
-    PROJECT_NAME: str = "QForm Core Service"
+    PROJECT_NAME: str = "Nikookari Core Service"
     PROJECT_VERSION: str = "1.0.0"
 
     JWT_SECRET_KEY: str

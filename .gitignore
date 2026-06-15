@@ -1,15 +1,17 @@
-.venv/
+# Python
 __pycache__/
-*.pyc
-
+*.py[cod]
+*$py.class
+venv/
 .env
-env
-logs/
-*.log
-.pytest_cache/
 
+# Databases
+*.sqlite3
+*.db
+
+# IDEs
 .vscode/
 .idea/
 
-alembic/__pycache__/
-alembic/versions/__pycache__/
+# Uploaded files (مدارک مؤسسات نباید برن رو گیت)
+static/uploads/

@@ -1,10 +1,9 @@
-from typing import List
 from uuid import UUID
 from datetime import datetime
 
 from fastapi import Depends
 from loguru import logger
-from sqlalchemy import select, update
+from sqlalchemy import select, update, func
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.core.database import get_db
@@ -48,8 +47,37 @@ class UserRepository:
 
         return result.first() is not None
 
-    async def list_all(self) -> List[User]:
+    async def list_all(self) -> list[User]:
         stmt = select(User).order_by(User.created_at.desc())
+        result = await self.session.execute(stmt)
+
+        return list(result.scalars().all())
+
+    async def count_by_role(self, role: str) -> int:
+        stmt = select(func.count()).select_from(User).where(User.role == role)
+        result = await self.session.execute(stmt)
+
+        return int(result.scalar_one())
+
+    async def count_active_by_role(self, role: str) -> int:
+        stmt = (
+            select(func.count())
+            .select_from(User)
+            .where(
+                User.role == role,
+                User.status == "active",
+            )
+        )
+        result = await self.session.execute(stmt)
+
+        return int(result.scalar_one())
+
+    async def list_by_role(self, role: str) -> list[User]:
+        stmt = (
+            select(User)
+            .where(User.role == role)
+            .order_by(User.created_at.desc())
+        )
         result = await self.session.execute(stmt)
 
         return list(result.scalars().all())
@@ -141,10 +169,27 @@ class UserRepository:
     # ADMIN
     # -----------------------------------
     async def get_admin_user(self) -> User | None:
-        stmt = select(User).where(User.role == "admin")
+        stmt = (
+            select(User)
+            .where(User.role == "admin")
+            .order_by(User.created_at.asc())
+        )
         result = await self.session.execute(stmt)
 
-        return result.scalar_one_or_none()
+        return result.scalars().first()
+
+    async def get_active_admins(self) -> list[User]:
+        stmt = (
+            select(User)
+            .where(
+                User.role == "admin",
+                User.status == "active",
+            )
+            .order_by(User.created_at.asc())
+        )
+        result = await self.session.execute(stmt)
+
+        return list(result.scalars().all())
 
 
 # ---------------------------------------

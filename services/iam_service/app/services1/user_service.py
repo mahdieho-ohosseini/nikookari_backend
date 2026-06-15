@@ -42,17 +42,14 @@ class UserService(BaseService):
 
     async def delete_user(self, user: User) -> None:
         logger.info(f"Deleting user with id {user.user_id}")
-
         return await self.user_repository.delete_user(user)
 
     async def get_user(self, user_id: UUID) -> User | None:
         logger.info(f"Fetching user with id {user_id}")
-
         return await self.user_repository.get_by_id(user_id)
 
     async def get_user_by_email(self, email: str) -> User | None:
         logger.info(f"Fetching user with email {email}")
-
         return await self.user_repository.get_by_email(email)
 
     async def update_last_login(self, user_id: UUID) -> None:
@@ -79,7 +76,6 @@ class UserService(BaseService):
 
     async def list_users(self) -> list[User]:
         logger.info("Admin requested user list")
-
         return await self.user_repository.list_all()
 
     async def get_user_detail(self, user_id: UUID) -> User:
@@ -96,6 +92,9 @@ class UserService(BaseService):
             f"User {actor_user.user_id} with role {actor_user.role} requested suspend for user {user_id}"
         )
 
+        if actor_user.role != "admin":
+            raise ValueError("Only admin can suspend users")
+
         user = await self.get_user(user_id)
         if not user:
             raise ValueError("User not found")
@@ -103,12 +102,16 @@ class UserService(BaseService):
         if user.user_id == actor_user.user_id:
             raise ValueError("You cannot suspend your own account")
 
-        if actor_user.role == "admin" and user.role in {"admin", "super_admin"}:
-            raise ValueError("Admin cannot suspend admin or super_admin users")
+        if user.role == "admin":
+            admin_count = await self.user_repository.count_by_role("admin")
+            if admin_count <= 1:
+                raise ValueError("You cannot suspend the last admin account")
+
+            raise ValueError("Admin cannot suspend another admin")
 
         await self.user_repository.suspend_user(user_id)
 
-        logger.warning(f"User {user_id} was suspended by {actor_user.user_id}")
+        logger.warning(f"User {user_id} was suspended by admin {actor_user.user_id}")
 
         updated_user = await self.get_user(user_id)
         if not updated_user:
@@ -121,13 +124,16 @@ class UserService(BaseService):
             f"User {actor_user.user_id} with role {actor_user.role} requested activation for user {user_id}"
         )
 
+        if actor_user.role != "admin":
+            raise ValueError("Only admin can activate users")
+
         user = await self.get_user(user_id)
         if not user:
             raise ValueError("User not found")
 
         await self.user_repository.activate_user(user_id)
 
-        logger.info(f"User {user_id} was activated by {actor_user.user_id}")
+        logger.info(f"User {user_id} was activated by admin {actor_user.user_id}")
 
         updated_user = await self.get_user(user_id)
         if not updated_user:
@@ -142,12 +148,16 @@ class UserService(BaseService):
         actor_user: User,
     ) -> User:
         logger.info(
-            f"Super admin {actor_user.user_id} requested role change for user {user_id} to {new_role}"
+            f"User {actor_user.user_id} with role {actor_user.role} requested role change for user {user_id} to {new_role}"
         )
+
+        if actor_user.role != "admin":
+            raise ValueError("Only admin can change user roles")
 
         allowed_roles = {
             "donor",
-            "charity_representative",
+            "charity",
+            "verifier",
             "admin",
         }
 
@@ -161,10 +171,17 @@ class UserService(BaseService):
         if user.user_id == actor_user.user_id:
             raise ValueError("You cannot change your own role")
 
+        if user.role == "admin" and new_role != "admin":
+            admin_count = await self.user_repository.count_by_role("admin")
+            if admin_count <= 1:
+                raise ValueError("You cannot change the role of the last admin")
+
+            raise ValueError("Admin role cannot be downgraded by another admin")
+
         await self.user_repository.update_role(user_id, new_role)
 
         logger.warning(
-            f"Role of user {user_id} changed to {new_role} by super_admin {actor_user.user_id}"
+            f"Role of user {user_id} changed to {new_role} by admin {actor_user.user_id}"
         )
 
         updated_user = await self.get_user(user_id)
@@ -176,13 +193,13 @@ class UserService(BaseService):
     def list_roles(self) -> list[str]:
         return [
             "donor",
-            "charity_representative",
+            "charity",
+            "verifier",
             "admin",
-            "super_admin",
         ]
 
-    async def create_admin(self, user_body: UserCreateSchema) -> User:
-        logger.info("Creating admin user")
+    async def create_initial_admin(self, user_body: UserCreateSchema) -> User:
+        logger.info("Creating initial admin user")
 
         existing_admin = await self.user_repository.get_admin_user()
         if existing_admin:
@@ -200,3 +217,34 @@ class UserService(BaseService):
         )
 
         return await self.user_repository.create_user(admin_user)
+
+    async def create_verifier(self, user_body: UserCreateSchema, actor_user: User) -> User:
+        logger.info(
+            f"User {actor_user.user_id} with role {actor_user.role} requested verifier creation for {user_body.email}"
+        )
+
+        if actor_user.role != "admin":
+            raise ValueError("Only admin can create verifier users")
+
+        existing_user = await self.get_user_by_email(user_body.email)
+        if existing_user:
+            raise ValueError("A user with this email already exists")
+
+        password_hash = self.hash_service.hash_password(user_body.password)
+
+        verifier_user = User(
+            full_name=user_body.full_name,
+            email=user_body.email,
+            password_hash=password_hash,
+            role="verifier",
+            is_verified=True,
+            status="active",
+        )
+
+        created_user = await self.user_repository.create_user(verifier_user)
+
+        logger.warning(
+            f"Verifier user {created_user.user_id} created by admin {actor_user.user_id}"
+        )
+
+        return created_user

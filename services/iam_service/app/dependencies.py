@@ -1,7 +1,7 @@
 from typing import Annotated, Any
 from uuid import UUID
 
-from fastapi import Depends, HTTPException
+from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import redis.asyncio as redis
 
@@ -24,8 +24,8 @@ from app.services1.auth_services.password_reset_service import PasswordResetServ
 from app.services1.profile_service import ProfileService
 
 
-#bearer_scheme = HTTPBearer()
 bearer_scheme = HTTPBearer(scheme_name="BearerAuth")
+
 
 # -----------------------------
 # Redis + Hash + Email
@@ -143,26 +143,44 @@ async def get_current_user(
     payload = await jwt_service.decode_token(token)
 
     if payload.get("type") != "access":
-        raise HTTPException(status_code=401, detail="Invalid access token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid access token",
+        )
 
     user_id_raw = payload.get("sub")
     if not user_id_raw:
-        raise HTTPException(status_code=401, detail="Invalid token payload")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token payload",
+        )
 
     try:
         user_id = UUID(str(user_id_raw))
     except ValueError:
-        raise HTTPException(status_code=401, detail="Invalid user id in token")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid user id in token",
+        )
 
     user = await user_service.get_user(user_id)
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
 
     if not user.is_verified:
-        raise HTTPException(status_code=403, detail="User account is not verified")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="User account is not verified",
+        )
 
     if user.status != "active":
-        raise HTTPException(status_code=403, detail="User account is not active")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="User account is not active",
+        )
 
     return user
 
@@ -174,20 +192,35 @@ def require_roles(*allowed_roles: str):
     async def role_checker(current_user=Depends(get_current_user)):
         if current_user.role not in allowed_roles:
             raise HTTPException(
-                status_code=403,
+                status_code=status.HTTP_403_FORBIDDEN,
                 detail="You do not have permission to access this resource",
             )
-
         return current_user
 
     return role_checker
 
 
 # -----------------------------
-# ARBAC: Administrative role-based access control
+# Common role shortcuts
 # -----------------------------
-def require_super_admin():
-    return require_roles("super_admin")
+def require_admin():
+    return require_roles("admin")
+
+
+def require_verifier():
+    return require_roles("verifier")
+
+
+def require_verifier_or_admin():
+    return require_roles("verifier", "admin")
+
+
+def require_charity():
+    return require_roles("charity")
+
+
+def require_donor():
+    return require_roles("donor")
 
 
 # -----------------------------

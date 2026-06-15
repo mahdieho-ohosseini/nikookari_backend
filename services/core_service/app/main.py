@@ -6,18 +6,12 @@ from fastapi.security import HTTPBearer
 from contextlib import asynccontextmanager
 from loguru import logger
 
-from app.api.form_routes import router as forms_router
-from app.api.question_routes import router as question_router
-from app.api.setting_routes import router as setting_router
-from app.api.send_public_link_routes import router as url_router
-from app.api.public_response_routes import router as public_response
-from app.api.report_routes import router as report
-from app.api.public_form_routes import router as public_form
+
 from app.core.config import get_settings
 from app.core.database import create_db_and_tables
 from app.logging.logging_service import configure_logger
 from app.services.jwt_middleware import jwt_middleware
-
+from app.api.RegInstitute_routes import router as RegInstitute
 
 # ============================================
 # 1. Logger
@@ -115,13 +109,8 @@ logger.info("✅ OpenAPI configured")
 # ============================================
 # 8. Routes
 # ============================================
-app.include_router(forms_router, prefix="/api/v1")
-app.include_router(question_router, prefix="/api/v1")
-app.include_router(setting_router, prefix="/api/v1")
-app.include_router(url_router, prefix="/api/v1")
-app.include_router(public_response)
-app.include_router(report, prefix="/api/v1")
-app.include_router(public_form, prefix="/api/v1")
+app.include_router(RegInstitute, prefix="/api/v1")
+
 
 
 # ============================================

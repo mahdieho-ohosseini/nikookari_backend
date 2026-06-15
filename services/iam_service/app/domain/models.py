@@ -1,4 +1,6 @@
 import uuid
+from sqlalchemy.orm import relationship
+from sqlalchemy import Text
 
 from sqlalchemy import (
     Column,
@@ -61,7 +63,7 @@ class User(EntityBase):
 
     __table_args__ = (
         CheckConstraint(
-            "role IN ('donor', 'charity_representative', 'admin', 'super_admin')",
+            "role IN ('donor', 'charity', 'verifier', 'admin')",
             name="check_user_role",
         ),
         CheckConstraint(
@@ -85,3 +87,4 @@ class RefreshToken(EntityBase):
     token = Column(String, unique=True, nullable=False)
 
     expires_at = Column(DateTime, nullable=False)
+

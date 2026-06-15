@@ -8,6 +8,13 @@ from pydantic import BaseModel, EmailStr, field_validator, constr
 
 
 # ======================================================
+# Shared Role Literal
+# ======================================================
+
+UserRoleLiteral = Literal["donor", "charity", "verifier", "admin"]
+
+
+# ======================================================
 # Base User Schemas
 # ======================================================
 
@@ -49,7 +56,7 @@ class UserCreateSchema(UserBaseSchema):
         if domain not in allowed_domains:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"دامنه '{domain}' معتبر شناخته نشد. لطفاً از ایمیل Gmail، Yahoo یا مشابه استفاده کنید.",
+                detail=f"دامنه '{domain}' معتبر شناخته نشد. لطفاً از ایمیل معتبر استفاده کنید.",
             )
 
         return email
@@ -93,7 +100,7 @@ class UserResponseSchema(BaseModel):
     user_id: UUID
     full_name: str
     email: EmailStr
-    role: str
+    role: UserRoleLiteral
     status: str
     last_login: Optional[datetime] = None
     created_at: Optional[datetime] = None
@@ -104,11 +111,22 @@ class UserResponseSchema(BaseModel):
 
 
 class UserRoleUpdateSchema(BaseModel):
-    role: Literal["donor", "charity_representative", "admin"]
+    role: UserRoleLiteral
 
 
 class RoleResponseSchema(BaseModel):
-    roles: list[str]
+    roles: list[UserRoleLiteral]
+
+
+# ======================================================
+# Admin / ARBAC Schemas
+# ======================================================
+
+class CreateVerifierSchema(BaseModel):
+    full_name: str
+    email: EmailStr
+    password: constr(min_length=8, max_length=64)  # type: ignore[arg-type]
+
 
 
 # ======================================================

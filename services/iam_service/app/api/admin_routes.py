@@ -1,17 +1,15 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, Security, status
-from fastapi.security import HTTPAuthorizationCredentials
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.core.cache import get_json_cache, set_json_cache
 from app.dependencies import (
-    bearer_scheme,
     get_redis_client,
     get_user_service,
-    require_roles,
-    require_super_admin,
+    require_admin,
 )
 from app.domain.user_schemas import (
+    CreateVerifierSchema,
     RoleResponseSchema,
     UserResponseSchema,
     UserRoleUpdateSchema,
@@ -22,7 +20,7 @@ from app.services1.user_service import UserService
 
 admin_router = APIRouter(
     prefix="/admin",
-    tags=["Admin - RBAC / ARBAC"],
+    tags=["Admin"],
 )
 
 
@@ -33,11 +31,10 @@ ROLES_CACHE_TTL_SECONDS = 3600
 @admin_router.get(
     "/users",
     response_model=list[UserResponseSchema],
-    summary="RBAC: Admin/Super Admin can list all users",
+    summary="Admin can list all users",
 )
 async def list_users(
-    credentials: HTTPAuthorizationCredentials = Security(bearer_scheme),
-    current_admin=Depends(require_roles("admin", "super_admin")),
+    current_admin=Depends(require_admin()),
     user_service: UserService = Depends(get_user_service),
 ):
     audit_log(
@@ -54,12 +51,11 @@ async def list_users(
 @admin_router.get(
     "/users/{user_id}",
     response_model=UserResponseSchema,
-    summary="RBAC: Admin/Super Admin can get user details",
+    summary=" Admin can get user details",
 )
 async def get_user_detail(
     user_id: UUID,
-    credentials: HTTPAuthorizationCredentials = Security(bearer_scheme),
-    current_admin=Depends(require_roles("admin", "super_admin")),
+    current_admin=Depends(require_admin()),
     user_service: UserService = Depends(get_user_service),
 ):
     try:
@@ -98,12 +94,11 @@ async def get_user_detail(
     "/users/{user_id}/suspend",
     response_model=UserResponseSchema,
     status_code=status.HTTP_200_OK,
-    summary="RBAC: Admin/Super Admin can suspend a user",
+    summary=" Admin can suspend a user",
 )
 async def suspend_user(
     user_id: UUID,
-    credentials: HTTPAuthorizationCredentials = Security(bearer_scheme),
-    current_admin=Depends(require_roles("admin", "super_admin")),
+    current_admin=Depends(require_admin()),
     user_service: UserService = Depends(get_user_service),
 ):
     try:
@@ -145,12 +140,11 @@ async def suspend_user(
     "/users/{user_id}/activate",
     response_model=UserResponseSchema,
     status_code=status.HTTP_200_OK,
-    summary="RBAC: Admin/Super Admin can activate a user",
+    summary="Admin can activate a user",
 )
 async def activate_user(
     user_id: UUID,
-    credentials: HTTPAuthorizationCredentials = Security(bearer_scheme),
-    current_admin=Depends(require_roles("admin", "super_admin")),
+    current_admin=Depends(require_admin()),
     user_service: UserService = Depends(get_user_service),
 ):
     try:
@@ -191,11 +185,10 @@ async def activate_user(
 @admin_router.get(
     "/roles",
     response_model=RoleResponseSchema,
-    summary="RBAC/ARBAC: List available roles with Redis cache",
+    summary=" List available roles with Redis cache",
 )
 async def list_roles(
-    credentials: HTTPAuthorizationCredentials = Security(bearer_scheme),
-    current_admin=Depends(require_roles("admin", "super_admin")),
+    current_admin=Depends(require_admin()),
     user_service: UserService = Depends(get_user_service),
     redis_client=Depends(get_redis_client),
 ):
@@ -233,28 +226,27 @@ async def list_roles(
     "/users/{user_id}/role",
     response_model=UserResponseSchema,
     status_code=status.HTTP_200_OK,
-    summary="ARBAC: Only Super Admin can change user role",
+    summary="Admin can change user role",
 )
 async def update_user_role(
     user_id: UUID,
     payload: UserRoleUpdateSchema,
-    credentials: HTTPAuthorizationCredentials = Security(bearer_scheme),
-    current_super_admin=Depends(require_super_admin()),
+    current_admin=Depends(require_admin()),
     user_service: UserService = Depends(get_user_service),
 ):
     try:
         result = await user_service.update_user_role(
             user_id=user_id,
             new_role=payload.role,
-            actor_user=current_super_admin,
+            actor_user=current_admin,
         )
 
         audit_log(
-            event="super_admin_update_user_role",
+            event="admin_update_user_role",
             outcome="success",
-            actor_id=str(current_super_admin.user_id),
-            actor_email=current_super_admin.email,
-            actor_role=current_super_admin.role,
+            actor_id=str(current_admin.user_id),
+            actor_email=current_admin.email,
+            actor_role=current_admin.role,
             target_id=str(user_id),
             target_email=result.email,
             details={"new_role": payload.role},
@@ -264,14 +256,63 @@ async def update_user_role(
 
     except ValueError as error:
         audit_log(
-            event="super_admin_update_user_role",
+            event="admin_update_user_role",
             outcome="failure",
-            actor_id=str(current_super_admin.user_id),
-            actor_email=current_super_admin.email,
-            actor_role=current_super_admin.role,
+            actor_id=str(current_admin.user_id),
+            actor_email=current_admin.email,
+            actor_role=current_admin.role,
             target_id=str(user_id),
             details={
                 "new_role": payload.role,
+                "reason": str(error),
+            },
+        )
+
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(error),
+        )
+
+
+@admin_router.post(
+    "/verifiers",
+    response_model=UserResponseSchema,
+    status_code=status.HTTP_201_CREATED,
+    summary="Admin can create verifier user",
+)
+async def create_verifier(
+    payload: CreateVerifierSchema,
+    current_admin=Depends(require_admin()),
+    user_service: UserService = Depends(get_user_service),
+):
+    try:
+        result = await user_service.create_verifier(
+            user_body=payload,
+            actor_user=current_admin,
+        )
+
+        audit_log(
+            event="admin_create_verifier",
+            outcome="success",
+            actor_id=str(current_admin.user_id),
+            actor_email=current_admin.email,
+            actor_role=current_admin.role,
+            target_id=str(result.user_id),
+            target_email=result.email,
+            details={"assigned_role": "verifier"},
+        )
+
+        return result
+
+    except ValueError as error:
+        audit_log(
+            event="admin_create_verifier",
+            outcome="failure",
+            actor_id=str(current_admin.user_id),
+            actor_email=current_admin.email,
+            actor_role=current_admin.role,
+            details={
+                "email": payload.email,
                 "reason": str(error),
             },
         )
