@@ -23,9 +23,10 @@ class JWTService:
         self.redis = redis
 
     # ------------------ Access Token ------------------
-    def create_access_token(self, user_id: str) -> str:
+    def create_access_token(self, user_id: str, role: str) -> str:
         payload = {
             "sub": user_id,
+            "role": role,
             "jti": str(uuid.uuid4()),
             "type": "access",
             "exp": datetime.utcnow()
@@ -39,9 +40,10 @@ class JWTService:
         )
 
     # ------------------ Refresh Token ------------------
-    def create_refresh_token(self, user_id: str) -> str:
+    def create_refresh_token(self, user_id: str, role: str) -> str:
         payload = {
             "sub": user_id,
+            "role": role,
             "jti": str(uuid.uuid4()),
             "type": "refresh",
             "exp": datetime.utcnow()
@@ -77,6 +79,12 @@ class JWTService:
         jti = payload["jti"]
         exp = payload["exp"]
         user_id = payload["sub"]
+        role = payload.get("role")
+
+        if not role:
+            raise HTTPException(401, "Token missing role")
+
+        
 
         # ⛔ reuse detection
         if await is_token_blacklisted(self.redis, jti):
@@ -84,9 +92,12 @@ class JWTService:
 
         # ✅ invalidate old refresh token
         await blacklist_token(self.redis, jti, exp)
-
         return {
-            "access_token": self.create_access_token(user_id),
-            "refresh_token": self.create_refresh_token(user_id),
-            "token_type": "bearer",
-        }
+             "access_token": self.create_access_token(user_id, role),
+              "refresh_token": self.create_refresh_token(user_id, role),
+              "token_type": "bearer",
+              "role": role,
+               "user_id": user_id,
+               }
+
+

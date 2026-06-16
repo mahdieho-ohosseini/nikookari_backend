@@ -109,11 +109,13 @@ class LoginService(BaseService):
         await self.user_service.update_last_login(existing_user.user_id)
 
         access_token = self.jwt_service.create_access_token(
-            str(existing_user.user_id)
+            str(existing_user.user_id),
+            existing_user.role,
         )
 
         refresh_token = self.jwt_service.create_refresh_token(
-            str(existing_user.user_id)
+            str(existing_user.user_id),
+            existing_user.role,
         )
 
         await self.redis.setex(
@@ -136,4 +138,7 @@ class LoginService(BaseService):
             "access_token": access_token,
             "refresh_token": refresh_token,
             "token_type": "bearer",
+            "user_id": str(existing_user.user_id),
+            "email": existing_user.email,
+            "role": existing_user.role,
         }

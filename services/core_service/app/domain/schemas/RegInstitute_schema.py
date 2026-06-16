@@ -4,6 +4,8 @@ from uuid import UUID
 from datetime import date, datetime
 from sqlalchemy.orm import Session
 
+from app.domain.models.RegInstitute_model import VerificationStatus
+
 class SettingBase(BaseModel):
     show_progress: bool = True
     multiple_allow: bool = False
@@ -58,8 +60,8 @@ class InstituteRead(InstituteBase):
 class InstituteResponse(BaseModel):
     user_id: UUID
     institute_name: str
-    status: str
-    created_at: Optional[date] = None
+    status: VerificationStatus
+    created_at: Optional[datetime] = None
 
     class Config:
         from_attributes = True

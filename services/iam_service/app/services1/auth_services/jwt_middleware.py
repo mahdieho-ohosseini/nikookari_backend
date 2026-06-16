@@ -47,6 +47,8 @@ async def jwt_middleware(request: Request, call_next):
         if payload.get("type") != "access":
             raise HTTPException(401, "Invalid token type")
 
+        request.state.user_id = payload.get("sub")
+        request.state.user_role = payload.get("role")
         request.state.user = payload
 
     except ExpiredSignatureError:

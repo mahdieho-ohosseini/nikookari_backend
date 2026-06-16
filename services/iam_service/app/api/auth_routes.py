@@ -1,5 +1,5 @@
 import redis.asyncio as redis
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, Request, status
 from fastapi.security import HTTPBearer
 from typing import Annotated
 from loguru import logger
@@ -149,15 +149,20 @@ async def resend_otp(
 # ===================================================================
 # 5. Get Current User Endpoint
 # ===================================================================
+
 @auth_router.get(
-    "/me",
-    response_model=UserResponseSchema,
+    "/me-token",
     dependencies=[Depends(bearer_scheme)],
     openapi_extra={"security": [{"BearerAuth": []}]},
-    summary="Get current authenticated user",
+    summary="Test JWT middleware state",
 )
-async def me(current_user=Depends(get_current_user)):
-    return current_user
+async def me_token(request: Request):
+    return {
+        "user_id": request.state.user_id,
+        "role": request.state.user_role,
+        "payload": request.state.user,
+    }
+
 
 
 # ===================================================================

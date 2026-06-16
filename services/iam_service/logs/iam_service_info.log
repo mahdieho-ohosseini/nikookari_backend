@@ -2691,3 +2691,120 @@ sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - c
 2026-06-15 14:04:41 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
 2026-06-15 14:04:43 | INFO | app.core.cache:get_json_cache:11 | Cache MISS | key=profile:b8415568-9282-4fbd-85c7-0e5c31127bea
 2026-06-15 14:04:43 | INFO | app.core.cache:set_json_cache:36 | Cache SET | key=profile:b8415568-9282-4fbd-85c7-0e5c31127bea | ttl=300s
+2026-06-15 20:08:03 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-15 20:08:03 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-15 20:08:03 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-15 20:08:03 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-15 20:08:03 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-15 20:08:03 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-15 20:08:03 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-15 20:08:03 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-15 20:08:03 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-15 20:08:03 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-15 20:08:03 | INFO | app.main:<module>:167 | Included health_router
+2026-06-15 20:08:03 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-15 20:08:03 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-15 20:08:03 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-15 20:08:03 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-15 20:15:03 | INFO | app.core.redis:get_redis:24 | [Redis] Client initialized
+2026-06-15 20:15:05 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=1/5 | window=300s
+2026-06-15 20:15:05 | INFO | app.services1.user_service:get_user_by_email:52 | Fetching user with email zrastgoo02@gmail.com
+2026-06-15 20:15:05 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-15 20:15:06 | INFO | app.services1.auth_services.login_service:authenticate_user:133 | User with email zrastgoo02@gmail.com authenticated successfully
+2026-06-16 20:21:22 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-16 20:21:22 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-16 20:21:22 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-16 20:21:22 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-16 20:21:22 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-16 20:21:22 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-16 20:21:22 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-16 20:21:22 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-16 20:21:22 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-16 20:21:23 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-16 20:21:23 | INFO | app.main:<module>:167 | Included health_router
+2026-06-16 20:21:23 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-16 20:21:23 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-16 20:21:23 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-16 20:21:23 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-16 20:45:53 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-16 20:45:53 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-16 20:45:53 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-16 20:45:53 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-16 20:45:53 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-16 20:45:53 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-16 20:45:53 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-16 20:45:53 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-16 20:45:54 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-16 20:45:54 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-16 20:45:54 | INFO | app.main:<module>:167 | Included health_router
+2026-06-16 20:45:54 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-16 20:45:54 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-16 20:45:54 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-16 20:45:54 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-16 20:48:26 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-16 20:48:26 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-16 20:48:26 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-16 20:48:26 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-16 20:48:26 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-16 20:48:26 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-16 20:48:26 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-16 20:48:26 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-16 20:48:26 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-16 20:48:26 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-16 20:48:26 | INFO | app.main:<module>:167 | Included health_router
+2026-06-16 20:48:26 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-16 20:48:26 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-16 20:48:26 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-16 20:48:26 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-16 20:49:23 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-16 20:49:23 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-16 20:49:23 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-16 20:49:23 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-16 20:49:23 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-16 20:49:23 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-16 20:49:23 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-16 20:49:23 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-16 20:49:23 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-16 20:49:23 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-16 20:49:23 | INFO | app.main:<module>:167 | Included health_router
+2026-06-16 20:49:23 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-16 20:49:23 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-16 20:49:23 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-16 20:49:23 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-16 20:50:22 | INFO | app.core.redis:get_redis:24 | [Redis] Client initialized
+2026-06-16 20:50:24 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini382@gmail.com | count=1/5 | window=300s
+2026-06-16 20:50:24 | INFO | app.services1.user_service:get_user_by_email:52 | Fetching user with email mahdieh.hosseini382@gmail.com
+2026-06-16 20:50:24 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini382@gmail.com
+2026-06-16 20:50:24 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email mahdieh.hosseini382@gmail.com authenticated successfully
+2026-06-16 20:50:52 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=1/5 | window=300s
+2026-06-16 20:50:52 | INFO | app.services1.user_service:get_user_by_email:52 | Fetching user with email zrastgoo02@gmail.com
+2026-06-16 20:50:52 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-16 20:50:52 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email zrastgoo02@gmail.com authenticated successfully
+2026-06-16 20:59:23 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-16 20:59:23 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-16 20:59:23 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-16 20:59:23 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-16 20:59:23 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-16 20:59:23 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-16 20:59:23 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-16 20:59:23 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-16 20:59:23 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-16 20:59:23 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-16 20:59:23 | INFO | app.main:<module>:167 | Included health_router
+2026-06-16 20:59:23 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-16 20:59:23 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-16 20:59:23 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-16 20:59:23 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-16 21:22:45 | INFO | app.core.redis:get_redis:24 | [Redis] Client initialized
+2026-06-16 21:22:47 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=1/5 | window=300s
+2026-06-16 21:22:47 | INFO | app.services1.user_service:get_user_by_email:52 | Fetching user with email zrastgoo02@gmail.com
+2026-06-16 21:22:47 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-16 21:22:47 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email zrastgoo02@gmail.com authenticated successfully
+2026-06-16 21:26:26 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=2/5 | window=300s
+2026-06-16 21:26:26 | INFO | app.services1.user_service:get_user_by_email:52 | Fetching user with email zrastgoo02@gmail.com
+2026-06-16 21:26:26 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-16 21:26:26 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email zrastgoo02@gmail.com authenticated successfully
+2026-06-16 21:41:17 | INFO | app.services1.user_service:get_user:48 | Fetching user with id a18033f3-3c50-4d26-b468-ca51c057ea38
+2026-06-16 21:41:17 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user a18033f3-3c50-4d26-b468-ca51c057ea38
+2026-06-16 21:41:19 | INFO | app.core.cache:get_json_cache:11 | Cache MISS | key=profile:a18033f3-3c50-4d26-b468-ca51c057ea38
+2026-06-16 21:41:19 | INFO | app.core.cache:set_json_cache:36 | Cache SET | key=profile:a18033f3-3c50-4d26-b468-ca51c057ea38 | ttl=300s

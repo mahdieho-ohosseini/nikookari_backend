@@ -2259,3 +2259,13 @@ Traceback (most recent call last):
 sqlalchemy.exc.InvalidRequestError: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[User(users)]'. Original exception was: When initializing mapper Mapper[User(users)], expression 'VolunteerProfile' failed to locate a name ('VolunteerProfile'). If this is a class name, consider adding this relationship() to the <class 'app.domain.models.User'> class after both dependent classes have been defined.
 2026-06-15 14:04:11 | request_id=d658b29f-52e1-4f2f-989c-e8bfb2c5b770 | method=POST | path=/api/v1/auth/login | status_code=200 | duration_ms=2143.89 | client_ip=127.0.0.1
 2026-06-15 14:04:43 | request_id=37976c53-f57c-40ff-a020-7ccc3d42e946 | method=GET | path=/api/v1/profile/me | status_code=200 | duration_ms=2059.04 | client_ip=127.0.0.1
+2026-06-15 20:12:54 | request_id=0373b950-3000-4652-9a8e-a1fd76c3d289 | method=GET | path=/docs | status_code=200 | duration_ms=1.72 | client_ip=127.0.0.1
+2026-06-15 20:12:55 | request_id=30817a07-cdef-40ca-86d5-0edaeaa2a67c | method=GET | path=/openapi.json | status_code=200 | duration_ms=140.99 | client_ip=127.0.0.1
+2026-06-15 20:15:06 | request_id=a262bdc2-cec9-48c2-8003-6666124ce2a2 | method=POST | path=/api/v1/auth/login | status_code=200 | duration_ms=2292.76 | client_ip=127.0.0.1
+2026-06-16 20:49:32 | request_id=e4f72739-8b5b-4c07-8223-c9a9a670cf77 | method=GET | path=/docs | status_code=200 | duration_ms=2.05 | client_ip=127.0.0.1
+2026-06-16 20:49:32 | request_id=5450ce1e-4c57-4552-bcff-ee0c8eef39c9 | method=GET | path=/openapi.json | status_code=200 | duration_ms=72.78 | client_ip=127.0.0.1
+2026-06-16 20:50:24 | request_id=55a26146-8864-4631-a2ca-14dca8170acc | method=POST | path=/api/v1/auth/login | status_code=200 | duration_ms=2170.5 | client_ip=127.0.0.1
+2026-06-16 20:50:52 | request_id=a2b772ea-4a9d-4e17-bca7-861092ce9ead | method=POST | path=/api/v1/auth/login | status_code=200 | duration_ms=2094.85 | client_ip=127.0.0.1
+2026-06-16 21:22:47 | request_id=2862a73a-46c1-4a2c-b5b1-43fb6feccbf8 | method=POST | path=/api/v1/auth/login | status_code=200 | duration_ms=2135.01 | client_ip=127.0.0.1
+2026-06-16 21:26:26 | request_id=f674a03f-9956-4b3c-87c9-dd09db55536a | method=POST | path=/api/v1/auth/login | status_code=200 | duration_ms=2124.18 | client_ip=127.0.0.1
+2026-06-16 21:41:19 | request_id=446ef654-e2b9-48b2-ade1-007cd0db248a | method=GET | path=/api/v1/profile/me | status_code=200 | duration_ms=2073.79 | client_ip=127.0.0.1
