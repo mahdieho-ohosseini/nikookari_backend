@@ -6422,3 +6422,30 @@ AttributeError: 'dict' object has no attribute 'user_id'
 2026-06-17 12:09:54 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/verifier/complete-onboarding | method=POST | status_code=400 | detail='str' object has no attribute 'decode'
 2026-06-17 12:13:09 | ERROR | app.core.database:get_db:40 | DB error: 400: 'str' object has no attribute 'decode'
 2026-06-17 12:13:09 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/verifier/complete-onboarding | method=POST | status_code=400 | detail='str' object has no attribute 'decode'
+2026-06-17 12:13:10 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-17 12:13:10 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-17 12:13:10 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-17 12:13:10 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-17 12:13:10 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-17 12:13:10 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-17 12:13:10 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-17 12:13:11 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-17 12:13:11 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-17 12:13:11 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-17 12:13:11 | INFO | app.main:<module>:167 | Included health_router
+2026-06-17 12:13:11 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-17 12:13:11 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-17 12:13:11 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-17 12:13:11 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-17 12:13:16 | INFO | app.services1.user_service:update_password:83 | Updating password for user 4151c6fa-a29d-407f-acbb-e609804d7430
+2026-06-17 12:13:16 | INFO | app.services1.user_service:complete_verifier_onboarding:348 | Onboarding completed successfully for user 4151c6fa-a29d-407f-acbb-e609804d7430
+2026-06-17 12:14:03 | INFO | app.core.redis:get_redis:22 | [Redis] Client initialized
+2026-06-17 12:14:03 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 12:14:03 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 12:14:03 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1344444444444478@gmail.com
+2026-06-17 12:14:03 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1344444444444478@gmail.com
+2026-06-17 12:14:03 | INFO | app.repositories.user_repository:create_user:25 | User 077733ca-1513-4c5f-8ead-2e2f738cab41 created
+2026-06-17 12:14:09 | INFO | app.core.circuit_breaker:_reset:41 | Circuit breaker reset | service=email_service
+2026-06-17 12:14:09 | INFO | app.core.circuit_breaker:record_success:76 | Circuit breaker reset after success | service=email_service
+2026-06-17 12:14:09 | INFO | app.services1.auth_services.email_service:send_email:59 | Email sent successfully | to=mahdieh.hosseini1344444444444478@gmail.com
+2026-06-17 12:14:09 | WARNING | app.services1.user_service:create_verifier:300 | Verifier user 077733ca-1513-4c5f-8ead-2e2f738cab41 created by admin b8415568-9282-4fbd-85c7-0e5c31127bea
