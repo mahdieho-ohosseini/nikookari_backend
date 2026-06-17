@@ -1,11 +1,12 @@
 import redis.asyncio as redis
-from fastapi import APIRouter, Depends, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Request, status
 from fastapi.security import HTTPBearer
 from typing import Annotated
 from loguru import logger
 
 from app.domain.token_schemas import TokenSchema, RefreshRequest
 from app.domain.user_schemas import (
+    CompleteOnboardingSchema,
     UserCreateSchema,
     RegisterStartResponse,
     RegisterCompleteSchema,
@@ -21,11 +22,13 @@ from app.dependencies import (
     get_jwt_service,
     get_current_user,
     get_redis_client,
+    get_user_service,
 )
 from app.core.rate_limiter import RateLimiter
 from app.services1.auth_services.signup_service import RegisterService
 from app.services1.auth_services.login_service import LoginService
 from app.services1.auth_services.jwt_service import JWTService
+from app.services1.user_service import UserService
 
 
 bearer_scheme = HTTPBearer(
@@ -183,3 +186,20 @@ async def refresh_token(
         "refresh_token": tokens["refresh_token"],
         "token_type": "bearer",
     }
+# ===================================================================
+# 6. 
+# ===================================================================
+@auth_router.post("/verifier/complete-onboarding")
+async def complete_onboarding(
+    payload: CompleteOnboardingSchema,
+    user_service: UserService = Depends(get_user_service),
+):
+    try:
+        await user_service.complete_verifier_onboarding(
+            token=payload.token,
+            new_password=payload.new_password
+        )
+        return {"message": "Account activated successfully. You can now login."}
+    except Exception as e:
+        # لاگ خطا یادت نره
+        raise HTTPException(status_code=400, detail=str(e))

@@ -125,7 +125,6 @@ class RoleResponseSchema(BaseModel):
 class CreateVerifierSchema(BaseModel):
     full_name: str
     email: EmailStr
-    password: constr(min_length=8, max_length=64)  # type: ignore[arg-type]
 
 
 
@@ -157,3 +156,7 @@ class ResendOTPSchema(BaseModel):
 class ResendOTPResponseSchema(BaseModel):
     success: bool
     message: str
+
+class CompleteOnboardingSchema(BaseModel):
+    token: str
+    new_password: str

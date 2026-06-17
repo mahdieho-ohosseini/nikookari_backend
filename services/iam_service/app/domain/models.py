@@ -36,6 +36,11 @@ class User(EntityBase):
     full_name = Column(String(255), nullable=False)
 
     password_hash = Column(String, nullable=False)
+    must_change_password = Column(
+        Boolean,
+        nullable=False,
+        server_default=text("FALSE"),
+    )
 
     role = Column(String(30), nullable=False)
 

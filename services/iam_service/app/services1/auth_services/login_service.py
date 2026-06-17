@@ -141,4 +141,5 @@ class LoginService(BaseService):
             "user_id": str(existing_user.user_id),
             "email": existing_user.email,
             "role": existing_user.role,
+         "must_change_password":existing_user.must_change_password,
         }

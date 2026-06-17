@@ -9,6 +9,8 @@ class TokenSchema(BaseModel):
     user_id: str
     email: str | None = None
     role: str
+    must_change_password: bool = False
+
 
 class RefreshRequest(BaseModel):
     refresh_token: str

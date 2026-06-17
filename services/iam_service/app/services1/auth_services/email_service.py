@@ -3,26 +3,20 @@ import smtplib
 from email.header import Header
 from email.mime.text import MIMEText
 
-import redis.asyncio as redis
 from loguru import logger
+from redis.asyncio import Redis
 
 from app.core.circuit_breaker import CircuitBreaker
 from app.core.config import get_settings
 from app.services1.base_service import BaseService
+from app.core.redis import get_redis
 
 
 class EmailService(BaseService):
-    def __init__(self, redis_client=None):
+    def __init__(self, redis_client: Redis):
         super().__init__()
         self.settings = get_settings()
-
-        self.redis = redis_client or redis.Redis(
-            host="localhost",
-            port=6379,
-            db=0,
-            decode_responses=True,
-        )
-
+        self.redis = redis_client
         self.circuit_breaker = CircuitBreaker(
             redis_client=self.redis,
             name="email_service",
@@ -31,7 +25,7 @@ class EmailService(BaseService):
             failure_window_seconds=300,
         )
 
-    async def send_email(self, to_email: str, subject: str, body: str):
+    async def send_email(self, to_email: str, subject: str, body: str) -> None:
         await self.circuit_breaker.before_call()
 
         msg = MIMEText(body, "plain", "utf-8")
@@ -39,11 +33,11 @@ class EmailService(BaseService):
         msg["From"] = self.settings.EMAIL_FROM
         msg["To"] = to_email
 
-        def _send():
+        def _send() -> None:
             email_host = self.settings.EMAIL_HOST
             email_port = int(self.settings.EMAIL_PORT)
             email_username = self.settings.EMAIL_USERNAME
-            email_password = self.settings.EMAIL_PASSWORD.replace(" ", "")
+            email_password = self.settings.EMAIL_PASSWORD.strip()
             email_from = self.settings.EMAIL_FROM
 
             if email_port == 465:
@@ -61,20 +55,43 @@ class EmailService(BaseService):
         try:
             loop = asyncio.get_running_loop()
             await loop.run_in_executor(None, _send)
-
             await self.circuit_breaker.record_success()
-
             logger.info(f"Email sent successfully | to={to_email}")
-
         except Exception as error:
             await self.circuit_breaker.record_failure()
-
-            logger.error(
-                f"Email sending failed | to={to_email} | error={error}"
-            )
-
+            logger.error(f"Email sending failed | to={to_email} | error={error}")
             raise
 
+    async def send_verifier_welcome_email(
+        self,
+        email: str,
+        full_name: str,
+        onboarding_link: str,
+    ) -> None:
+        subject = "Welcome to Rahe Nikookari"
+        body = f"""
+               Hello {full_name},
+               
+               Your verifier account has been created.
+               
+               Please complete your account setup using the link below:
+               
+               {onboarding_link}
+               
+               This link expires in 24 hours.
+               
+               Regards,
+               Rahe Nikookari Team
+               """.strip()
+               
+        await self.send_email(
+            to_email=email,
+            subject=subject,
+            body=body,
+        )
 
-def get_email_service():
-    return EmailService()
+
+async def get_email_service() -> EmailService:
+    redis_client = await get_redis()
+    return EmailService(redis_client=redis_client)
+

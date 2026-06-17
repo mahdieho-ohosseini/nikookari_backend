@@ -1,13 +1,18 @@
+import secrets
 from typing import Optional
 from uuid import UUID
+import os
+import secrets
 
-from fastapi import Depends
+from fastapi import Depends, HTTPException
 from loguru import logger
+from redis.asyncio import Redis
 
 from app.domain.models import User
 from app.domain.user_schemas import UserCreateSchema
 from app.repositories.user_repository import UserRepository
 from app.repositories.RefreshTokenRepository import RefreshTokenRepository
+from app.services1.auth_services.email_service import EmailService
 from app.services1.auth_services.hash_service import HashService
 from app.services1.base_service import BaseService
 
@@ -18,11 +23,17 @@ class UserService(BaseService):
         user_repository: UserRepository = Depends(),
         hash_service: HashService = Depends(),
         refresh_token_repository: Optional[RefreshTokenRepository] = None,
+        email_service: Optional[EmailService] = None,
+        redis_client: Optional[Redis] = None,
     ) -> None:
         super().__init__()
         self.user_repository = user_repository
         self.hash_service = hash_service
         self.refresh_token_repository = refresh_token_repository
+        self.email_service = email_service
+        self.redis_client = redis_client
+
+
 
     async def create_user(self, user_body: UserCreateSchema) -> User:
         logger.info(f"Creating user with email {user_body.email}")
@@ -63,12 +74,23 @@ class UserService(BaseService):
             return
 
         await self.refresh_token_repository.delete_all_by_user_id(user_id)
-
-    async def update_password(self, user_id: UUID, new_password: str) -> None:
+    async def update_password(
+        self,
+        user_id: UUID,
+        new_password: str,
+        must_change_password: Optional[bool] = None,
+        ) -> None:
         logger.info(f"Updating password for user {user_id}")
 
         hashed = self.hash_service.hash_password(new_password)
-        await self.user_repository.update_password(user_id, hashed)
+
+        await self.user_repository.update_password(
+            user_id=user_id,
+            new_hash=hashed,
+            must_change_password=must_change_password,
+        )   
+
+         
 
     # ======================================================
     # RBAC / ARBAC Admin Services
@@ -230,21 +252,88 @@ class UserService(BaseService):
         if existing_user:
             raise ValueError("A user with this email already exists")
 
-        password_hash = self.hash_service.hash_password(user_body.password)
+        temporary_password = secrets.token_urlsafe(16)
+        password_hash = self.hash_service.hash_password(temporary_password)
 
         verifier_user = User(
             full_name=user_body.full_name,
             email=user_body.email,
             password_hash=password_hash,
             role="verifier",
-            is_verified=True,
-            status="active",
+             must_change_password=True,
+            is_verified=False,
+            status="inactive",
         )
 
         created_user = await self.user_repository.create_user(verifier_user)
-
+        try:
+             if self.redis_client is None:
+                 logger.error("Redis client is not injected; onboarding token was not stored")
+                 return created_user
+     
+             if self.email_service is None:
+                 logger.error("Email service is not injected; onboarding email was not sent")
+                 return created_user
+     
+             onboarding_token = secrets.token_urlsafe(48)
+             onboarding_key = f"onboarding:verifier:{onboarding_token}"
+     
+             await self.redis_client.set(
+                 onboarding_key,
+                 str(created_user.user_id),
+                 ex=24 * 60 * 60,
+             )
+     
+             frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+             onboarding_link = f"{frontend_url}/onboarding?token={onboarding_token}"
+     
+             await self.email_service.send_verifier_welcome_email(
+                 email=created_user.email,
+                 full_name=created_user.full_name,
+                 onboarding_link=onboarding_link,
+             )
+     
+        except Exception as error:
+          logger.error(
+            f"Failed to send verifier onboarding email to {created_user.email}: {error}"
+            )
         logger.warning(
             f"Verifier user {created_user.user_id} created by admin {actor_user.user_id}"
         )
 
         return created_user
+    
+    
+    async def complete_verifier_onboarding(self, token: str, new_password: str) -> None:
+        if self.redis_client is None:
+            raise ValueError("Redis client is not configured")
+
+        onboarding_key = f"onboarding:verifier:{token}"
+        user_id_str = await self.redis_client.get(onboarding_key)
+        
+        if not user_id_str:
+            raise HTTPException(status_code=400, detail="Invalid or expired token")
+        
+        user_id = UUID(user_id_str.decode())
+        
+        # ۱. آپدیت کردن پسورد و وضعیت کاربر
+        await self.update_password(
+            user_id=user_id,
+            new_password=new_password,
+            must_change_password=False
+        )
+        
+        # ۲. فعال‌سازی نهایی کاربر
+        await self.user_repository.activate_user(user_id) # این متد باید در repository باشد یا دستی انجام بده
+        # اگر متد مخصوص برای فعال‌سازی در repo نداری، می‌توانی از update_status استفاده کنی:
+        # await self.user_repository.update_status(user_id, "active")
+        
+        # ۳. تایید نهایی
+        await self.user_repository.verify_user(user_id) # یک متد ساده برای set کردن is_verified=True
+        
+        # ۴. حذف توکن از Redis
+        await self.redis_client.delete(onboarding_key)
+        
+        logger.info(f"Onboarding completed successfully for user {user_id}")
+
+    

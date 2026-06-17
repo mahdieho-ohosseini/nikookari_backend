@@ -3,10 +3,9 @@ from uuid import UUID
 
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-import redis.asyncio as redis
-
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.core import redis
 from app.core.database import get_db
 
 from app.repositories.user_repository import UserRepository
@@ -23,6 +22,7 @@ from app.services1.auth_services.logout_service import LogoutService
 from app.services1.auth_services.password_reset_service import PasswordResetService
 from app.services1.profile_service import ProfileService
 
+from redis.asyncio import Redis
 
 bearer_scheme = HTTPBearer(scheme_name="BearerAuth")
 
@@ -43,9 +43,10 @@ def get_hash_service() -> HashService:
     return HashService()
 
 
-def get_email_service() -> EmailService:
-    return EmailService()
-
+def get_email_service(
+    redis_client: redis.Redis = Depends(get_redis_client),
+) -> EmailService:
+    return EmailService(redis_client=redis_client)
 
 # -----------------------------
 # Repository Factory
@@ -69,8 +70,16 @@ async def get_user_service(
     repo: UserRepository = Depends(get_user_repository),
     hash_service: HashService = Depends(get_hash_service),
     refresh_token_repo: RefreshTokenRepository = Depends(get_refresh_token_repository),
+    email_service: EmailService = Depends(get_email_service),
+    redis_client: redis.Redis = Depends(get_redis_client),
 ) -> UserService:
-    return UserService(repo, hash_service, refresh_token_repo)
+    return UserService(
+        user_repository=repo,
+        hash_service=hash_service,
+        refresh_token_repository=refresh_token_repo,
+        email_service=email_service,
+        redis_client=redis_client,
+    )
 
 
 # -----------------------------

@@ -38,5 +38,5 @@ class ProfileService:
         ):
             raise HTTPException(status_code=400, detail="Invalid current password")
 
-        await self.user_service.update_password(user.user_id, new_password)
+        await self.user_service.update_password(user.user_id, new_password , must_change_password=False,)
         await self.user_service.invalidate_all_tokens(user.user_id)

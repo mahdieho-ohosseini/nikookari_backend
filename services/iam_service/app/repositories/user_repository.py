@@ -146,13 +146,18 @@ class UserRepository:
         await self.session.execute(stmt)
         await self.session.commit()
 
-    async def update_password(self, user_id: UUID, new_hash: str) -> None:
+    async def update_password(self, user_id: UUID, new_hash: str, must_change_password: bool | None = None,) -> None:
+        values = {
+        "password_hash": new_hash,
+        "updated_at": datetime.utcnow(),}
+        
+        if must_change_password is not None:
+               values["must_change_password"] = must_change_password
         stmt = (
             update(User)
             .where(User.user_id == user_id)
             .values(
-                password_hash=new_hash,
-                updated_at=datetime.utcnow(),
+              **values
             )
         )
 
