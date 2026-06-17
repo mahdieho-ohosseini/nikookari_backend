@@ -3169,3 +3169,684 @@ AttributeError: 'CreateVerifierSchema' object has no attribute 'password'
 2026-06-17 01:28:23 | ERROR | app.services1.user_service:create_verifier:291 | Failed to send verifier onboarding email to mahdieh.hosseini1378@gmail.com: 'UserService' object has no attribute 'redis_client'
 2026-06-17 01:40:35 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
 2026-06-17 01:40:39 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
+2026-06-17 11:17:26 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
+2026-06-17 11:17:50 | ERROR | app.core.database:get_db:40 | DB error: 'dict' object has no attribute 'user_id'
+2026-06-17 11:17:50 | ERROR | app.core.monitoring_middleware:dispatch:57 | request_id=9fb59d0c-4d88-4d32-a8f7-2a634b3d993f | method=POST | path=/api/v1/admin/verifiers | status_code=500 | duration_ms=5144.67 | client_ip=127.0.0.1 | error='dict' object has no attribute 'user_id'
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 79, in collapse_excgroups
+  |     yield
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 192, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    |     response = await call_next(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    |     response = await call_next(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    |     response = await f(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    |     raw_response = await run_endpoint_function(
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    |     target_id=str(result.user_id),
+    | AttributeError: 'dict' object has no attribute 'user_id'
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=3836, pipe_handle=588)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 313, in _bootstrap
+    self.run()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 707, in run_until_complete
+    self.run_forever()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 678, in run_forever
+    self._run_once()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2033, in _run_once
+    handle._run()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\applications.py", line 1139, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    response = await call_next(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    response = await call_next(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    response = await f(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    target_id=str(result.user_id),
+AttributeError: 'dict' object has no attribute 'user_id'
+2026-06-17 11:17:51 | ERROR | app.core.exception_handlers:unhandled_exception_handler:51 | Unhandled server error | path=/api/v1/admin/verifiers | method=POST | error='dict' object has no attribute 'user_id'
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 79, in collapse_excgroups
+  |     yield
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 192, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    |     response = await call_next(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    |     response = await call_next(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    |     response = await f(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    |     raw_response = await run_endpoint_function(
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    |     target_id=str(result.user_id),
+    | AttributeError: 'dict' object has no attribute 'user_id'
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=3836, pipe_handle=588)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 313, in _bootstrap
+    self.run()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 707, in run_until_complete
+    self.run_forever()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 678, in run_forever
+    self._run_once()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2033, in _run_once
+    handle._run()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\applications.py", line 1139, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+> File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    response = await call_next(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    response = await call_next(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    response = await f(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    target_id=str(result.user_id),
+AttributeError: 'dict' object has no attribute 'user_id'
+2026-06-17 11:17:58 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
+2026-06-17 11:19:17 | ERROR | app.services1.auth_services.email_service:send_email:62 | Email sending failed | to=mahdieh.hosseini1378@gmail.com | error=[Errno 11001] getaddrinfo failed
+2026-06-17 11:19:17 | ERROR | app.services1.user_service:create_verifier:297 | Failed to send verifier onboarding email to mahdieh.hosseini1378@gmail.com: [Errno 11001] getaddrinfo failed
+2026-06-17 11:19:17 | ERROR | app.core.database:get_db:40 | DB error: 'dict' object has no attribute 'user_id'
+2026-06-17 11:19:17 | ERROR | app.core.monitoring_middleware:dispatch:57 | request_id=d3e6e128-7e2b-495a-b104-da93a595ec30 | method=POST | path=/api/v1/admin/verifiers | status_code=500 | duration_ms=13314.95 | client_ip=127.0.0.1 | error='dict' object has no attribute 'user_id'
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 79, in collapse_excgroups
+  |     yield
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 192, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    |     response = await call_next(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    |     response = await call_next(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    |     response = await f(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    |     raw_response = await run_endpoint_function(
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    |     target_id=str(result.user_id),
+    | AttributeError: 'dict' object has no attribute 'user_id'
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=3836, pipe_handle=588)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 313, in _bootstrap
+    self.run()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 707, in run_until_complete
+    self.run_forever()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 678, in run_forever
+    self._run_once()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2033, in _run_once
+    handle._run()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\applications.py", line 1139, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+> File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    response = await call_next(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    response = await call_next(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    response = await f(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    target_id=str(result.user_id),
+AttributeError: 'dict' object has no attribute 'user_id'
+2026-06-17 11:19:17 | ERROR | app.core.exception_handlers:unhandled_exception_handler:51 | Unhandled server error | path=/api/v1/admin/verifiers | method=POST | error='dict' object has no attribute 'user_id'
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 79, in collapse_excgroups
+  |     yield
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 192, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    |     response = await call_next(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    |     response = await call_next(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    |     response = await f(request)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    |     raw_response = await run_endpoint_function(
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    |     target_id=str(result.user_id),
+    | AttributeError: 'dict' object has no attribute 'user_id'
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=3836, pipe_handle=588)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 313, in _bootstrap
+    self.run()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 707, in run_until_complete
+    self.run_forever()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 678, in run_forever
+    self._run_once()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2033, in _run_once
+    handle._run()
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\applications.py", line 1139, in __call__
+    await super().__call__(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+> File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    response = await call_next(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    response = await call_next(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    response = await f(request)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    raw_response = await run_endpoint_function(
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await dependant.call(**values)
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    target_id=str(result.user_id),
+AttributeError: 'dict' object has no attribute 'user_id'
+2026-06-17 11:24:04 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
+2026-06-17 12:09:54 | ERROR | app.core.database:get_db:40 | DB error: 400: 'str' object has no attribute 'decode'
+2026-06-17 12:13:09 | ERROR | app.core.database:get_db:40 | DB error: 400: 'str' object has no attribute 'decode'

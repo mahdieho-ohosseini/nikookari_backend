@@ -296,9 +296,9 @@ async def create_verifier(
             outcome="success",
             actor_id=str(current_admin.user_id),
             actor_email=current_admin.email,
-            actor_role=current_admin.role,
-            target_id=str(result.user_id),
-            target_email=result.email,
+            actor_role=result["role"],
+            target_id=str(result["user_id"]),
+            target_email=result["email"],
             details={"assigned_role": "verifier"},
         )
 

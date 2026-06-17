@@ -5266,3 +5266,1159 @@ AttributeError: 'CreateVerifierSchema' object has no attribute 'password'
 2026-06-17 01:50:39 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
 2026-06-17 01:50:39 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
 2026-06-17 01:50:39 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-17 10:35:13 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-17 10:35:13 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-17 10:35:13 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-17 10:35:13 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-17 10:35:13 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-17 10:35:13 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-17 10:35:13 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-17 10:35:13 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-17 10:35:13 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-17 10:35:13 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-17 10:35:13 | INFO | app.main:<module>:167 | Included health_router
+2026-06-17 10:35:13 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-17 10:35:13 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-17 10:35:13 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-17 10:35:13 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-17 10:47:15 | INFO | app.core.redis:get_redis:22 | [Redis] Client initialized
+2026-06-17 10:47:17 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini382@gmail.com | count=1/5 | window=300s
+2026-06-17 10:47:17 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini382@gmail.com
+2026-06-17 10:47:17 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini382@gmail.com
+2026-06-17 10:47:17 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email mahdieh.hosseini382@gmail.com authenticated successfully
+2026-06-17 10:48:48 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 10:48:48 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 10:48:48 | INFO | app.services1.user_service:list_users:100 | Admin requested user list
+2026-06-17 10:57:10 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-17 10:57:10 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-17 10:57:10 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-17 10:57:10 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-17 10:57:10 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-17 10:57:10 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-17 10:57:10 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-17 10:57:10 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-17 10:57:10 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-17 10:57:10 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-17 10:57:10 | INFO | app.main:<module>:167 | Included health_router
+2026-06-17 10:57:10 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-17 10:57:10 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-17 10:57:10 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-17 10:57:10 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-17 10:59:13 | INFO | app.core.redis:get_redis:22 | [Redis] Client initialized
+2026-06-17 10:59:13 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 10:59:13 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 10:59:15 | INFO | app.core.cache:get_json_cache:11 | Cache MISS | key=admin:roles
+2026-06-17 10:59:15 | INFO | app.core.cache:set_json_cache:36 | Cache SET | key=admin:roles | ttl=3600s
+2026-06-17 11:00:27 | WARNING | app.core.exception_handlers:validation_exception_handler:31 | Validation error | path=/api/v1/admin/verifiers | method=POST | errors=[{'type': 'json_invalid', 'loc': ('body', 82), 'msg': 'JSON decode error', 'input': {}, 'ctx': {'error': 'Illegal trailing comma before end of object'}}]
+2026-06-17 11:00:39 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:00:39 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:00:39 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1378@gmail.com
+2026-06-17 11:00:39 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-17 11:00:39 | INFO | app.repositories.user_repository:create_user:25 | User 54e73230-5d5a-44af-97b9-a2bbb5d17f55 created
+2026-06-17 11:00:45 | INFO | app.core.circuit_breaker:_reset:41 | Circuit breaker reset | service=email_service
+2026-06-17 11:00:45 | INFO | app.core.circuit_breaker:record_success:76 | Circuit breaker reset after success | service=email_service
+2026-06-17 11:00:45 | INFO | app.services1.auth_services.email_service:send_email:59 | Email sent successfully | to=mahdieh.hosseini1378@gmail.com
+2026-06-17 11:00:45 | WARNING | app.services1.user_service:create_verifier:300 | Verifier user 54e73230-5d5a-44af-97b9-a2bbb5d17f55 created by admin b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:03:53 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/onboarding | method=GET | status_code=404 | detail=Not Found
+2026-06-17 11:03:54 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/favicon.ico | method=GET | status_code=404 | detail=Not Found
+2026-06-17 11:15:15 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-17 11:15:15 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-17 11:15:15 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-17 11:15:15 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-17 11:15:15 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-17 11:15:15 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-17 11:15:15 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-17 11:15:15 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-17 11:15:15 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-17 11:15:15 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-17 11:15:15 | INFO | app.main:<module>:167 | Included health_router
+2026-06-17 11:15:15 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-17 11:15:15 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-17 11:15:15 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-17 11:15:15 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-17 11:15:25 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-17 11:15:25 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-17 11:15:25 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-17 11:15:25 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-17 11:15:25 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-17 11:15:25 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-17 11:15:25 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-17 11:15:25 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-17 11:15:25 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-17 11:15:25 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-17 11:15:25 | INFO | app.main:<module>:167 | Included health_router
+2026-06-17 11:15:25 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-17 11:15:25 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-17 11:15:25 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-17 11:15:25 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-17 11:16:25 | INFO | app.core.redis:get_redis:22 | [Redis] Client initialized
+2026-06-17 11:16:27 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini382@gmail.com | count=1/5 | window=300s
+2026-06-17 11:16:27 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini382@gmail.com
+2026-06-17 11:16:27 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini382@gmail.com
+2026-06-17 11:16:27 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email mahdieh.hosseini382@gmail.com authenticated successfully
+2026-06-17 11:17:26 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:17:26 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:17:26 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1378@gmail.com
+2026-06-17 11:17:26 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-17 11:17:26 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
+2026-06-17 11:17:26 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/admin/verifiers | method=POST | status_code=400 | detail=A user with this email already exists
+2026-06-17 11:17:45 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:17:45 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:17:45 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1378@gmail.com
+2026-06-17 11:17:45 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-17 11:17:45 | INFO | app.repositories.user_repository:create_user:25 | User dc5eb7a1-f570-4224-89c1-e5b11420a464 created
+2026-06-17 11:17:50 | INFO | app.core.circuit_breaker:_reset:41 | Circuit breaker reset | service=email_service
+2026-06-17 11:17:50 | INFO | app.core.circuit_breaker:record_success:76 | Circuit breaker reset after success | service=email_service
+2026-06-17 11:17:50 | INFO | app.services1.auth_services.email_service:send_email:59 | Email sent successfully | to=mahdieh.hosseini1378@gmail.com
+2026-06-17 11:17:50 | WARNING | app.services1.user_service:create_verifier:300 | Verifier user dc5eb7a1-f570-4224-89c1-e5b11420a464 created by admin b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:17:50 | ERROR | app.core.database:get_db:40 | DB error: 'dict' object has no attribute 'user_id'
+2026-06-17 11:17:51 | ERROR | app.core.exception_handlers:unhandled_exception_handler:51 | Unhandled server error | path=/api/v1/admin/verifiers | method=POST | error='dict' object has no attribute 'user_id'
+  + Exception Group Traceback (most recent call last):
+  |
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 79, in collapse_excgroups
+  |     yield
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 192, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                │     │                      └ <anyio._backends._asyncio.TaskGroup object at 0x0000022D2822BD90>
+  |                │     └ <function create_task_group at 0x0000022D25522A20>
+  |                └ <module 'anyio' from 'C:\\Users\\Asus\\Desktop\\nikoooookari\\services\\iam_service\\venv\\Lib\\site-packages\\anyio\\__init_...
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |           │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000022D2826A2A0>
+    |           │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2821B...
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+    |           └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000022D28105A90>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |          │            │            └ <function collapse_excgroups at 0x0000022D2597C0E0>
+    |          │            └ MemoryObjectSendStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_receiv...
+    |          └ MemoryObjectReceiveStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_rec...
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     │    │   │     └ ExceptionGroup('unhandled errors in a TaskGroup', [AttributeError("'dict' object has no attribute 'user_id'")])
+    |     │    │   └ <method 'throw' of 'generator' objects>
+    |     │    └ <generator object collapse_excgroups at 0x0000022D280C6C20>
+    |     └ <contextlib._GeneratorContextManager object at 0x0000022D281C3D20>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                      │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D2826A520>
+    |                      │    │             └ <starlette.middleware.base._CachedRequest object at 0x0000022D28247550>
+    |                      │    └ <bound method RequestLoggingMiddleware.dispatch of <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x00000...
+    |                      └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    |     response = await call_next(request)
+    |                      │         └ <starlette.middleware.base._CachedRequest object at 0x0000022D28247550>
+    |                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D2826A520>
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |           │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+    |           │            │       │            └ AttributeError("'dict' object has no attribute 'user_id'")
+    |           │            │       └ <attribute '__cause__' of 'BaseException' objects>
+    |           │            └ AttributeError("'dict' object has no attribute 'user_id'")
+    |           └ AttributeError("'dict' object has no attribute 'user_id'")
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |           │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D28269A80>
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269BC0>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+    |           └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |           │    │               │      │        │                     └ Headers({'host': '127.0.0.1:8000', 'connection': 'keep-alive', 'content-length': '84', 'sec-ch-ua-platform': '"Windows"', 'au...
+    |           │    │               │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D28269A80>
+    |           │    │               │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269BC0>
+    |           │    │               └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <function CORSMiddleware.simple_response at 0x0000022D25A53240>
+    |           └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    |     await self.app(scope, receive, send)
+    |           │    │   │      │        └ functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0...
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269BC0>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+    |           └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |          │            │            └ <function collapse_excgroups at 0x0000022D2597C0E0>
+    |          │            └ MemoryObjectSendStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_receiv...
+    |          └ MemoryObjectReceiveStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_rec...
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     │    │   │     └ ExceptionGroup('unhandled errors in a TaskGroup', [AttributeError("'dict' object has no attribute 'user_id'")])
+    |     │    │   └ <method 'throw' of 'generator' objects>
+    |     │    └ <generator object collapse_excgroups at 0x0000022D280C7C60>
+    |     └ <contextlib._GeneratorContextManager object at 0x0000022D281C3A10>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                      │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D2826A200>
+    |                      │    │             └ <starlette.middleware.base._CachedRequest object at 0x0000022D28247E50>
+    |                      │    └ <function set_utf8_encoding at 0x0000022D28111120>
+    |                      └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    |     response = await call_next(request)
+    |                      │         └ <starlette.middleware.base._CachedRequest object at 0x0000022D28247E50>
+    |                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D2826A200>
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |           │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+    |           │            │       │            └ AttributeError("'dict' object has no attribute 'user_id'")
+    |           │            │       └ <attribute '__cause__' of 'BaseException' objects>
+    |           │            └ AttributeError("'dict' object has no attribute 'user_id'")
+    |           └ AttributeError("'dict' object has no attribute 'user_id'")
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |           │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D2826B920>
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D28105550>
+    |           └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |           │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D2826B920>
+    |           │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+    |           │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │                            │    │    └ <starlette.requests.Request object at 0x0000022D28245450>
+    |           │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+    |           │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D28105550>
+    |           └ <function wrap_app_handling_exceptions at 0x0000022D259F9E40>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |           │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+    |           │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+    |           │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |           │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <fastapi.routing.APIRouter object at 0x0000022D28124160>
+    |           └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |           │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+    |           │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+    |           │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x0000022D28124160>>
+    |           └ <fastapi.routing.APIRouter object at 0x0000022D28124160>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    |     await route.handle(scope, receive, send)
+    |           │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+    |           │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+    |           │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │     └ <function Route.handle at 0x0000022D259FB6A0>
+    |           └ APIRoute(path='/api/v1/admin/verifiers', name='create_verifier', methods=['POST'])
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    |     await self.app(scope, receive, send)
+    |           │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <function request_response.<locals>.app at 0x0000022D28113E20>
+    |           └ APIRoute(path='/api/v1/admin/verifiers', name='create_verifier', methods=['POST'])
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |           │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+    |           │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+    |           │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │                            │    └ <starlette.requests.Request object at 0x0000022D28246050>
+    |           │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000022D2826BC40>
+    |           └ <function wrap_app_handling_exceptions at 0x0000022D259F9E40>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |           │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826BB00>
+    |           │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+    |           │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           └ <function request_response.<locals>.app.<locals>.app at 0x0000022D2826BC40>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    |     response = await f(request)
+    |                      │ └ <starlette.requests.Request object at 0x0000022D28246050>
+    |                      └ <function get_request_handler.<locals>.app at 0x0000022D28113CE0>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    |     raw_response = await run_endpoint_function(
+    |                          └ <function run_endpoint_function at 0x0000022D25A1D620>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |                  │         │      └ {'current_admin': <app.domain.models.User object at 0x0000022D2821A2C0>, 'user_service': <app.services1.user_service.UserServ...
+    |                  │         └ <function create_verifier at 0x0000022D28022E80>
+    |                  └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    |     target_id=str(result.user_id),
+    |                   └ {'user_id': 'dc5eb7a1-f570-4224-89c1-e5b11420a464', 'full_name': 'mahdieh hosseini', 'email': 'mahdieh.hosseini1378@gmail.com...
+    |
+    | AttributeError: 'dict' object has no attribute 'user_id'
+    +------------------------------------
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=3836, pipe_handle=588)
+                                      │           └ <function spawn_main at 0x0000022D226BB880>
+                                      └ <function spawn_main at 0x0000022D226BB880>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 332
+               │     └ 3
+               └ <function _main at 0x0000022D226BB920>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 332
+           │    └ <function BaseProcess._bootstrap at 0x0000022D223C7380>
+           └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 313, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x0000022D223C68E0>
+    └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x0000022D2479B8C0>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+    │    └ <function subprocess_started at 0x0000022D248934C0>
+    └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=576, family=2, type=1, proto=6, laddr=('0.0.0.0', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x0000022D2479BA10>>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ [<socket.socket fd=576, family=2, type=1, proto=6, laddr=('0.0.0.0', 8000)>]
+           │       │   │    └ <function Server.serve at 0x0000022D24892520>
+           │       │   └ <uvicorn.server.Server object at 0x0000022D2479BA10>
+           │       └ <function run at 0x0000022D226BC900>
+           └ <module 'asyncio' from 'C:\\Users\\Asus\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\asyncio\\__init__.py'>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x0000022D248A60A0>
+           │      └ <function Runner.run at 0x0000022D24568FE0>
+           └ <asyncio.runners.Runner object at 0x0000022D248D0830>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000022D24566B60>
+           │    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x0000022D248D0830>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 707, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x0000022D24566AC0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 678, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000022D24568900>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2033, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000022D22A97880>
+    └ <Handle Task.task_wakeup()>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup()>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000022D28104D70>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2821BA80>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2821B...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000022D281042F0>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000022D28104D70>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\applications.py", line 1139, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2821BA80>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2821B...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2821BA80>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2821B...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000022D28105A90>
+          └ <fastapi.applications.FastAPI object at 0x0000022D281042F0>
+> File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000022D2826A2A0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2821B...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000022D28105A90>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+         │            │            └ <function collapse_excgroups at 0x0000022D2597C0E0>
+         │            └ MemoryObjectSendStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_receiv...
+         └ MemoryObjectReceiveStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_rec...
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    │    │   │     └ ExceptionGroup('unhandled errors in a TaskGroup', [AttributeError("'dict' object has no attribute 'user_id'")])
+    │    │   └ <method 'throw' of 'generator' objects>
+    │    └ <generator object collapse_excgroups at 0x0000022D280C6C20>
+    └ <contextlib._GeneratorContextManager object at 0x0000022D281C3D20>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+                     │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D2826A520>
+                     │    │             └ <starlette.middleware.base._CachedRequest object at 0x0000022D28247550>
+                     │    └ <bound method RequestLoggingMiddleware.dispatch of <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x00000...
+                     └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    response = await call_next(request)
+                     │         └ <starlette.middleware.base._CachedRequest object at 0x0000022D28247550>
+                     └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D2826A520>
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+          │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+          │            │       │            └ AttributeError("'dict' object has no attribute 'user_id'")
+          │            │       └ <attribute '__cause__' of 'BaseException' objects>
+          │            └ AttributeError("'dict' object has no attribute 'user_id'")
+          └ AttributeError("'dict' object has no attribute 'user_id'")
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D28269A80>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269BC0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+          └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+          │    │               │      │        │                     └ Headers({'host': '127.0.0.1:8000', 'connection': 'keep-alive', 'content-length': '84', 'sec-ch-ua-platform': '"Windows"', 'au...
+          │    │               │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D28269A80>
+          │    │               │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269BC0>
+          │    │               └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function CORSMiddleware.simple_response at 0x0000022D25A53240>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+          │    │   │      │        └ functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0...
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269BC0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+         │            │            └ <function collapse_excgroups at 0x0000022D2597C0E0>
+         │            └ MemoryObjectSendStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_receiv...
+         └ MemoryObjectReceiveStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_rec...
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    │    │   │     └ ExceptionGroup('unhandled errors in a TaskGroup', [AttributeError("'dict' object has no attribute 'user_id'")])
+    │    │   └ <method 'throw' of 'generator' objects>
+    │    └ <generator object collapse_excgroups at 0x0000022D280C7C60>
+    └ <contextlib._GeneratorContextManager object at 0x0000022D281C3A10>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+                     │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D2826A200>
+                     │    │             └ <starlette.middleware.base._CachedRequest object at 0x0000022D28247E50>
+                     │    └ <function set_utf8_encoding at 0x0000022D28111120>
+                     └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    response = await call_next(request)
+                     │         └ <starlette.middleware.base._CachedRequest object at 0x0000022D28247E50>
+                     └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D2826A200>
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+          │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+          │            │       │            └ AttributeError("'dict' object has no attribute 'user_id'")
+          │            │       └ <attribute '__cause__' of 'BaseException' objects>
+          │            └ AttributeError("'dict' object has no attribute 'user_id'")
+          └ AttributeError("'dict' object has no attribute 'user_id'")
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D2826B920>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D28105550>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D2826B920>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000022D28245450>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D28105550>
+          └ <function wrap_app_handling_exceptions at 0x0000022D259F9E40>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x0000022D28124160>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x0000022D28124160>>
+          └ <fastapi.routing.APIRouter object at 0x0000022D28124160>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x0000022D259FB6A0>
+          └ APIRoute(path='/api/v1/admin/verifiers', name='create_verifier', methods=['POST'])
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x0000022D28113E20>
+          └ APIRoute(path='/api/v1/admin/verifiers', name='create_verifier', methods=['POST'])
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826A0C0>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    └ <starlette.requests.Request object at 0x0000022D28246050>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000022D2826BC40>
+          └ <function wrap_app_handling_exceptions at 0x0000022D259F9E40>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D2826BB00>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28269B20>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000022D2826BC40>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000022D28246050>
+                     └ <function get_request_handler.<locals>.app at 0x0000022D28113CE0>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000022D25A1D620>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'current_admin': <app.domain.models.User object at 0x0000022D2821A2C0>, 'user_service': <app.services1.user_service.UserServ...
+                 │         └ <function create_verifier at 0x0000022D28022E80>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    target_id=str(result.user_id),
+                  └ {'user_id': 'dc5eb7a1-f570-4224-89c1-e5b11420a464', 'full_name': 'mahdieh hosseini', 'email': 'mahdieh.hosseini1378@gmail.com...
+
+AttributeError: 'dict' object has no attribute 'user_id'
+2026-06-17 11:17:58 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:17:58 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:17:58 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1378@gmail.com
+2026-06-17 11:17:58 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-17 11:17:58 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
+2026-06-17 11:17:58 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/admin/verifiers | method=POST | status_code=400 | detail=A user with this email already exists
+2026-06-17 11:19:03 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:19:03 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:19:03 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1378@gmail.com
+2026-06-17 11:19:03 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-17 11:19:04 | INFO | app.repositories.user_repository:create_user:25 | User dc4f984a-8f63-44b9-98e1-345d7db07ba6 created
+2026-06-17 11:19:17 | WARNING | app.core.circuit_breaker:record_failure:84 | Circuit breaker failure recorded | service=email_service | failures=1/3
+2026-06-17 11:19:17 | ERROR | app.services1.auth_services.email_service:send_email:62 | Email sending failed | to=mahdieh.hosseini1378@gmail.com | error=[Errno 11001] getaddrinfo failed
+2026-06-17 11:19:17 | ERROR | app.services1.user_service:create_verifier:297 | Failed to send verifier onboarding email to mahdieh.hosseini1378@gmail.com: [Errno 11001] getaddrinfo failed
+2026-06-17 11:19:17 | WARNING | app.services1.user_service:create_verifier:300 | Verifier user dc4f984a-8f63-44b9-98e1-345d7db07ba6 created by admin b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:19:17 | ERROR | app.core.database:get_db:40 | DB error: 'dict' object has no attribute 'user_id'
+2026-06-17 11:19:17 | ERROR | app.core.exception_handlers:unhandled_exception_handler:51 | Unhandled server error | path=/api/v1/admin/verifiers | method=POST | error='dict' object has no attribute 'user_id'
+  + Exception Group Traceback (most recent call last):
+  |
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 79, in collapse_excgroups
+  |     yield
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 192, in __call__
+  |     async with anyio.create_task_group() as task_group:
+  |                │     │                      └ <anyio._backends._asyncio.TaskGroup object at 0x0000022D2877FE30>
+  |                │     └ <function create_task_group at 0x0000022D25522A20>
+  |                └ <module 'anyio' from 'C:\\Users\\Asus\\Desktop\\nikoooookari\\services\\iam_service\\venv\\Lib\\site-packages\\anyio\\__init_...
+  |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 799, in __aexit__
+  |     raise BaseExceptionGroup(
+  |
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |           │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000022D281FB6A0>
+    |           │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2829B...
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+    |           └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000022D28105A90>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |          │            │            └ <function collapse_excgroups at 0x0000022D2597C0E0>
+    |          │            └ MemoryObjectSendStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_receiv...
+    |          └ MemoryObjectReceiveStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_rec...
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     │    │   │     └ ExceptionGroup('unhandled errors in a TaskGroup', [AttributeError("'dict' object has no attribute 'user_id'")])
+    |     │    │   └ <method 'throw' of 'generator' objects>
+    |     │    └ <generator object collapse_excgroups at 0x0000022D280C6A80>
+    |     └ <contextlib._GeneratorContextManager object at 0x0000022D28368280>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                      │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D28756AC0>
+    |                      │    │             └ <starlette.middleware.base._CachedRequest object at 0x0000022D28362970>
+    |                      │    └ <bound method RequestLoggingMiddleware.dispatch of <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x00000...
+    |                      └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    |     response = await call_next(request)
+    |                      │         └ <starlette.middleware.base._CachedRequest object at 0x0000022D28362970>
+    |                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D28756AC0>
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |           │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+    |           │            │       │            └ AttributeError("'dict' object has no attribute 'user_id'")
+    |           │            │       └ <attribute '__cause__' of 'BaseException' objects>
+    |           │            └ AttributeError("'dict' object has no attribute 'user_id'")
+    |           └ AttributeError("'dict' object has no attribute 'user_id'")
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |           │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D287568E0>
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D287567A0>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+    |           └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |           │    │               │      │        │                     └ Headers({'host': '127.0.0.1:8000', 'connection': 'keep-alive', 'content-length': '84', 'sec-ch-ua-platform': '"Windows"', 'au...
+    |           │    │               │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D287568E0>
+    |           │    │               │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D287567A0>
+    |           │    │               └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <function CORSMiddleware.simple_response at 0x0000022D25A53240>
+    |           └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    |     await self.app(scope, receive, send)
+    |           │    │   │      │        └ functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0...
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D287567A0>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+    |           └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    |     with recv_stream, send_stream, collapse_excgroups():
+    |          │            │            └ <function collapse_excgroups at 0x0000022D2597C0E0>
+    |          │            └ MemoryObjectSendStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_receiv...
+    |          └ MemoryObjectReceiveStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_rec...
+    |   File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    |     self.gen.throw(value)
+    |     │    │   │     └ ExceptionGroup('unhandled errors in a TaskGroup', [AttributeError("'dict' object has no attribute 'user_id'")])
+    |     │    │   └ <method 'throw' of 'generator' objects>
+    |     │    └ <generator object collapse_excgroups at 0x0000022D28225700>
+    |     └ <contextlib._GeneratorContextManager object at 0x0000022D282A3620>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                      │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D28756700>
+    |                      │    │             └ <starlette.middleware.base._CachedRequest object at 0x0000022D287CA0B0>
+    |                      │    └ <function set_utf8_encoding at 0x0000022D28111120>
+    |                      └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    |     response = await call_next(request)
+    |                      │         └ <starlette.middleware.base._CachedRequest object at 0x0000022D287CA0B0>
+    |                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D28756700>
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |           │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+    |           │            │       │            └ AttributeError("'dict' object has no attribute 'user_id'")
+    |           │            │       └ <attribute '__cause__' of 'BaseException' objects>
+    |           │            └ AttributeError("'dict' object has no attribute 'user_id'")
+    |           └ AttributeError("'dict' object has no attribute 'user_id'")
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |           │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D28757880>
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D28105550>
+    |           └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |           │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D28757880>
+    |           │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+    |           │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │                            │    │    └ <starlette.requests.Request object at 0x0000022D287C99B0>
+    |           │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+    |           │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D28105550>
+    |           └ <function wrap_app_handling_exceptions at 0x0000022D259F9E40>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |           │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+    |           │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+    |           │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |           │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <fastapi.routing.APIRouter object at 0x0000022D28124160>
+    |           └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |           │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+    |           │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+    |           │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x0000022D28124160>>
+    |           └ <fastapi.routing.APIRouter object at 0x0000022D28124160>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    |     await route.handle(scope, receive, send)
+    |           │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+    |           │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+    |           │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │     └ <function Route.handle at 0x0000022D259FB6A0>
+    |           └ APIRoute(path='/api/v1/admin/verifiers', name='create_verifier', methods=['POST'])
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    |     await self.app(scope, receive, send)
+    |           │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+    |           │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+    |           │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │    └ <function request_response.<locals>.app at 0x0000022D28113E20>
+    |           └ APIRoute(path='/api/v1/admin/verifiers', name='create_verifier', methods=['POST'])
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |           │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+    |           │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+    |           │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           │                            │    └ <starlette.requests.Request object at 0x0000022D28753D40>
+    |           │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000022D28756CA0>
+    |           └ <function wrap_app_handling_exceptions at 0x0000022D259F9E40>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |           │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756DE0>
+    |           │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+    |           │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+    |           └ <function request_response.<locals>.app.<locals>.app at 0x0000022D28756CA0>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    |     response = await f(request)
+    |                      │ └ <starlette.requests.Request object at 0x0000022D28753D40>
+    |                      └ <function get_request_handler.<locals>.app at 0x0000022D28113CE0>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    |     raw_response = await run_endpoint_function(
+    |                          └ <function run_endpoint_function at 0x0000022D25A1D620>
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    |     return await dependant.call(**values)
+    |                  │         │      └ {'current_admin': <app.domain.models.User object at 0x0000022D2832C050>, 'user_service': <app.services1.user_service.UserServ...
+    |                  │         └ <function create_verifier at 0x0000022D28022E80>
+    |                  └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+    |
+    |   File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    |     target_id=str(result.user_id),
+    |                   └ {'user_id': 'dc4f984a-8f63-44b9-98e1-345d7db07ba6', 'full_name': 'mahdieh hosseini', 'email': 'mahdieh.hosseini1378@gmail.com...
+    |
+    | AttributeError: 'dict' object has no attribute 'user_id'
+    +------------------------------------
+
+
+The above exception was the direct cause of the following exception:
+
+
+Traceback (most recent call last):
+
+  File "<string>", line 1, in <module>
+    from multiprocessing.spawn import spawn_main; spawn_main(parent_pid=3836, pipe_handle=588)
+                                      │           └ <function spawn_main at 0x0000022D226BB880>
+                                      └ <function spawn_main at 0x0000022D226BB880>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 122, in spawn_main
+    exitcode = _main(fd, parent_sentinel)
+               │     │   └ 332
+               │     └ 3
+               └ <function _main at 0x0000022D226BB920>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\spawn.py", line 135, in _main
+    return self._bootstrap(parent_sentinel)
+           │    │          └ 332
+           │    └ <function BaseProcess._bootstrap at 0x0000022D223C7380>
+           └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 313, in _bootstrap
+    self.run()
+    │    └ <function BaseProcess.run at 0x0000022D223C68E0>
+    └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\multiprocessing\process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    │    │        │    │        │    └ {'config': <uvicorn.config.Config object at 0x0000022D2479B8C0>, 'target': <bound method Server.run of <uvicorn.server.Server...
+    │    │        │    │        └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+    │    │        │    └ ()
+    │    │        └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+    │    └ <function subprocess_started at 0x0000022D248934C0>
+    └ <SpawnProcess name='SpawnProcess-1' parent=3836 started>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    │              └ [<socket.socket fd=576, family=2, type=1, proto=6, laddr=('0.0.0.0', 8000)>]
+    └ <bound method Server.run of <uvicorn.server.Server object at 0x0000022D2479BA10>>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\server.py", line 66, in run
+    return asyncio.run(self.serve(sockets=sockets))
+           │       │   │    │             └ [<socket.socket fd=576, family=2, type=1, proto=6, laddr=('0.0.0.0', 8000)>]
+           │       │   │    └ <function Server.serve at 0x0000022D24892520>
+           │       │   └ <uvicorn.server.Server object at 0x0000022D2479BA10>
+           │       └ <function run at 0x0000022D226BC900>
+           └ <module 'asyncio' from 'C:\\Users\\Asus\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\asyncio\\__init__.py'>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 194, in run
+    return runner.run(main)
+           │      │   └ <coroutine object Server.serve at 0x0000022D248A60A0>
+           │      └ <function Runner.run at 0x0000022D24568FE0>
+           └ <asyncio.runners.Runner object at 0x0000022D248D0830>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\runners.py", line 118, in run
+    return self._loop.run_until_complete(task)
+           │    │     │                  └ <Task pending name='Task-1' coro=<Server.serve() running at C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\...
+           │    │     └ <function BaseEventLoop.run_until_complete at 0x0000022D24566B60>
+           │    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+           └ <asyncio.runners.Runner object at 0x0000022D248D0830>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 707, in run_until_complete
+    self.run_forever()
+    │    └ <function BaseEventLoop.run_forever at 0x0000022D24566AC0>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 678, in run_forever
+    self._run_once()
+    │    └ <function BaseEventLoop._run_once at 0x0000022D24568900>
+    └ <_WindowsSelectorEventLoop running=True closed=False debug=False>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\base_events.py", line 2033, in _run_once
+    handle._run()
+    │      └ <function Handle._run at 0x0000022D22A97880>
+    └ <Handle Task.task_wakeup()>
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\asyncio\events.py", line 89, in _run
+    self._context.run(self._callback, *self._args)
+    │    │            │    │           │    └ <member '_args' of 'Handle' objects>
+    │    │            │    │           └ <Handle Task.task_wakeup()>
+    │    │            │    └ <member '_callback' of 'Handle' objects>
+    │    │            └ <Handle Task.task_wakeup()>
+    │    └ <member '_context' of 'Handle' objects>
+    └ <Handle Task.task_wakeup()>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+                   └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000022D28104D70>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+                 │    │   │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2829BBD0>>
+                 │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2829B...
+                 │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+                 │    └ <fastapi.applications.FastAPI object at 0x0000022D281042F0>
+                 └ <uvicorn.middleware.proxy_headers.ProxyHeadersMiddleware object at 0x0000022D28104D70>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\applications.py", line 1139, in __call__
+    await super().__call__(scope, receive, send)
+                           │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2829BBD0>>
+                           │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2829B...
+                           └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\applications.py", line 107, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <bound method RequestResponseCycle.send of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2829BBD0>>
+          │    │                │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2829B...
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000022D28105A90>
+          └ <fastapi.applications.FastAPI object at 0x0000022D281042F0>
+> File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+          │    │   │      │        └ <function ServerErrorMiddleware.__call__.<locals>._send at 0x0000022D281FB6A0>
+          │    │   │      └ <bound method RequestResponseCycle.receive of <uvicorn.protocols.http.h11_impl.RequestResponseCycle object at 0x0000022D2829B...
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+          └ <starlette.middleware.errors.ServerErrorMiddleware object at 0x0000022D28105A90>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+         │            │            └ <function collapse_excgroups at 0x0000022D2597C0E0>
+         │            └ MemoryObjectSendStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_receiv...
+         └ MemoryObjectReceiveStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_rec...
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    │    │   │     └ ExceptionGroup('unhandled errors in a TaskGroup', [AttributeError("'dict' object has no attribute 'user_id'")])
+    │    │   └ <method 'throw' of 'generator' objects>
+    │    └ <generator object collapse_excgroups at 0x0000022D280C6A80>
+    └ <contextlib._GeneratorContextManager object at 0x0000022D28368280>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+                     │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D28756AC0>
+                     │    │             └ <starlette.middleware.base._CachedRequest object at 0x0000022D28362970>
+                     │    └ <bound method RequestLoggingMiddleware.dispatch of <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x00000...
+                     └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\core\monitoring_middleware.py", line 21, in dispatch
+    response = await call_next(request)
+                     │         └ <starlette.middleware.base._CachedRequest object at 0x0000022D28362970>
+                     └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D28756AC0>
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+          │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+          │            │       │            └ AttributeError("'dict' object has no attribute 'user_id'")
+          │            │       └ <attribute '__cause__' of 'BaseException' objects>
+          │            └ AttributeError("'dict' object has no attribute 'user_id'")
+          └ AttributeError("'dict' object has no attribute 'user_id'")
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D287568E0>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D287567A0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+          └ <app.core.monitoring_middleware.RequestLoggingMiddleware object at 0x0000022D28105940>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 93, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+          │    │               │      │        │                     └ Headers({'host': '127.0.0.1:8000', 'connection': 'keep-alive', 'content-length': '84', 'sec-ch-ua-platform': '"Windows"', 'au...
+          │    │               │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D287568E0>
+          │    │               │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D287567A0>
+          │    │               └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function CORSMiddleware.simple_response at 0x0000022D25A53240>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\cors.py", line 144, in simple_response
+    await self.app(scope, receive, send)
+          │    │   │      │        └ functools.partial(<bound method CORSMiddleware.send of <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0...
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D287567A0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+          └ <starlette.middleware.cors.CORSMiddleware object at 0x0000022D281057F0>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 191, in __call__
+    with recv_stream, send_stream, collapse_excgroups():
+         │            │            └ <function collapse_excgroups at 0x0000022D2597C0E0>
+         │            └ MemoryObjectSendStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_receiv...
+         └ MemoryObjectReceiveStream(_state=_MemoryObjectStreamState(max_buffer_size=0, buffer=deque([]), open_send_channels=0, open_rec...
+  File "C:\Users\Asus\AppData\Local\Programs\Python\Python313\Lib\contextlib.py", line 162, in __exit__
+    self.gen.throw(value)
+    │    │   │     └ ExceptionGroup('unhandled errors in a TaskGroup', [AttributeError("'dict' object has no attribute 'user_id'")])
+    │    │   └ <method 'throw' of 'generator' objects>
+    │    └ <generator object collapse_excgroups at 0x0000022D28225700>
+    └ <contextlib._GeneratorContextManager object at 0x0000022D282A3620>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_utils.py", line 85, in collapse_excgroups
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+                     │    │             │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D28756700>
+                     │    │             └ <starlette.middleware.base._CachedRequest object at 0x0000022D287CA0B0>
+                     │    └ <function set_utf8_encoding at 0x0000022D28111120>
+                     └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\main.py", line 86, in set_utf8_encoding
+    response = await call_next(request)
+                     │         └ <starlette.middleware.base._CachedRequest object at 0x0000022D287CA0B0>
+                     └ <function BaseHTTPMiddleware.__call__.<locals>.call_next at 0x0000022D28756700>
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+          │            │       │            │       └ <attribute '__context__' of 'BaseException' objects>
+          │            │       │            └ AttributeError("'dict' object has no attribute 'user_id'")
+          │            │       └ <attribute '__cause__' of 'BaseException' objects>
+          │            └ AttributeError("'dict' object has no attribute 'user_id'")
+          └ AttributeError("'dict' object has no attribute 'user_id'")
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+          │    │   │      │                      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D28757880>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D28105550>
+          └ <starlette.middleware.base.BaseHTTPMiddleware object at 0x0000022D281056A0>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+          │                            │    │    │     │      │        └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.send_no_error at 0x0000022D28757880>
+          │                            │    │    │     │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+          │                            │    │    │     └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    │    └ <starlette.requests.Request object at 0x0000022D287C99B0>
+          │                            │    └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+          │                            └ <starlette.middleware.exceptions.ExceptionMiddleware object at 0x0000022D28105550>
+          └ <function wrap_app_handling_exceptions at 0x0000022D259F9E40>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <fastapi.routing.APIRouter object at 0x0000022D28124160>
+          └ <fastapi.middleware.asyncexitstack.AsyncExitStackMiddleware object at 0x0000022D28105400>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+          │    │                │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+          │    │                │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+          │    │                └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <bound method Router.app of <fastapi.routing.APIRouter object at 0x0000022D28124160>>
+          └ <fastapi.routing.APIRouter object at 0x0000022D28124160>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+          │     │      │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+          │     │      │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+          │     │      └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │     └ <function Route.handle at 0x0000022D259FB6A0>
+          └ APIRoute(path='/api/v1/admin/verifiers', name='create_verifier', methods=['POST'])
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+          │    │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+          │    │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+          │    │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │    └ <function request_response.<locals>.app at 0x0000022D28113E20>
+          └ APIRoute(path='/api/v1/admin/verifiers', name='create_verifier', methods=['POST'])
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 120, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+          │                            │    │        │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756C00>
+          │                            │    │        │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+          │                            │    │        └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          │                            │    └ <starlette.requests.Request object at 0x0000022D28753D40>
+          │                            └ <function request_response.<locals>.app.<locals>.app at 0x0000022D28756CA0>
+          └ <function wrap_app_handling_exceptions at 0x0000022D259F9E40>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+          │   │      │        └ <function wrap_app_handling_exceptions.<locals>.wrapped_app.<locals>.sender at 0x0000022D28756DE0>
+          │   │      └ <function BaseHTTPMiddleware.__call__.<locals>.call_next.<locals>.receive_or_disconnect at 0x0000022D28757BA0>
+          │   └ {'type': 'http', 'asgi': {'version': '3.0', 'spec_version': '2.3'}, 'http_version': '1.1', 'server': ('127.0.0.1', 8000), 'cl...
+          └ <function request_response.<locals>.app.<locals>.app at 0x0000022D28756CA0>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 106, in app
+    response = await f(request)
+                     │ └ <starlette.requests.Request object at 0x0000022D28753D40>
+                     └ <function get_request_handler.<locals>.app at 0x0000022D28113CE0>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 430, in app
+    raw_response = await run_endpoint_function(
+                         └ <function run_endpoint_function at 0x0000022D25A1D620>
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\venv\Lib\site-packages\fastapi\routing.py", line 316, in run_endpoint_function
+    return await dependant.call(**values)
+                 │         │      └ {'current_admin': <app.domain.models.User object at 0x0000022D2832C050>, 'user_service': <app.services1.user_service.UserServ...
+                 │         └ <function create_verifier at 0x0000022D28022E80>
+                 └ Dependant(path_params=[], query_params=[], header_params=[], cookie_params=[], body_params=[ModelField(field_info=Body(Pydant...
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 300, in create_verifier
+    target_id=str(result.user_id),
+                  └ {'user_id': 'dc4f984a-8f63-44b9-98e1-345d7db07ba6', 'full_name': 'mahdieh hosseini', 'email': 'mahdieh.hosseini1378@gmail.com...
+
+AttributeError: 'dict' object has no attribute 'user_id'
+2026-06-17 11:23:58 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-17 11:23:58 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-17 11:23:58 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-17 11:23:58 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-17 11:23:58 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-17 11:23:58 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-17 11:23:58 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-17 11:23:58 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-17 11:23:58 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-17 11:23:58 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-17 11:23:58 | INFO | app.main:<module>:167 | Included health_router
+2026-06-17 11:23:58 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-17 11:23:58 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-17 11:23:58 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-17 11:23:58 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-17 11:24:04 | INFO | app.core.redis:get_redis:22 | [Redis] Client initialized
+2026-06-17 11:24:04 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:24:04 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:24:04 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1378@gmail.com
+2026-06-17 11:24:04 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-17 11:24:04 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
+2026-06-17 11:24:04 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/admin/verifiers | method=POST | status_code=400 | detail=A user with this email already exists
+2026-06-17 11:24:17 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:24:17 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:24:17 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1378@gmail.com
+2026-06-17 11:24:17 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-17 11:24:18 | INFO | app.repositories.user_repository:create_user:25 | User 5a66dc5a-bb80-4e39-b08c-c3affcd9b050 created
+2026-06-17 11:24:22 | INFO | app.core.circuit_breaker:_reset:41 | Circuit breaker reset | service=email_service
+2026-06-17 11:24:22 | INFO | app.core.circuit_breaker:record_success:76 | Circuit breaker reset after success | service=email_service
+2026-06-17 11:24:22 | INFO | app.services1.auth_services.email_service:send_email:59 | Email sent successfully | to=mahdieh.hosseini1378@gmail.com
+2026-06-17 11:24:22 | WARNING | app.services1.user_service:create_verifier:300 | Verifier user 5a66dc5a-bb80-4e39-b08c-c3affcd9b050 created by admin b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:28:10 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:28:10 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:28:10 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1378@gmail.com
+2026-06-17 11:28:10 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-17 11:28:11 | INFO | app.repositories.user_repository:create_user:25 | User e829956a-9934-4421-87d5-6bf7c72fcb0c created
+2026-06-17 11:28:16 | INFO | app.core.circuit_breaker:_reset:41 | Circuit breaker reset | service=email_service
+2026-06-17 11:28:16 | INFO | app.core.circuit_breaker:record_success:76 | Circuit breaker reset after success | service=email_service
+2026-06-17 11:28:16 | INFO | app.services1.auth_services.email_service:send_email:59 | Email sent successfully | to=mahdieh.hosseini1378@gmail.com
+2026-06-17 11:28:16 | WARNING | app.services1.user_service:create_verifier:300 | Verifier user e829956a-9934-4421-87d5-6bf7c72fcb0c created by admin b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 11:28:17 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-17 11:28:17 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-17 11:28:17 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-17 11:28:17 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-17 11:28:17 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-17 11:28:17 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-17 11:28:17 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-17 11:28:17 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-17 11:28:17 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-17 11:28:17 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-17 11:28:17 | INFO | app.main:<module>:167 | Included health_router
+2026-06-17 11:28:17 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-17 11:28:17 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-17 11:28:17 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-17 11:28:17 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-17 12:07:34 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-17 12:07:34 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-17 12:07:34 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-17 12:07:34 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-17 12:07:34 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-17 12:07:34 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-17 12:07:34 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-17 12:07:34 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-17 12:07:34 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-17 12:07:34 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-17 12:07:34 | INFO | app.main:<module>:167 | Included health_router
+2026-06-17 12:07:34 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-17 12:07:34 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-17 12:07:34 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-17 12:07:34 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-17 12:08:19 | INFO | app.core.redis:get_redis:22 | [Redis] Client initialized
+2026-06-17 12:08:22 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini382@gmail.com | count=1/5 | window=300s
+2026-06-17 12:08:22 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini382@gmail.com
+2026-06-17 12:08:22 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini382@gmail.com
+2026-06-17 12:08:22 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email mahdieh.hosseini382@gmail.com authenticated successfully
+2026-06-17 12:09:05 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 12:09:05 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 12:09:05 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for mahdieh.hosseini1378@gmail.com
+2026-06-17 12:09:05 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-17 12:09:05 | INFO | app.repositories.user_repository:create_user:25 | User 4151c6fa-a29d-407f-acbb-e609804d7430 created
+2026-06-17 12:09:10 | INFO | app.core.circuit_breaker:_reset:41 | Circuit breaker reset | service=email_service
+2026-06-17 12:09:10 | INFO | app.core.circuit_breaker:record_success:76 | Circuit breaker reset after success | service=email_service
+2026-06-17 12:09:10 | INFO | app.services1.auth_services.email_service:send_email:59 | Email sent successfully | to=mahdieh.hosseini1378@gmail.com
+2026-06-17 12:09:10 | WARNING | app.services1.user_service:create_verifier:300 | Verifier user 4151c6fa-a29d-407f-acbb-e609804d7430 created by admin b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-17 12:09:54 | ERROR | app.core.database:get_db:40 | DB error: 400: 'str' object has no attribute 'decode'
+2026-06-17 12:09:54 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/verifier/complete-onboarding | method=POST | status_code=400 | detail='str' object has no attribute 'decode'
+2026-06-17 12:13:09 | ERROR | app.core.database:get_db:40 | DB error: 400: 'str' object has no attribute 'decode'
+2026-06-17 12:13:09 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/verifier/complete-onboarding | method=POST | status_code=400 | detail='str' object has no attribute 'decode'

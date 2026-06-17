@@ -105,6 +105,8 @@ class UserResponseSchema(BaseModel):
     last_login: Optional[datetime] = None
     created_at: Optional[datetime] = None
     is_verified: bool
+    onboarding_token: Optional[str] = None
+    onboarding_link: Optional[str] = None
 
     class Config:
         from_attributes = True

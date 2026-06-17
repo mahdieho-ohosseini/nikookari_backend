@@ -240,7 +240,7 @@ class UserService(BaseService):
 
         return await self.user_repository.create_user(admin_user)
 
-    async def create_verifier(self, user_body: UserCreateSchema, actor_user: User) -> User:
+    async def create_verifier(self, user_body: UserCreateSchema, actor_user: User) -> dict:
         logger.info(
             f"User {actor_user.user_id} with role {actor_user.role} requested verifier creation for {user_body.email}"
         )
@@ -301,7 +301,18 @@ class UserService(BaseService):
             f"Verifier user {created_user.user_id} created by admin {actor_user.user_id}"
         )
 
-        return created_user
+        return {
+    "user_id": str(created_user.user_id),
+    "full_name": created_user.full_name,
+    "email": created_user.email,
+    "role": created_user.role,
+    "status": created_user.status,
+    "is_verified": created_user.is_verified,
+    "must_change_password": created_user.must_change_password,
+    "onboarding_token": onboarding_token,
+    "onboarding_link": onboarding_link,
+      }
+
     
     
     async def complete_verifier_onboarding(self, token: str, new_password: str) -> None:
@@ -314,7 +325,7 @@ class UserService(BaseService):
         if not user_id_str:
             raise HTTPException(status_code=400, detail="Invalid or expired token")
         
-        user_id = UUID(user_id_str.decode())
+        user_id = UUID(user_id_str)
         
         # ۱. آپدیت کردن پسورد و وضعیت کاربر
         await self.update_password(
