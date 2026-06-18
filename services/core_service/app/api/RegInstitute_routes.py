@@ -1,76 +1,36 @@
-from fastapi import APIRouter, Depends, HTTPException, Request, status, File, UploadFile, Form
-from uuid import UUID
-from loguru import logger
-from app.domain.schemas.RegInstitute_schema import InstituteResponse
-from app.services.RegInstitute_service import InstituteService
-from app.repository.RegInstitute_repository import InstituteRepository, get_institute_repository
+# app/routers/charity_verification_router.py
 
-router = APIRouter(prefix="/institutes", tags=["Institute Management"])
+from fastapi import APIRouter, Depends, status
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.core.database import get_db
+from app.core.dependencies import get_current_user
+from app.domain.schemas.RegInstitute_schema import (
+    CharityVerificationRequestCreateSchema,
+    CharityVerificationRequestResponseSchema,
+)
+from app.services.RegInstitute_service import CharityVerificationService
+
+
+router = APIRouter(
+    prefix="/charity-verification-requests",
+    tags=["Charity Verification Requests"],
+)
+
 
 @router.post(
-    "/register",
-    response_model=InstituteResponse,
-    status_code=status.HTTP_201_CREATED
+    "",
+    response_model=CharityVerificationRequestResponseSchema,
+    status_code=status.HTTP_201_CREATED,
 )
-async def register_institute(
-    request: Request,
-    # فیلدها به صورت Form (مطابق عکس فرم ثبت‌نام)
-    institute_name: str = Form(...),
-    registration_number: str = Form(...),
-    establishment_date: str = Form(...),
-    activity_field: str = Form(...),
-    short_description: str = Form(...),
-    contact_phone: str = Form(...),
-    email: str = Form(...),
-    province: str = Form(...),
-    city: str = Form(...),
-    full_address: str = Form(...),
-    bank_name: str = Form(...),
-    shaba_number: str = Form(...),
-    account_owner: str = Form(...),
-    # فایل‌ها
-    articles_doc: UploadFile = File(...),
-    license_doc: UploadFile = File(...),
-    national_card_doc: UploadFile = File(...),
-    repo: InstituteRepository = Depends(get_institute_repository)
+async def create_charity_verification_request(
+    payload: CharityVerificationRequestCreateSchema,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
 ):
-    # 1️⃣ گرفتن user_id از Middleware
-    user_id_str = request.state.user_id
-    try:
-        user_id = UUID(user_id_str) if isinstance(user_id_str, str) else user_id_str
-    except ValueError:
-        logger.error(f"❌ Invalid UUID: {user_id_str}")
-        raise HTTPException(status_code=400, detail="Invalid user ID format")
+    service = CharityVerificationService(db)
 
-    logger.info(f"🏢 Registering institute for user {user_id}")
-
-    # 2️⃣ آماده‌سازی داده‌ها
-    institute_data = {
-        "institute_name": institute_name,
-        "registration_number": registration_number,
-        "establishment_date": establishment_date,
-        "activity_field": activity_field,
-        "short_description": short_description,
-        "contact_phone": contact_phone,
-        "email": email,
-        "province": province,
-        "city": city,
-        "full_address": full_address,
-        "bank_name": bank_name,
-        "shaba_number": shaba_number,
-        "account_owner": account_owner
-    }
-    
-    files = {
-        "articles": articles_doc,
-        "license": license_doc,
-        "card": national_card_doc
-    }
-
-    # 3️⃣ اجرای سرویس
-    service = InstituteService(repository=repo)
-    new_inst = await service.register_institute(user_id, institute_data, files)
-    
-    logger.success(f"✅ Institute {new_inst.institute_name} registered successfully")
-    
-    return new_inst
+    return await service.create_request(
+        user_id=current_user["user_id"],
+        payload=payload,
+    )

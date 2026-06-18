@@ -1,28 +1,35 @@
-from fastapi import Request, HTTPException
-import jwt
+from fastapi import Request
+from fastapi.responses import JSONResponse
 from jwt import ExpiredSignatureError, InvalidTokenError
-from core.config import get_settings
+import jwt
 import os
+
+from app.core.config import get_settings
+
+
+PUBLIC_ROUTES = (
+    "/auth/login",
+    "/auth/register",
+    "/auth/verify-otp",
+    "/auth/refresh",
+    "/api/v1/auth/login",
+    "/api/v1/auth/register",
+    "/api/v1/auth/verify-otp",
+    "/api/v1/auth/refresh",
+    "/docs",
+    "/openapi.json",
+    "/redoc",
+)
+
+
+def is_public_route(path: str) -> bool:
+    return any(path == route or path.startswith(f"{route}/") for route in PUBLIC_ROUTES)
 
 
 async def jwt_middleware(request: Request, call_next):
     path = request.url.path
 
-    public_routes = {
-        "/auth/login",
-        "/auth/register",
-        "/auth/verify-otp",
-        "/auth/refresh",
-        "/api/v1/auth/login",
-        "/api/v1/auth/register",
-        "/api/v1/auth/verify-otp",
-        "/api/v1/auth/refresh",
-        "/docs",
-        "/openapi.json",
-        "/redoc",
-    }
-
-    if any(path.startswith(p) for p in public_routes):
+    if is_public_route(path):
         return await call_next(request)
 
     if os.getenv("DEV_MODE", "false").lower() == "true":
@@ -30,10 +37,12 @@ async def jwt_middleware(request: Request, call_next):
 
     auth_header = request.headers.get("Authorization")
     if not auth_header or not auth_header.startswith("Bearer "):
-        raise HTTPException(401, "Missing or invalid token")
+        return JSONResponse(
+            status_code=401,
+            content={"detail": "Missing or invalid token"},
+        )
 
-    token = auth_header.split(" ")[1]
-
+    token = auth_header.removeprefix("Bearer ").strip()
     settings = get_settings()
 
     try:
@@ -43,31 +52,48 @@ async def jwt_middleware(request: Request, call_next):
             algorithms=[settings.JWT_ALGORITHM],
         )
 
-        redis = request.app.state.redis
-        jti = payload.get("jti")
-
-        if jti and await redis.exists(f"blacklist:{jti}"):
-            raise HTTPException(401, "Token revoked")
-
         if payload.get("type") != "access":
-            raise HTTPException(401, "Invalid token type")
+            return JSONResponse(
+                status_code=401,
+                content={"detail": "Invalid token type"},
+            )
 
         user_id = payload.get("sub")
         role = payload.get("role")
+        jti = payload.get("jti")
 
         if not user_id:
-            raise HTTPException(401, "Token missing subject")
+            return JSONResponse(
+                status_code=401,
+                content={"detail": "Token missing subject"},
+            )
 
         if not role:
-            raise HTTPException(401, "Token missing role")
+            return JSONResponse(
+                status_code=401,
+                content={"detail": "Token missing role"},
+            )
+
+        redis = getattr(request.app.state, "redis", None)
+        if redis and jti and await redis.exists(f"blacklist:{jti}"):
+            return JSONResponse(
+                status_code=401,
+                content={"detail": "Token revoked"},
+            )
 
         request.state.user_id = user_id
         request.state.user_role = role
         request.state.user = payload
 
     except ExpiredSignatureError:
-        raise HTTPException(401, "Token expired")
+        return JSONResponse(
+            status_code=401,
+            content={"detail": "Token expired"},
+        )
     except InvalidTokenError:
-        raise HTTPException(401, "Invalid token")
+        return JSONResponse(
+            status_code=401,
+            content={"detail": "Invalid token"},
+        )
 
     return await call_next(request)

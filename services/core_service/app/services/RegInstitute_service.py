@@ -1,35 +1,38 @@
-import shutil
-import os
-from fastapi import UploadFile
-from app.repository.RegInstitute_repository import InstituteRepository
+# app/services/charity_verification_service.py
 
-class InstituteService:
-    def __init__(self, repository: InstituteRepository):
-        self.repository = repository
+from uuid import UUID
 
-    async def save_file(self, file: UploadFile, folder: str) -> str:
-        path = f"static/uploads/{folder}/{file.filename}"
-        os.makedirs(os.path.dirname(path), exist_ok=True)
+from fastapi import HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
 
-        with open(path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
+from app.domain.models.RegInstitute_model import CharityVerificationStatus
+from app.repository.RegInstitute_repository import CharityVerificationRepository
+from app.domain.schemas.RegInstitute_schema import CharityVerificationRequestCreateSchema
 
-        return path
 
-from datetime import datetime
+class CharityVerificationService:
+    def __init__(self, db: AsyncSession):
+        self.repository = CharityVerificationRepository(db)
 
-async def register_institute(self, user_id, data: dict, files: dict):
+    async def create_request(
+        self,
+        user_id: UUID,
+        payload: CharityVerificationRequestCreateSchema,
+    ):
+        if await self.repository.has_open_request(user_id):
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="شما یک درخواست در حال بررسی دارید.",
+            )
 
-    # تبدیل تاریخ
-    if isinstance(data.get("establishment_date"), str):
-        data["establishment_date"] = datetime.strptime(
-            data["establishment_date"], "%Y-%m-%d"
-        ).date()
+        if await self.repository.has_approved_request(user_id):
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="خیریه شما قبلاً تأیید شده است.",
+            )
 
-    data['articles_of_association_url'] = await self.save_file(files['articles'], "docs")
-    data['activity_license_url'] = await self.save_file(files['license'], "docs")
-    data['national_card_url'] = await self.save_file(files['card'], "docs")
+        data = payload.model_dump()
+        data["user_id"] = user_id
+        data["status"] = CharityVerificationStatus.PENDING
 
-    institute = await self.repository.create(data, user_id)
-
-    return institute
+        return await self.repository.create(data)
