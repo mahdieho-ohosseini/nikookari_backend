@@ -1,4 +1,4 @@
-from fastapi import Request, HTTPException, status
+from fastapi import Depends, Request, HTTPException, status
 
 
 def get_current_user(request: Request):
@@ -19,14 +19,15 @@ def get_current_user(request: Request):
     }
 
 
-def require_roles(*allowed_roles):
-    def dependency(request: Request):
-        role = getattr(request.state, "user_role", None)
-        if role not in allowed_roles:
+
+def require_roles(*allowed_roles: str):
+    def checker(current_user: dict = Depends(get_current_user)):
+        if current_user.get("role") not in allowed_roles:
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
-                detail="Forbidden",
+                detail="شما دسترسی لازم برای انجام این عملیات را ندارید.",
             )
-        return True
+        return current_user
 
-    return dependency
+    return checker
+

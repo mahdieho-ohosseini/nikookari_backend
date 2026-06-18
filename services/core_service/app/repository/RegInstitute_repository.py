@@ -27,7 +27,8 @@ class CharityVerificationRepository:
         )
         result = await self.db.execute(stmt)
         return result.scalar_one_or_none()
-
+    
+    #(جدیدترین درخواست)گرفتن آخرین درخواست ارسال شده توسط یک کاربر
     async def get_latest_by_user_id(self, user_id: UUID) -> Optional[CharityVerificationRequest]:
         stmt = (
             select(CharityVerificationRequest)
@@ -53,3 +54,4 @@ class CharityVerificationRepository:
         )
         result = await self.db.execute(stmt)
         return result.scalar_one_or_none() is not None
+   

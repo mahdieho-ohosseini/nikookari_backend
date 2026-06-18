@@ -69,3 +69,5 @@ class CharityVerificationRequestResponseSchema(BaseModel):
 
     class Config:
         from_attributes = True
+
+
