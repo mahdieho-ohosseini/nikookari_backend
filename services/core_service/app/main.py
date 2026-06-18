@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from loguru import logger
 
 
+from app.api.notification_router import  router as notification_router
 from app.core.config import get_settings
 from app.core.database import create_db_and_tables
 from app.logging.logging_service import configure_logger
@@ -112,7 +113,7 @@ logger.info("✅ OpenAPI configured")
 # ============================================
 app.include_router(RegInstitute, prefix="/api/v1")
 app.include_router(verifier_router, prefix="/api/v1")
-
+app.include_router(notification_router, prefix="/api/v1")
 
 
 # ============================================

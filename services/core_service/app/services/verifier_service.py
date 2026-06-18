@@ -5,11 +5,14 @@ from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.repository.verifier_repository import VerifierRepository
+from app.services.notification_service import NotificationService
 
 
 class VerifierService:
     def __init__(self) -> None:
         self.repository = VerifierRepository()
+        self.notification_service = NotificationService()
+
     async def get_dashboard_data(
         self,
         db: AsyncSession,
@@ -20,7 +23,7 @@ class VerifierService:
         offset: int = 0,
     ):
         stats = await self.repository.get_dashboard_stats(db)
-    
+
         items = await self.repository.get_dashboard_requests(
             db=db,
             status=status_filter,
@@ -31,11 +34,9 @@ class VerifierService:
         )
 
         return {
-        "stats": stats,
-        "items": items,
-             }
-    
-
+            "stats": stats,
+            "items": items,
+        }
 
     async def get_request_detail(
         self,
@@ -72,11 +73,24 @@ class VerifierService:
                 detail="Request is already approved",
             )
 
-        return await self.repository.approve(
+        approved_request = await self.repository.approve(
             db=db,
             request_obj=request_obj,
             verifier_id=verifier_id,
         )
+
+        await self.notification_service.create(
+            db=db,
+            user_id=request_obj.user_id,
+            title="درخواست احراز خیریه تأیید شد",
+            message=(
+                "درخواست احراز خیریه شما تأیید شد. "
+                "اکنون می‌توانید پروفایل مؤسسه را تکمیل کنید."
+            ),
+            type="charity_verification_approved",
+        )
+
+        return approved_request
 
     async def reject_request(
         self,
@@ -96,12 +110,22 @@ class VerifierService:
                 detail="Request is already rejected",
             )
 
-        return await self.repository.reject(
+        rejected_request = await self.repository.reject(
             db=db,
             request_obj=request_obj,
             verifier_id=verifier_id,
             reason=reason,
         )
+
+        await self.notification_service.create(
+            db=db,
+            user_id=request_obj.user_id,
+            title="درخواست احراز خیریه رد شد",
+            message=f"درخواست احراز خیریه شما رد شد. دلیل: {reason}",
+            type="charity_verification_rejected",
+        )
+
+        return rejected_request
 
     def _calculate_documents_count(self, request_obj) -> int:
         document_fields = [
@@ -120,7 +144,7 @@ class VerifierService:
 
     def _calculate_checklist_percent(self, request_obj) -> int:
         checklist_fields = [
-            "institute_name",
+            "charity_name",
             "national_id",
             "registration_number",
             "phone",
@@ -133,5 +157,8 @@ class VerifierService:
             for field in checklist_fields
             if getattr(request_obj, field, None)
         )
+
+        if not checklist_fields:
+            return 0
 
         return round((filled_count / len(checklist_fields)) * 100)

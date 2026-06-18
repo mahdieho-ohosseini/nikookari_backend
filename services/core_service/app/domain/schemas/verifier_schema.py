@@ -22,7 +22,7 @@ class VerifierDashboardStats(BaseModel):
 class VerifierDashboardItem(BaseModel):
     id: UUID
     user_id: UUID
-    institute_name: Optional[str] = None
+    charity_name: Optional[str] = None
     status: VerifierRequestStatus
     documents_count: int = 0
     checklist_percent: int = 0
@@ -42,7 +42,7 @@ class VerifierRequestDetailResponse(BaseModel):
     user_id: UUID
     status: VerifierRequestStatus
 
-    institute_name: Optional[str] = None
+    charity_name: Optional[str] = None
     registration_number: Optional[str] = None
 
     phone: Optional[str] = None
