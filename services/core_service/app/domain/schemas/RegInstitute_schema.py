@@ -1,12 +1,22 @@
-from pydantic import BaseModel, EmailStr
+from datetime import date, datetime
 from typing import Optional
 from uuid import UUID
-from datetime import date, datetime
-from sqlalchemy.orm import Session
 
-from app.domain.models.RegInstitute_model import CharityVerificationStatus
 from pydantic import BaseModel, EmailStr, Field
 
+from app.domain.models.RegInstitute_model import CharityVerificationStatus
+
+
+class MediaFileLinkSchema(BaseModel):
+    file_id: Optional[int] = None
+    metadata_url: Optional[str] = None
+    download_url: Optional[str] = None
+
+
+class CharityVerificationDocumentsSchema(BaseModel):
+    articles_of_association: MediaFileLinkSchema
+    activity_license: MediaFileLinkSchema
+    national_card: MediaFileLinkSchema
 
 
 class CharityVerificationRequestCreateSchema(BaseModel):
@@ -28,9 +38,9 @@ class CharityVerificationRequestCreateSchema(BaseModel):
     shaba_number: str = Field(..., min_length=24, max_length=26)
     account_owner: str = Field(..., min_length=2, max_length=255)
 
-    articles_of_association_url: Optional[str] = None
-    activity_license_url: Optional[str] = None
-    national_card_url: Optional[str] = None
+    articles_of_association_file_id: Optional[int] = None
+    activity_license_file_id: Optional[int] = None
+    national_card_file_id: Optional[int] = None
 
 
 class CharityVerificationRequestResponseSchema(BaseModel):
@@ -55,9 +65,11 @@ class CharityVerificationRequestResponseSchema(BaseModel):
     shaba_number: str
     account_owner: str
 
-    articles_of_association_url: Optional[str] = None
-    activity_license_url: Optional[str] = None
-    national_card_url: Optional[str] = None
+    articles_of_association_file_id: Optional[int] = None
+    activity_license_file_id: Optional[int] = None
+    national_card_file_id: Optional[int] = None
+
+    documents: Optional[CharityVerificationDocumentsSchema] = None
 
     status: CharityVerificationStatus
     rejection_reason: Optional[str] = None
@@ -71,3 +83,6 @@ class CharityVerificationRequestResponseSchema(BaseModel):
         from_attributes = True
 
 
+class CharityVerificationCancelResponseSchema(BaseModel):
+    message: str
+    deleted_request_id: UUID

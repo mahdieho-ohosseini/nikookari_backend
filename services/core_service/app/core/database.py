@@ -1,10 +1,16 @@
 from typing import AsyncGenerator
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
-from sqlalchemy import text
-from loguru import logger
-from app.core.config import get_settings
-from app.core.base import EntityBase
+
 from fastapi import HTTPException
+from loguru import logger
+from sqlalchemy import text
+from sqlalchemy.ext.asyncio import (
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
+
+from app.core.base import EntityBase
+from app.core.config import get_settings
 
 
 config = get_settings()
@@ -20,7 +26,7 @@ DATABASE_URL = (
 engine = create_async_engine(
     DATABASE_URL,
     echo=config.DEBUG_MODE,
-    future=True
+    future=True,
 )
 
 async_session = async_sessionmaker(
@@ -28,18 +34,17 @@ async_session = async_sessionmaker(
     autoflush=False,
     autocommit=False,
     expire_on_commit=False,
-    class_=AsyncSession
+    class_=AsyncSession,
 )
-
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
     session = async_session()
+
     try:
         yield session
 
     except HTTPException:
-        # ✅ خطای بیزنسی، نه دیتابیس
         await session.rollback()
         raise
 
@@ -57,36 +62,59 @@ async def db_health_check() -> bool:
         async with engine.connect() as conn:
             await conn.execute(text("SELECT 1"))
         return True
+
     except Exception as ex:
         logger.error(f"[DB Health] Connection Error: {ex}")
         return False
 
-print("TABLES =", EntityBase.metadata.tables)
-# ⬇⬇⬇ THIS IS THE MISSING PIECE ⬇⬇⬇
+
+async def apply_lightweight_migrations() -> None:
+    """
+    مایگریشن سبک برای تغییرات کوچک دیتابیس در فاز فعلی پروژه.
+
+    دلیل وجود این تابع:
+    EntityBase.metadata.create_all فقط جدول‌های جدید را می‌سازد،
+    اما ستون جدید را به جدول‌های قبلی اضافه نمی‌کند.
+
+    پس اینجا ستون‌هایی که برای اتصال core_service به media_service لازم داریم
+    به شکل امن و idempotent اضافه می‌شوند.
+    یعنی اگر ستون از قبل وجود داشته باشد، خطا نمی‌دهد.
+    """
+
+    logger.info("Applying core_service lightweight migrations...")
+
+    migration_queries = [
+        """
+        ALTER TABLE charity_verification_requests
+        ADD COLUMN IF NOT EXISTS articles_of_association_file_id BIGINT;
+        """,
+        """
+        ALTER TABLE charity_verification_requests
+        ADD COLUMN IF NOT EXISTS activity_license_file_id BIGINT;
+        """,
+        """
+        ALTER TABLE charity_verification_requests
+        ADD COLUMN IF NOT EXISTS national_card_file_id BIGINT;
+        """,
+    ]
+
+    async with engine.begin() as conn:
+        for query in migration_queries:
+            await conn.execute(text(query))
+
+    logger.success("Core_service lightweight migrations applied successfully!")
+
+
+# مدل‌ها باید import شوند تا SQLAlchemy جدول‌ها را داخل metadata بشناسد
 import app.domain.models
 
-async def create_db_and_tables():
-    # This loads the model class so SQLAlchemy registers the table
 
-    print("Registered tables:", EntityBase.metadata.tables.keys())
+async def create_db_and_tables() -> None:
+    logger.info("Creating core_service database tables...")
 
-    logger.info("Creating database tables...")
     async with engine.begin() as conn:
         await conn.run_sync(EntityBase.metadata.create_all)
 
-    logger.success("All tables created successfully!")
+    logger.success("Core_service tables created successfully!")
 
-
-if __name__ == "__main__":
-    import asyncio
-    asyncio.run(create_db_and_tables())
-
-
-import asyncio
-
-async def main():
-    is_ok = await db_health_check()
-    print("✅ DB HEALTH =", is_ok)
-
-if __name__ == "__main__":
-    asyncio.run(main())
+    await apply_lightweight_migrations()

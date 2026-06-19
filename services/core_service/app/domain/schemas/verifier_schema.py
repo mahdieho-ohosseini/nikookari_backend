@@ -1,9 +1,9 @@
-from datetime import datetime
+from datetime import date, datetime
 from enum import Enum
 from typing import Optional
 from uuid import UUID
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
 
 
 class VerifierRequestStatus(str, Enum):
@@ -37,6 +37,18 @@ class VerifierDashboardResponse(BaseModel):
     items: list[VerifierDashboardItem]
 
 
+class VerifierMediaFileLinkSchema(BaseModel):
+    file_id: Optional[int] = None
+    metadata_url: Optional[str] = None
+    download_url: Optional[str] = None
+
+
+class VerifierDocumentsSchema(BaseModel):
+    articles_of_association: VerifierMediaFileLinkSchema
+    activity_license: VerifierMediaFileLinkSchema
+    national_card: VerifierMediaFileLinkSchema
+
+
 class VerifierRequestDetailResponse(BaseModel):
     id: UUID
     user_id: UUID
@@ -44,12 +56,30 @@ class VerifierRequestDetailResponse(BaseModel):
 
     charity_name: Optional[str] = None
     registration_number: Optional[str] = None
+    establishment_date: Optional[date] = None
+    activity_field: Optional[str] = None
+    short_description: Optional[str] = None
 
     phone: Optional[str] = None
-    address: Optional[str] = None
-    description: Optional[str] = None
+    email: Optional[EmailStr] = None
+    website: Optional[str] = None
+
+    province: Optional[str] = None
+    city: Optional[str] = None
+    full_address: Optional[str] = None
+
+    bank_name: Optional[str] = None
+    shaba_number: Optional[str] = None
+    account_owner: Optional[str] = None
+
+    articles_of_association_file_id: Optional[int] = None
+    activity_license_file_id: Optional[int] = None
+    national_card_file_id: Optional[int] = None
+
+    documents: Optional[VerifierDocumentsSchema] = None
 
     reviewed_by: Optional[UUID] = None
+    reviewed_at: Optional[datetime] = None
     rejection_reason: Optional[str] = None
 
     created_at: datetime
