@@ -17,6 +17,7 @@ class CharityProfileStatus(str, enum.Enum):
     active = "active"   #خیریه تایید شده
     pending_review = "pending_review"#در دست بررسی
     suspended = "suspended"#غیرفعال 
+    rejected = "rejected"
 
 
 

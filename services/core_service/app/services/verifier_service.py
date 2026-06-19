@@ -5,6 +5,7 @@ from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.repository.verifier_repository import VerifierRepository
+from app.services import charity_profile_service
 from app.services.notification_service import NotificationService
 
 
@@ -89,6 +90,10 @@ class VerifierService:
             ),
             type="charity_verification_approved",
         )
+        await charity_profile_service.create_from_verification_request(
+        db=db,
+        request_obj=request_obj,
+)
 
         return approved_request
 

@@ -6449,3 +6449,177 @@ AttributeError: 'dict' object has no attribute 'user_id'
 2026-06-17 12:14:09 | INFO | app.core.circuit_breaker:record_success:76 | Circuit breaker reset after success | service=email_service
 2026-06-17 12:14:09 | INFO | app.services1.auth_services.email_service:send_email:59 | Email sent successfully | to=mahdieh.hosseini1344444444444478@gmail.com
 2026-06-17 12:14:09 | WARNING | app.services1.user_service:create_verifier:300 | Verifier user 077733ca-1513-4c5f-8ead-2e2f738cab41 created by admin b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-18 09:58:19 | INFO | app.logging.logging_service:configure_logger:79 | Logger configured successfully.
+2026-06-18 09:58:19 | INFO | app.main:<module>:33 | Logger configured.
+2026-06-18 09:58:19 | INFO | app.main:<module>:57 | nikookari IAM Service v1.0.0 is starting up...
+2026-06-18 09:58:19 | INFO | app.main:<module>:78 | Global exception handlers registered.
+2026-06-18 09:58:19 | INFO | app.main:<module>:147 | CORS middleware configured with allow_origins: ['*']
+2026-06-18 09:58:19 | INFO | app.main:<module>:148 | Request logging middleware enabled.
+2026-06-18 09:58:19 | INFO | app.main:<module>:155 | Included auth_router with prefix /api/v1
+2026-06-18 09:58:19 | INFO | app.main:<module>:158 | Included password_reset_router with prefix /api/v1
+2026-06-18 09:58:19 | INFO | app.main:<module>:161 | Included profile_router with prefix /api/v1
+2026-06-18 09:58:19 | INFO | app.main:<module>:164 | Included admin_router with prefix /api/v1
+2026-06-18 09:58:19 | INFO | app.main:<module>:167 | Included health_router
+2026-06-18 09:58:19 | INFO | app.main:<module>:170 | Included monitoring_router
+2026-06-18 09:58:19 | SUCCESS | app.main:<module>:186 | 🚀 IAM Service has started successfully!
+2026-06-18 09:58:19 | INFO | app.core.database:create_db_and_tables:67 | Creating database tables...
+2026-06-18 09:58:19 | SUCCESS | app.core.database:create_db_and_tables:71 | All tables created successfully!
+2026-06-18 10:27:27 | INFO | app.core.redis:get_redis:22 | [Redis] Client initialized
+2026-06-18 10:27:29 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=1/5 | window=300s
+2026-06-18 10:27:29 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zrastgoo02@gmail.com
+2026-06-18 10:27:30 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-18 10:27:30 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 10:27:30 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 10:27:30 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 10:27:39 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=2/5 | window=300s
+2026-06-18 10:27:39 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zrastgoo02@gmail.com
+2026-06-18 10:27:39 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-18 10:27:39 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email zrastgoo02@gmail.com authenticated successfully
+2026-06-18 12:31:47 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | count=1/5 | window=300s
+2026-06-18 12:31:47 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:31:47 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:31:47 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:31:47 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:31:47 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 12:32:27 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | count=2/5 | window=300s
+2026-06-18 12:32:27 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:32:27 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:32:27 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:32:27 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:32:27 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 12:33:30 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | count=3/5 | window=300s
+2026-06-18 12:33:30 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:30 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:30 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:30 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:33:30 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 12:33:41 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | count=4/5 | window=300s
+2026-06-18 12:33:41 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:41 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:41 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:41 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:33:41 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 12:33:52 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | count=5/5 | window=300s
+2026-06-18 12:33:52 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:52 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:52 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:52 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:33:52 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 12:34:08 | WARNING | app.core.rate_limiter:check:24 | Rate limit exceeded | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | limit=5 | window=300s | ttl=159s
+2026-06-18 12:34:08 | ERROR | app.core.database:get_db:40 | DB error: 429: {'message': 'Too many login attempts. Please try again later.', 'limit': 5, 'retry_after_seconds': 159}
+2026-06-18 12:34:08 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=429 | detail={'message': 'Too many login attempts. Please try again later.', 'limit': 5, 'retry_after_seconds': 159}
+2026-06-18 12:34:56 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini382@gmail.com | count=1/5 | window=300s
+2026-06-18 12:34:56 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini382@gmail.com
+2026-06-18 12:34:56 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini382@gmail.com
+2026-06-18 12:34:56 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email mahdieh.hosseini382@gmail.com authenticated successfully
+2026-06-18 12:36:15 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-18 12:36:15 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-18 12:36:15 | ERROR | app.core.database:get_db:40 | DB error: 1 validation error:
+  {'type': 'value_error', 'loc': ('body', 'email'), 'msg': 'value is not a valid email address: The part after the @-sign is not valid. It should have a period.', 'input': 'zahrarastgoo2003@gmailcom', 'ctx': {'reason': 'The part after the @-sign is not valid. It should have a period.'}}
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 277, in create_verifier
+    POST /api/v1/admin/verifiers
+2026-06-18 12:36:15 | WARNING | app.core.exception_handlers:validation_exception_handler:31 | Validation error | path=/api/v1/admin/verifiers | method=POST | errors=[{'type': 'value_error', 'loc': ('body', 'email'), 'msg': 'value is not a valid email address: The part after the @-sign is not valid. It should have a period.', 'input': 'zahrarastgoo2003@gmailcom', 'ctx': {'reason': 'The part after the @-sign is not valid. It should have a period.'}}]
+2026-06-18 12:36:33 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-18 12:36:33 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-18 12:36:33 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for zahrarastgoo2003@gmail.com
+2026-06-18 12:36:33 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zahrarastgoo2003@gmail.com
+2026-06-18 12:36:33 | INFO | app.repositories.user_repository:create_user:25 | User 0bd0a095-9b34-4322-a13c-0922506abc79 created
+2026-06-18 12:36:39 | INFO | app.core.circuit_breaker:_reset:41 | Circuit breaker reset | service=email_service
+2026-06-18 12:36:39 | INFO | app.core.circuit_breaker:record_success:76 | Circuit breaker reset after success | service=email_service
+2026-06-18 12:36:39 | INFO | app.services1.auth_services.email_service:send_email:59 | Email sent successfully | to=zahrarastgoo2003@gmail.com
+2026-06-18 12:36:39 | WARNING | app.services1.user_service:create_verifier:300 | Verifier user 0bd0a095-9b34-4322-a13c-0922506abc79 created by admin b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-18 12:38:57 | INFO | app.services1.user_service:get_user:59 | Fetching user with id b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-18 12:38:57 | INFO | app.repositories.user_repository:get_by_id:35 | Fetching user b8415568-9282-4fbd-85c7-0e5c31127bea
+2026-06-18 12:38:57 | INFO | app.services1.user_service:create_verifier:244 | User b8415568-9282-4fbd-85c7-0e5c31127bea with role admin requested verifier creation for zahrarastgoo2003@gmail.com
+2026-06-18 12:38:57 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zahrarastgoo2003@gmail.com
+2026-06-18 12:38:57 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
+2026-06-18 12:38:57 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/admin/verifiers | method=POST | status_code=400 | detail=A user with this email already exists
+2026-06-18 12:41:15 | INFO | app.services1.user_service:update_password:83 | Updating password for user 0bd0a095-9b34-4322-a13c-0922506abc79
+2026-06-18 12:41:15 | INFO | app.services1.user_service:complete_verifier_onboarding:348 | Onboarding completed successfully for user 0bd0a095-9b34-4322-a13c-0922506abc79
+2026-06-18 12:43:13 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zahrarastgoo2003@gmail.com | count=1/5 | window=300s
+2026-06-18 12:43:13 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zahrarastgoo2003@gmail.com
+2026-06-18 12:43:13 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zahrarastgoo2003@gmail.com
+2026-06-18 12:43:13 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email zahrarastgoo2003@gmail.com authenticated successfully
+2026-06-18 14:22:46 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zahrarastgoo2003@gmail.com | count=1/5 | window=300s
+2026-06-18 14:22:46 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zahrarastgoo2003@gmail.com
+2026-06-18 14:22:46 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zahrarastgoo2003@gmail.com
+2026-06-18 14:22:46 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email zahrarastgoo2003@gmail.com authenticated successfully
+2026-06-18 17:46:48 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zahrarastgoo2003@gmail.com | count=1/5 | window=300s
+2026-06-18 17:46:48 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zahrarastgoo2003@gmail.com
+2026-06-18 17:46:48 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zahrarastgoo2003@gmail.com
+2026-06-18 17:46:49 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email zahrarastgoo2003@gmail.com authenticated successfully
+2026-06-18 17:48:03 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=1/5 | window=300s
+2026-06-18 17:48:03 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zrastgoo02@gmail.com
+2026-06-18 17:48:03 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-18 17:48:03 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:48:03 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 17:48:03 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 17:48:21 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=2/5 | window=300s
+2026-06-18 17:48:21 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zrastgoo02@gmail.com
+2026-06-18 17:48:21 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-18 17:48:21 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:48:21 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 17:48:21 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 17:49:16 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=3/5 | window=300s
+2026-06-18 17:49:16 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zrastgoo02@gmail.com
+2026-06-18 17:49:16 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-18 17:49:16 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:49:16 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 17:49:16 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 17:49:28 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=4/5 | window=300s
+2026-06-18 17:49:28 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zrastgoo02@gmail.com
+2026-06-18 17:49:28 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-18 17:49:28 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:49:28 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 17:49:28 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 17:49:35 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zrastgoo02@gmail.com | count=5/5 | window=300s
+2026-06-18 17:49:35 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zrastgoo02@gmail.com
+2026-06-18 17:49:35 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zrastgoo02@gmail.com
+2026-06-18 17:49:35 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:49:35 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 17:49:35 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 17:51:48 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:register:mahdieh.hosseini1378@gmail.com | count=1/5 | window=3600s
+2026-06-18 17:51:48 | INFO | app.api.auth_routes:register:69 | Starting registration for email: mahdieh.hosseini1378@gmail.com
+2026-06-18 17:51:48 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 17:51:51 | INFO | app.core.circuit_breaker:_reset:41 | Circuit breaker reset | service=email_service
+2026-06-18 17:51:51 | INFO | app.core.circuit_breaker:record_success:76 | Circuit breaker reset after success | service=email_service
+2026-06-18 17:51:51 | INFO | app.services1.auth_services.email_service:send_email:59 | Email sent successfully | to=mahdieh.hosseini1378@gmail.com
+2026-06-18 17:51:51 | INFO | app.services1.auth_services.otp_service:send_otp:45 | OTP email sent to mahdieh.hosseini1378@gmail.com
+2026-06-18 17:51:51 | INFO | app.services1.auth_services.signup_service:register_user:58 | Registration started for mahdieh.hosseini1378@gmail.com
+2026-06-18 17:52:52 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:verify_otp:mahdieh.hosseini1378@gmail.com | count=1/5 | window=900s
+2026-06-18 17:52:52 | INFO | app.api.auth_routes:verify_otp:96 | Verifying OTP for user with email: mahdieh.hosseini1378@gmail.com
+2026-06-18 17:52:52 | INFO | app.services1.user_service:create_user:39 | Creating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 17:52:52 | INFO | app.repositories.user_repository:create_user:25 | User 89b09faa-b12d-4dc8-8e2d-2c7227fb5a85 created
+2026-06-18 17:52:52 | SUCCESS | app.services1.auth_services.signup_service:verify_user:102 | User registered successfully: mahdieh.hosseini1378@gmail.com
+2026-06-18 17:53:48 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | count=1/5 | window=300s
+2026-06-18 17:53:48 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 17:53:48 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 17:53:48 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email mahdieh.hosseini1378@gmail.com authenticated successfully
+2026-06-18 17:56:35 | WARNING | app.core.exception_handlers:validation_exception_handler:31 | Validation error | path=/api/v1/auth/login | method=POST | errors=[{'type': 'json_invalid', 'loc': ('body', 42), 'msg': 'JSON decode error', 'input': {}, 'ctx': {'error': "Expecting ',' delimiter"}}]
+2026-06-18 17:56:52 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zahrarastgoo2003@gmail.com | count=1/5 | window=300s
+2026-06-18 17:56:52 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zahrarastgoo2003@gmail.com
+2026-06-18 17:56:52 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zahrarastgoo2003@gmail.com
+2026-06-18 17:56:52 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email zahrarastgoo2003@gmail.com authenticated successfully
+2026-06-18 19:31:30 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | count=1/5 | window=300s
+2026-06-18 19:31:30 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 19:31:30 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 19:31:30 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 19:31:30 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 19:31:30 | WARNING | app.core.exception_handlers:http_exception_handler:12 | HTTP error | path=/api/v1/auth/login | method=POST | status_code=401 | detail=Incorrect email or password
+2026-06-18 19:31:41 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | count=2/5 | window=300s
+2026-06-18 19:31:41 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 19:31:41 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 19:31:41 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email mahdieh.hosseini1378@gmail.com authenticated successfully
+2026-06-18 19:51:30 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:zahrarastgoo2003@gmail.com | count=1/5 | window=300s
+2026-06-18 19:51:30 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email zahrarastgoo2003@gmail.com
+2026-06-18 19:51:30 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email zahrarastgoo2003@gmail.com
+2026-06-18 19:51:30 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email zahrarastgoo2003@gmail.com authenticated successfully
+2026-06-18 19:53:44 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini382@gmail.com | count=1/5 | window=300s
+2026-06-18 19:53:44 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini382@gmail.com
+2026-06-18 19:53:44 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini382@gmail.com
+2026-06-18 19:53:44 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email mahdieh.hosseini382@gmail.com authenticated successfully
+2026-06-18 19:54:50 | INFO | app.core.rate_limiter:check:38 | Rate limit check passed | key=rate_limit:login:mahdieh.hosseini1378@gmail.com | count=1/5 | window=300s
+2026-06-18 19:54:50 | INFO | app.services1.user_service:get_user_by_email:63 | Fetching user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 19:54:50 | INFO | app.services1.auth_services.login_service:authenticate_user:34 | Authenticating user with email mahdieh.hosseini1378@gmail.com
+2026-06-18 19:54:50 | INFO | app.services1.auth_services.login_service:authenticate_user:135 | User with email mahdieh.hosseini1378@gmail.com authenticated successfully

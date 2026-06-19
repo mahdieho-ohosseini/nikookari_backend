@@ -14,6 +14,8 @@ from app.logging.logging_service import configure_logger
 from app.services.jwt_middleware import jwt_middleware
 from app.api.RegInstitute_routes import router as RegInstitute
 from app.api.verifier_router import router as verifier_router
+from app.api.charity_profile_router import router as charity_profile_router
+
 
 # ============================================
 # 1. Logger
@@ -114,6 +116,7 @@ logger.info("✅ OpenAPI configured")
 app.include_router(RegInstitute, prefix="/api/v1")
 app.include_router(verifier_router, prefix="/api/v1")
 app.include_router(notification_router, prefix="/api/v1")
+app.include_router(charity_profile_router, prefix="/api/v1")
 
 
 # ============================================

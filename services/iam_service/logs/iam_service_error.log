@@ -3850,3 +3850,34 @@ AttributeError: 'dict' object has no attribute 'user_id'
 2026-06-17 11:24:04 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
 2026-06-17 12:09:54 | ERROR | app.core.database:get_db:40 | DB error: 400: 'str' object has no attribute 'decode'
 2026-06-17 12:13:09 | ERROR | app.core.database:get_db:40 | DB error: 400: 'str' object has no attribute 'decode'
+2026-06-18 10:27:30 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 10:27:30 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:31:47 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:31:47 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:32:27 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:32:27 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:33:30 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:30 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:33:41 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:41 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:33:52 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 12:33:52 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 12:34:08 | ERROR | app.core.database:get_db:40 | DB error: 429: {'message': 'Too many login attempts. Please try again later.', 'limit': 5, 'retry_after_seconds': 159}
+2026-06-18 12:36:15 | ERROR | app.core.database:get_db:40 | DB error: 1 validation error:
+  {'type': 'value_error', 'loc': ('body', 'email'), 'msg': 'value is not a valid email address: The part after the @-sign is not valid. It should have a period.', 'input': 'zahrarastgoo2003@gmailcom', 'ctx': {'reason': 'The part after the @-sign is not valid. It should have a period.'}}
+
+  File "C:\Users\Asus\Desktop\nikoooookari\services\iam_service\app\api\admin_routes.py", line 277, in create_verifier
+    POST /api/v1/admin/verifiers
+2026-06-18 12:38:57 | ERROR | app.core.database:get_db:40 | DB error: 400: A user with this email already exists
+2026-06-18 17:48:03 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:48:03 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 17:48:21 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:48:21 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 17:49:16 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:49:16 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 17:49:28 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:49:28 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 17:49:35 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email zrastgoo02@gmail.com
+2026-06-18 17:49:35 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
+2026-06-18 19:31:30 | ERROR | app.services1.auth_services.login_service:authenticate_user:92 | Invalid password for user email mahdieh.hosseini1378@gmail.com
+2026-06-18 19:31:30 | ERROR | app.core.database:get_db:40 | DB error: 401: Incorrect email or password
