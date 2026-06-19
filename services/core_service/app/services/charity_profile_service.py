@@ -9,13 +9,21 @@ from app.domain.models.RegInstitute_model import (
     CharityProfileStatus,
     CharityVerificationRequest,
 )
-from app.repository.charity_profile_repository import CharityProfileRepository
 from app.domain.schemas.charity_profile_schema import CharityProfileUpdate
+from app.repository.charity_profile_repository import CharityProfileRepository
+from app.services.notification_service import NotificationService
 
 
 class CharityProfileService:
     def __init__(self):
         self.repository = CharityProfileRepository()
+        self.notification_service = NotificationService()
+    async def get_profiles_for_review(
+       self,
+       db: AsyncSession,
+) ->   list[CharityProfile]:
+       return await self.repository.get_pending_profiles(db=db)
+
 
     async def get_my_profile(
         self,
@@ -161,6 +169,14 @@ class CharityProfileService:
             status=CharityProfileStatus.pending_review,
         )
 
+        await self.notification_service.create_notification(
+            db=db,
+            user_id=user_id,
+            title="پروفایل برای بررسی ارسال شد",
+            message="پروفایل خیریه شما با موفقیت برای بررسی ارسال شد.",
+            type="charity_profile_submitted",
+        )
+
         await db.commit()
         await db.refresh(submitted_profile)
 
@@ -224,3 +240,91 @@ class CharityProfileService:
             return "charity"
 
         return text
+
+    async def approve_profile(
+        self,
+        db: AsyncSession,
+        profile_id: UUID,
+    ) -> CharityProfile:
+        profile = await self.repository.get_by_id(db=db, profile_id=profile_id)
+
+        if not profile:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Charity profile not found",
+            )
+
+        if profile.status != CharityProfileStatus.pending_review:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Only pending review profiles can be approved",
+            )
+
+        await self.repository.update_status(
+            db=db,
+            profile_id=profile_id,
+            status=CharityProfileStatus.active,
+        )
+
+        profile = await self.repository.update_is_published(
+            db=db,
+            profile_id=profile_id,
+            is_published=True,
+        )
+
+        await self.notification_service.create_notification(
+            db=db,
+            user_id=profile.user_id,
+            title="پروفایل خیریه تایید شد",
+            message="پروفایل خیریه شما تایید شد و اکنون منتشر شده است.",
+            type="charity_profile_approved",
+        )
+
+        await db.commit()
+        await db.refresh(profile)
+
+        return profile
+
+    async def reject_profile(
+        self,
+        db: AsyncSession,
+        profile_id: UUID,
+    ) -> CharityProfile:
+        profile = await self.repository.get_by_id(db=db, profile_id=profile_id)
+
+        if not profile:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Charity profile not found",
+            )
+
+        if profile.status != CharityProfileStatus.pending_review:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Only pending review profiles can be rejected",
+            )
+
+        await self.repository.update_status(
+            db=db,
+            profile_id=profile_id,
+            status=CharityProfileStatus.rejected,
+        )
+
+        profile = await self.repository.update_is_published(
+            db=db,
+            profile_id=profile_id,
+            is_published=False,
+        )
+
+        await self.notification_service.create_notification(
+            db=db,
+            user_id=profile.user_id,
+            title="پروفایل خیریه رد شد",
+            message="پروفایل خیریه شما رد شد. لطفاً اطلاعات را بررسی و دوباره ارسال کنید.",
+            type="charity_profile_rejected",
+        )
+
+        await db.commit()
+        await db.refresh(profile)
+
+        return profile

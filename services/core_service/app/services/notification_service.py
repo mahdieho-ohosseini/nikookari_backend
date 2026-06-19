@@ -1,5 +1,5 @@
-
 from uuid import UUID
+
 from fastapi import HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -11,6 +11,23 @@ class NotificationService:
     def __init__(self):
         self.repository = NotificationRepository()
 
+    async def create_notification(
+        self,
+        db: AsyncSession,
+        *,
+        user_id: UUID,
+        title: str,
+        message: str,
+        type: str,
+    ):
+        return await self.repository.create(
+            db=db,
+            user_id=user_id,
+            title=title,
+            message=message,
+            type=type,
+        )
+
     async def create(
         self,
         db: AsyncSession,
@@ -19,20 +36,19 @@ class NotificationService:
         title: str,
         message: str,
         type: str,
-        ):
-        notification = await self.repository.create(
+    ):
+        notification = await self.create_notification(
             db=db,
             user_id=user_id,
             title=title,
             message=message,
             type=type,
         )
-    
+
         await db.commit()
         await db.refresh(notification)
-    
-        return notification
 
+        return notification
 
     async def get_my_notifications(
         self,
@@ -68,6 +84,7 @@ class NotificationService:
             )
 
         await db.commit()
+
         return notification
 
     async def mark_all_as_read(

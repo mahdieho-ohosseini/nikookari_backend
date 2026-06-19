@@ -117,7 +117,7 @@ class VerifierService:
             ),
             type="charity_verification_approved",
         )
-        await charity_profile_service.create_from_verification_request(
+        await self.charity_profile_service.create_from_verification_request(
         db=db,
         request_obj=request_obj,)
 
@@ -266,3 +266,4 @@ class VerifierService:
             "created_at": request_obj.created_at,
             "updated_at": request_obj.updated_at,
         }
+    

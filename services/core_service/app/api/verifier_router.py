@@ -13,8 +13,8 @@ from app.domain.schemas.verifier_schema import (
     VerifierRequestStatus,
     VerifierReviewResponse,
 )
-from app.services import verifier_service
 from app.services.verifier_service import VerifierService
+from app.services.charity_profile_service import CharityProfileService
 
 
 router = APIRouter(
@@ -23,6 +23,7 @@ router = APIRouter(
 )
 
 service = VerifierService()
+charity_profile_service = CharityProfileService()
 
 
 @router.get(
@@ -101,3 +102,55 @@ async def reject_verification_request(
         verifier_id=verifier_id,
         reason=payload.reason,
     )
+
+
+@router.get(
+    "/charity-profiles/pending",
+    dependencies=[Depends(require_roles("verifier", "admin"))],
+)
+async def get_pending_charity_profiles(
+    db: AsyncSession = Depends(get_db),
+):
+    return await charity_profile_service.get_profiles_for_review(db=db)
+
+
+@router.post(
+    "/charity-profiles/{profile_id}/approve",
+    dependencies=[Depends(require_roles("verifier", "admin"))],
+)
+async def approve_charity_profile(
+    profile_id: UUID,
+    db: AsyncSession = Depends(get_db),
+):
+    profile = await charity_profile_service.approve_profile(
+        db=db,
+        profile_id=profile_id,
+    )
+
+    return {
+        "id": profile.id,
+        "status": profile.status,
+        "is_published": profile.is_published,
+        "message": "Charity profile approved successfully",
+    }
+
+
+@router.post(
+    "/charity-profiles/{profile_id}/reject",
+    dependencies=[Depends(require_roles("verifier", "admin"))],
+)
+async def reject_charity_profile(
+    profile_id: UUID,
+    db: AsyncSession = Depends(get_db),
+):
+    profile = await charity_profile_service.reject_profile(
+        db=db,
+        profile_id=profile_id,
+    )
+
+    return {
+        "id": profile.id,
+        "status": profile.status,
+        "is_published": profile.is_published,
+        "message": "Charity profile rejected successfully",
+    }

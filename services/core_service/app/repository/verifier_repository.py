@@ -171,3 +171,5 @@ class VerifierRepository:
         await db.commit()
         await db.refresh(request_obj)
         return request_obj
+    
+    

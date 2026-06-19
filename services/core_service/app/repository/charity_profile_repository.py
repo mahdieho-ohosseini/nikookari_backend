@@ -66,6 +66,17 @@ class CharityProfileRepository:
         )
         return result.scalar_one_or_none()
 
+    async def get_pending_profiles(
+        self,
+        db: AsyncSession,
+    ) -> list[CharityProfile]:
+        result = await db.execute(
+            select(CharityProfile).where(
+                CharityProfile.status == CharityProfileStatus.pending_review
+            )
+        )
+        return list(result.scalars().all())
+
     async def create(
         self,
         db: AsyncSession,
@@ -97,8 +108,45 @@ class CharityProfileRepository:
     ) -> CharityProfile:
         profile.status = status
 
-        if status == CharityProfileStatus.active:
-            profile.is_published = True
+        await db.flush()
+        await db.refresh(profile)
+        return profile
+
+    async def update_status(
+        self,
+        db: AsyncSession,
+        profile_id: UUID,
+        status: CharityProfileStatus,
+    ) -> Optional[CharityProfile]:
+        profile = await self.get_by_id(
+            db=db,
+            profile_id=profile_id,
+        )
+
+        if not profile:
+            return None
+
+        profile.status = status
+
+        await db.flush()
+        await db.refresh(profile)
+        return profile
+
+    async def update_is_published(
+        self,
+        db: AsyncSession,
+        profile_id: UUID,
+        is_published: bool,
+    ) -> Optional[CharityProfile]:
+        profile = await self.get_by_id(
+            db=db,
+            profile_id=profile_id,
+        )
+
+        if not profile:
+            return None
+
+        profile.is_published = is_published
 
         await db.flush()
         await db.refresh(profile)
