@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.config import get_settings
 from app.domain.models.RegInstitute_model import CharityVerificationStatus
 from app.repository.verifier_repository import VerifierRepository
-from app.services import charity_profile_service
+from app.services.charity_profile_service import CharityProfileService
 from app.services.notification_service import NotificationService
 
 
@@ -18,6 +18,7 @@ class VerifierService:
     def __init__(self) -> None:
         self.repository = VerifierRepository()
         self.notification_service = NotificationService()
+        self.charity_profile_service = CharityProfileService()
 
     async def get_dashboard_data(
         self,
@@ -102,6 +103,9 @@ class VerifierService:
             request_obj=request_obj,
             verifier_id=verifier_id,
         )
+        await self.charity_profile_service.create_from_verification_request(
+        db=db,
+        request_obj=request_obj,)
 
         await self.notification_service.create(
             db=db,
@@ -115,8 +119,7 @@ class VerifierService:
         )
         await charity_profile_service.create_from_verification_request(
         db=db,
-        request_obj=request_obj,
-)
+        request_obj=request_obj,)
 
         return approved_request
 
