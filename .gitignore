@@ -1,17 +1,101 @@
+# =========================
 # Python
+# =========================
 __pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# =========================
+# Virtual Environments
+# =========================
 venv/
+.venv/
+env/
+ENV/
+
+venv_iam/
+venv_core/
+venv_media/
+
+services/iam_service/venv/
+services/iam_service/venv_iam/
+services/core_service/venv/
+services/core_service/venv_core/
+services/media_service/venv/
+services/media_service/venv_media/
+
+# =========================
+# Environment / Secrets
+# =========================
 .env
+*.env
+.env.*
+!.env.example
+
+services/iam_service/.env
+services/core_service/.env
+services/media_service/.env
+
+# =========================
+# Logs
+# =========================
 *.log
+logs/
+**/logs/
+C:/nginx/logs/
+
+# =========================
 # Databases
+# =========================
 *.sqlite3
 *.db
+*.db-journal
 
-# IDEs
+# =========================
+# IDEs / Editors
+# =========================
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# Uploaded files (مدارک مؤسسات نباید برن رو گیت)
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# Uploaded files
+# فایل‌های کاربران و مدارک نباید برن روی گیت
+# =========================
 static/uploads/
+**/static/uploads/
+
+services/core_service/static/uploads/
+services/core_service/static/uploads/docs/
+
+services/media_service/static/uploads/
+
+# =========================
+# Build / Cache
+# =========================
+dist/
+build/
+*.egg-info/
+pip-wheel-metadata/
+
+# =========================
+# Nginx local files
+# =========================
+*.pid
+nginx.pid

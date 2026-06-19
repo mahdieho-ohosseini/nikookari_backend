@@ -1,7 +1,7 @@
 from typing import Optional
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.domain.models.RegInstitute_model import (
@@ -27,12 +27,30 @@ class CharityVerificationRepository:
         )
         result = await self.db.execute(stmt)
         return result.scalar_one_or_none()
-    
-    #(جدیدترین درخواست)گرفتن آخرین درخواست ارسال شده توسط یک کاربر
-    async def get_latest_by_user_id(self, user_id: UUID) -> Optional[CharityVerificationRequest]:
+
+    async def get_latest_by_user_id(
+        self,
+        user_id: UUID,
+    ) -> Optional[CharityVerificationRequest]:
         stmt = (
             select(CharityVerificationRequest)
             .where(CharityVerificationRequest.user_id == user_id)
+            .order_by(CharityVerificationRequest.created_at.desc())
+            .limit(1)
+        )
+        result = await self.db.execute(stmt)
+        return result.scalar_one_or_none()
+
+    async def get_open_request_by_user_id(
+        self,
+        user_id: UUID,
+    ) -> Optional[CharityVerificationRequest]:
+        stmt = (
+            select(CharityVerificationRequest)
+            .where(
+                CharityVerificationRequest.user_id == user_id,
+                CharityVerificationRequest.status == CharityVerificationStatus.PENDING,
+            )
             .order_by(CharityVerificationRequest.created_at.desc())
             .limit(1)
         )
@@ -54,4 +72,11 @@ class CharityVerificationRepository:
         )
         result = await self.db.execute(stmt)
         return result.scalar_one_or_none() is not None
-   
+
+    async def delete_by_id(self, request_id: UUID) -> None:
+        stmt = delete(CharityVerificationRequest).where(
+            CharityVerificationRequest.id == request_id
+        )
+
+        await self.db.execute(stmt)
+        await self.db.commit()
