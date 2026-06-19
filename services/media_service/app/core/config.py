@@ -9,6 +9,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 class Settings(BaseSettings):
+    # Database
     DATABASE_DIALECT: str
     DATABASE_HOSTNAME: str
     DATABASE_NAME: str
@@ -16,18 +17,20 @@ class Settings(BaseSettings):
     DATABASE_PORT: int
     DATABASE_USERNAME: str
 
-    PROJECT_NAME: str = "Nikookari Core Service"
+    # Project
+    PROJECT_NAME: str = "Nikookari Media Service"
     PROJECT_VERSION: str = "1.0.0"
 
+    # Auth - must match IAM/Core JWT settings
     JWT_SECRET_KEY: str
-    JWT_ALGORITHM: str
+    JWT_ALGORITHM: str = "HS256"
 
-    IAM_URL: str
+    # Storage
+    STORAGE_BACKEND: str = "local"
+    UPLOAD_DIR: str = "static/uploads"
 
-    # آدرس media_service برای ساخت لینک فایل‌ها
-    MEDIA_SERVICE_URL: str = "http://127.0.0.1:8003"
-
-    DEBUG_MODE: bool
+    # Global
+    DEBUG_MODE: bool = True
 
     model_config = SettingsConfigDict(
         env_file=str(PROJECT_ROOT / ".env"),
@@ -37,5 +40,5 @@ class Settings(BaseSettings):
 
 @lru_cache
 @logger.catch
-def get_settings():
+def get_settings() -> Settings:
     return Settings()
