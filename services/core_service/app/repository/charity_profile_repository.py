@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
@@ -147,7 +148,64 @@ class CharityProfileRepository:
             return None
 
         profile.is_published = is_published
+        profile.published_at = datetime.now(timezone.utc) if is_published else None
 
         await db.flush()
         await db.refresh(profile)
         return profile
+    
+    #لینک عمومی
+    async def get_public_by_slug(
+        self,
+        db: AsyncSession,
+        slug: str,
+    ) -> Optional[CharityProfile]:
+        result = await db.execute(
+            select(CharityProfile).where(
+                CharityProfile.slug == slug,
+                CharityProfile.status == CharityProfileStatus.active,
+                CharityProfile.is_published.is_(True),
+            )
+        )
+        return result.scalar_one_or_none()
+
+    async def list_public_profiles(
+        self,
+        db: AsyncSession,
+        search: Optional[str] = None,
+        province: Optional[str] = None,
+        city: Optional[str] = None,
+        activity_field: Optional[str] = None,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> list[CharityProfile]:
+        stmt = select(CharityProfile).where(
+            CharityProfile.status == CharityProfileStatus.active,
+            CharityProfile.is_published.is_(True),
+        )
+
+        if search:
+            pattern = f"%{search.strip()}%"
+            stmt = stmt.where(
+                or_(
+                    CharityProfile.charity_name.ilike(pattern),
+                    CharityProfile.short_description.ilike(pattern),
+                    CharityProfile.about_text.ilike(pattern),
+                )
+            )
+
+        if province:
+            stmt = stmt.where(CharityProfile.province == province)
+
+        if city:
+            stmt = stmt.where(CharityProfile.city == city)
+
+        if activity_field:
+            stmt = stmt.where(CharityProfile.activity_field == activity_field)
+
+        stmt = stmt.order_by(CharityProfile.published_at.desc().nullslast())
+        stmt = stmt.offset(offset).limit(limit)
+
+        result = await db.execute(stmt)
+        return list(result.scalars().all())
+

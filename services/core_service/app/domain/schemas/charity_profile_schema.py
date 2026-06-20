@@ -89,3 +89,50 @@ class CharityProfileSubmitResponse(BaseModel):
     id: UUID
     status: CharityProfileStatus
     message: str
+
+#----------------------------------
+#لینک عمومی  
+#----------------------------------
+class PublicCharityProfileListItem(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: UUID
+    charity_name: str
+    slug: str
+    activity_field: Optional[str] = None
+    province: Optional[str] = None
+    city: Optional[str] = None
+    logo_file_id: Optional[int] = None
+    cover_file_id: Optional[int] = None
+    short_description: Optional[str] = None
+    published_at: Optional[datetime] = None
+
+
+class PublicCharityProfileDetail(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: UUID
+    charity_name: str
+    slug: str
+
+    registration_number: str
+    establishment_date: Optional[date] = None
+    activity_field: Optional[str] = None
+
+    phone: str
+    email: str
+    website: Optional[str] = None
+
+    province: Optional[str] = None
+    city: Optional[str] = None
+    full_address: Optional[str] = None
+
+    logo_file_id: Optional[int] = None
+    cover_file_id: Optional[int] = None
+
+    short_description: Optional[str] = None
+    about_text: Optional[str] = None
+    vision_text: Optional[str] = None
+
+    social_links: Optional[Dict[str, Any]] = None
+    published_at: Optional[datetime] = None

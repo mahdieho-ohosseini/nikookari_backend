@@ -8,6 +8,8 @@ from app.core.config import get_settings
 
 
 PUBLIC_ROUTES = (
+    "/",
+    "/openapi.json",
     "/auth/login",
     "/auth/register",
     "/auth/verify-otp",
@@ -16,6 +18,8 @@ PUBLIC_ROUTES = (
     "/api/v1/auth/register",
     "/api/v1/auth/verify-otp",
     "/api/v1/auth/refresh",
+    "/api/v1/charities",
+    "/charities",
     "/docs",
     "/openapi.json",
     "/redoc",
@@ -23,7 +27,10 @@ PUBLIC_ROUTES = (
 
 
 def is_public_route(path: str) -> bool:
-    return any(path == route or path.startswith(f"{route}/") for route in PUBLIC_ROUTES)
+    return any(
+        path == route or path.startswith(f"{route}/")
+        for route in PUBLIC_ROUTES
+    )
 
 
 async def jwt_middleware(request: Request, call_next):
