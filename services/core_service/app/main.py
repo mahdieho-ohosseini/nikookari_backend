@@ -11,6 +11,8 @@ from app.api.charity_profile_router import router as charity_profile_router
 from app.api.notification_router import router as notification_router
 from app.api.public_charity_router import router as public_charity_router
 from app.api.verifier_router import router as verifier_router
+from app.api.campaign_router import router as campaign_router
+
 from app.core.config import get_settings
 from app.core.database import create_db_and_tables
 from app.logging.logging_service import configure_logger
@@ -92,6 +94,7 @@ app.include_router(verifier_router, prefix="/api/v1")
 app.include_router(notification_router, prefix="/api/v1")
 app.include_router(charity_profile_router, prefix="/api/v1")
 app.include_router(public_charity_router, prefix="/api/v1")
+app.include_router(campaign_router, prefix="/api/v1")
 
 
 # ============================================

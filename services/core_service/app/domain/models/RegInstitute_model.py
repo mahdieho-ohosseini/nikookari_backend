@@ -166,3 +166,4 @@ class CharityProfile(EntityBase):
         "CharityVerificationRequest",
         back_populates="profile",
     )
+    campaigns = relationship("Campaign", back_populates="charity")

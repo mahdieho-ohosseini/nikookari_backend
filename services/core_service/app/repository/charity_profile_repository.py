@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional
 from uuid import UUID
 
-from sqlalchemy import select
+from sqlalchemy import or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.domain.models.RegInstitute_model import CharityProfile, CharityProfileStatus
@@ -42,6 +42,8 @@ class CharityProfileRepository:
             select(CharityProfile)
             .where(CharityProfile.user_id == user_id)
             .order_by(CharityProfile.created_at.desc())
+            .limit(1)
+
         )
         return result.scalar_one_or_none()
 
@@ -209,3 +211,7 @@ class CharityProfileRepository:
         result = await db.execute(stmt)
         return list(result.scalars().all())
 
+
+
+
+charity_profile_repository = CharityProfileRepository()
