@@ -1,11 +1,14 @@
 from typing import Optional
 from uuid import UUID
+import uuid
 
 from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.api.campaign_router import _extract_user_id
 from app.core.database import get_db
-from app.core.dependencies import require_roles
+from app.core.dependencies import get_current_user, require_roles
+from app.domain.schemas.campaign_schema import CampaignResponse
 from app.domain.schemas.verifier_schema import (
     VerifierDashboardResponse,
     VerifierRejectRequest,
@@ -13,14 +16,12 @@ from app.domain.schemas.verifier_schema import (
     VerifierRequestStatus,
     VerifierReviewResponse,
 )
-from app.services.verifier_service import VerifierService
+from app.services.campaign_service import campaign_service
 from app.services.charity_profile_service import CharityProfileService
+from app.services.verifier_service import VerifierService
 
 
-router = APIRouter(
-    prefix="/verifier",
-    tags=["Verifier"],
-)
+router = APIRouter(prefix="/verifier")
 
 service = VerifierService()
 charity_profile_service = CharityProfileService()
@@ -29,6 +30,7 @@ charity_profile_service = CharityProfileService()
 @router.get(
     "/dashboard",
     response_model=VerifierDashboardResponse,
+    tags=["Verifier"],
     dependencies=[Depends(require_roles("verifier", "admin"))],
 )
 async def get_verifier_dashboard(
@@ -52,6 +54,7 @@ async def get_verifier_dashboard(
 @router.get(
     "/requests/{request_id}",
     response_model=VerifierRequestDetailResponse,
+    tags=["Verifier"],
     dependencies=[Depends(require_roles("verifier", "admin"))],
 )
 async def get_verifier_request_detail(
@@ -67,6 +70,7 @@ async def get_verifier_request_detail(
 @router.post(
     "/requests/{request_id}/approve",
     response_model=VerifierReviewResponse,
+    tags=["Verification Requests"],
     dependencies=[Depends(require_roles("verifier", "admin"))],
 )
 async def approve_verification_request(
@@ -86,6 +90,7 @@ async def approve_verification_request(
 @router.post(
     "/requests/{request_id}/reject",
     response_model=VerifierReviewResponse,
+    tags=["Verification Requests"],
     dependencies=[Depends(require_roles("verifier", "admin"))],
 )
 async def reject_verification_request(
@@ -106,6 +111,7 @@ async def reject_verification_request(
 
 @router.get(
     "/charity-profiles/pending",
+    tags=["Charity Profile Management"],
     dependencies=[Depends(require_roles("verifier", "admin"))],
 )
 async def get_pending_charity_profiles(
@@ -116,6 +122,7 @@ async def get_pending_charity_profiles(
 
 @router.post(
     "/charity-profiles/{profile_id}/approve",
+    tags=["Charity Profile Management"],
     dependencies=[Depends(require_roles("verifier", "admin"))],
 )
 async def approve_charity_profile(
@@ -137,6 +144,7 @@ async def approve_charity_profile(
 
 @router.post(
     "/charity-profiles/{profile_id}/reject",
+    tags=["Charity Profile Management"],
     dependencies=[Depends(require_roles("verifier", "admin"))],
 )
 async def reject_charity_profile(
@@ -154,3 +162,63 @@ async def reject_charity_profile(
         "is_published": profile.is_published,
         "message": "Charity profile rejected successfully",
     }
+
+
+@router.patch(
+    "/{campaign_id}/approve",
+    response_model=CampaignResponse,
+    tags=["Campaign Management"],
+    dependencies=[Depends(require_roles("admin", "verifier"))],
+)
+async def approve_campaign(
+    campaign_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    actor_id = _extract_user_id(current_user)
+    return await campaign_service.approve_campaign(db, campaign_id, actor_id)
+
+
+@router.patch(
+    "/{campaign_id}/reject",
+    response_model=CampaignResponse,
+    tags=["Campaign Management"],
+    dependencies=[Depends(require_roles("admin", "verifier"))],
+)
+async def reject_campaign(
+    campaign_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    actor_id = _extract_user_id(current_user)
+    return await campaign_service.reject_campaign(db, campaign_id, actor_id)
+
+
+@router.patch(
+    "/{campaign_id}/suspend",
+    response_model=CampaignResponse,
+    tags=["Campaign Management"],
+    dependencies=[Depends(require_roles("admin", "verifier"))],
+)
+async def suspend_campaign(
+    campaign_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    actor_id = _extract_user_id(current_user)
+    return await campaign_service.suspend_campaign(db, campaign_id, actor_id)
+
+
+@router.patch(
+    "/{campaign_id}/resume",
+    response_model=CampaignResponse,
+    tags=["Campaign Management"],
+    dependencies=[Depends(require_roles("admin", "verifier"))],
+)
+async def resume_campaign(
+    campaign_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    actor_id = _extract_user_id(current_user)
+    return await campaign_service.resume_campaign(db, campaign_id, actor_id)

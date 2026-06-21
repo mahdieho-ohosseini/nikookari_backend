@@ -24,6 +24,19 @@ def now_naive_utc() -> datetime:
     return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
+def normalize_text(value: str | None) -> str:
+    """
+    Normalizes text for duplicate comparison:
+    - strips leading/trailing spaces
+    - lowercases
+    - collapses multiple spaces into one
+    """
+    if not value:
+        return ""
+
+    return " ".join(value.strip().lower().split())
+
+
 def to_naive_utc(value: datetime | None) -> datetime | None:
     """
     Converts timezone-aware datetime to naive UTC datetime.
@@ -39,6 +52,41 @@ def to_naive_utc(value: datetime | None) -> datetime | None:
 
 
 class CampaignService:
+    async def _find_similar_campaign(
+        self,
+        db: AsyncSession,
+        charity_id: UUID,
+        data: CampaignCreate,
+    ) -> Campaign | None:
+        campaigns = await campaign_repository.get_campaigns(
+            db,
+            skip=0,
+            limit=1000,
+            charity_id=charity_id,
+        )
+
+        new_title = normalize_text(data.title)
+        new_description = normalize_text(data.description)
+        new_short_description = normalize_text(data.short_description)
+        new_category = normalize_text(data.category)
+
+        new_start_date = to_naive_utc(data.start_date)
+        new_end_date = to_naive_utc(data.end_date)
+
+        for campaign in campaigns:
+            if (
+                normalize_text(campaign.title) == new_title
+                and normalize_text(campaign.description) == new_description
+                and normalize_text(campaign.short_description) == new_short_description
+                and normalize_text(campaign.category) == new_category
+                and campaign.target_amount == data.target_amount
+                and campaign.start_date == new_start_date
+                and campaign.end_date == new_end_date
+            ):
+                return campaign
+
+        return None
+
     async def create_campaign(
         self,
         db: AsyncSession,
@@ -75,6 +123,18 @@ class CampaignService:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="end_date cannot be earlier than start_date",
+            )
+
+        existing_campaign = await self._find_similar_campaign(
+            db=db,
+            charity_id=charity_profile.id,
+            data=data,
+        )
+
+        if existing_campaign is not None:
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail="A similar campaign has already been created.",
             )
 
         campaign = Campaign(
@@ -245,57 +305,6 @@ class CampaignService:
         await campaign_repository.delete_campaign(db, campaign)
         await db.commit()
 
-    async def submit_campaign(
-        self,
-        db: AsyncSession,
-        campaign_id: UUID,
-        actor_id: UUID,
-    ) -> Campaign:
-        campaign = await campaign_repository.get_campaign_by_id(
-            db,
-            campaign_id,
-        )
-
-        if campaign is None:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Campaign not found",
-            )
-
-        if not await self._is_owner(
-            db=db,
-            charity_id=campaign.charity_id,
-            user_id=actor_id,
-        ):
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="Access denied",
-            )
-
-        if campaign.status != CampaignStatus.DRAFT:
-            raise HTTPException(
-                status_code=status.HTTP_400_BAD_REQUEST,
-                detail="Campaign can only be submitted when status is DRAFT",
-            )
-
-        campaign.status = CampaignStatus.PENDING_REVIEW
-        campaign.reviewed_by = None
-        campaign.reviewed_at = None
-        campaign.review_note = None
-
-        campaign.actions.append(
-            CampaignAction(
-                actor_id=actor_id,
-                action=CampaignActionType.SUBMITTED,
-                reason="Campaign submitted for review",
-            )
-        )
-
-        updated = await campaign_repository.update_campaign(db, campaign)
-        await db.commit()
-        await db.refresh(updated)
-        return updated
-
     async def approve_campaign(
         self,
         db: AsyncSession,
@@ -332,8 +341,9 @@ class CampaignService:
         campaign.suspended_at = None
         campaign.suspension_reason = None
 
-        campaign.actions.append(
+        db.add(
             CampaignAction(
+                campaign_id=campaign.id,
                 actor_id=actor_id,
                 action=CampaignActionType.APPROVED,
                 reason=review_note or "Campaign approved",
@@ -377,8 +387,9 @@ class CampaignService:
         campaign.reviewed_at = now_naive_utc()
         campaign.review_note = review_note or "Campaign rejected"
 
-        campaign.actions.append(
+        db.add(
             CampaignAction(
+                campaign_id=campaign.id,
                 actor_id=actor_id,
                 action=CampaignActionType.REJECTED,
                 reason=review_note or "Campaign rejected",
@@ -427,8 +438,9 @@ class CampaignService:
             suspension_reason or "Campaign suspended"
         )
 
-        campaign.actions.append(
+        db.add(
             CampaignAction(
+                campaign_id=campaign.id,
                 actor_id=actor_id,
                 action=CampaignActionType.SUSPENDED,
                 reason=suspension_reason or "Campaign suspended",
@@ -468,8 +480,9 @@ class CampaignService:
         campaign.suspended_at = None
         campaign.suspension_reason = None
 
-        campaign.actions.append(
+        db.add(
             CampaignAction(
+                campaign_id=campaign.id,
                 actor_id=actor_id,
                 action=CampaignActionType.RESUMED,
                 reason="Campaign resumed",
