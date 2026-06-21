@@ -103,6 +103,7 @@ class VerifierService:
             request_obj=request_obj,
             verifier_id=verifier_id,
         )
+
         await self.charity_profile_service.create_from_verification_request(
         db=db,
         request_obj=request_obj,)
@@ -117,9 +118,6 @@ class VerifierService:
             ),
             type="charity_verification_approved",
         )
-        await self.charity_profile_service.create_from_verification_request(
-        db=db,
-        request_obj=request_obj,)
 
         return approved_request
 
