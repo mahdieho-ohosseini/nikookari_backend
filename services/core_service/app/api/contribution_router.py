@@ -65,49 +65,10 @@ async def start_campaign_donation(
         authority=transaction.authority,
         payment_url=transaction.payment_url or "",
         callback_url=transaction.callback_url,
-        message="Payment created. Use payment_url for mock test now; later it will be Zarinpal sandbox URL.",
+        message="Payment created. Redirect user to payment_url for Zarinpal sandbox payment.",
     )
 
 
-@router.get("/payments/mock/{transaction_id}/success", response_model=PaymentResultResponse)
-async def mock_payment_success(
-    transaction_id: uuid.UUID,
-    db: AsyncSession = Depends(get_db),
-):
-    donation, transaction = await contribution_service.mark_payment_success(
-        db,
-        transaction_id=transaction_id,
-    )
-    return PaymentResultResponse(
-        status=PaymentTransactionStatus.SUCCESS,
-        donation_id=donation.id,
-        transaction_id=transaction.id,
-        campaign_id=donation.campaign_id,
-        amount=donation.amount,
-        ref_id=transaction.ref_id,
-        message="Mock payment successful. Donation marked as paid.",
-    )
-
-
-@router.get("/payments/mock/{transaction_id}/failed", response_model=PaymentResultResponse)
-async def mock_payment_failed(
-    transaction_id: uuid.UUID,
-    db: AsyncSession = Depends(get_db),
-):
-    donation, transaction = await contribution_service.mark_payment_failed(
-        db,
-        transaction_id=transaction_id,
-        reason="Mock payment failed by user",
-    )
-    return PaymentResultResponse(
-        status=PaymentTransactionStatus.FAILED,
-        donation_id=donation.id,
-        transaction_id=transaction.id,
-        campaign_id=donation.campaign_id,
-        amount=donation.amount,
-        ref_id=transaction.ref_id,
-        message="Mock payment failed. Donation marked as failed.",
-    )
 
 
 @router.get("/payments/callback", response_model=PaymentResultResponse)

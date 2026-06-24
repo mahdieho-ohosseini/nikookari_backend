@@ -1,7 +1,8 @@
 import os
+import uuid
 
 import jwt
-from fastapi import Depends, HTTPException, Request, status
+from fastapi import Request, HTTPException, status
 from fastapi.responses import JSONResponse
 from jwt import ExpiredSignatureError, InvalidTokenError
 
@@ -24,7 +25,6 @@ PUBLIC_ROUTES = (
     "/charities",
     "/docs",
     "/redoc",
-    "/api/v1/payments/mock",
     "/api/v1/payments/callback",
 )
 
@@ -54,6 +54,15 @@ def decode_access_token(token: str) -> dict:
 
         user_id = payload.get("sub")
         role = payload.get("role")
+
+        # 🔥 مهم: validation UUID برای جلوگیری از خراب شدن سیستم
+        try:
+            uuid.UUID(str(user_id))
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid user_id format (must be UUID)",
+            )
 
         if not user_id:
             raise HTTPException(
@@ -104,12 +113,14 @@ async def jwt_middleware(request: Request, call_next):
 
         jti = payload.get("jti")
         redis = getattr(request.app.state, "redis", None)
+
         if redis and jti and await redis.exists(f"blacklist:{jti}"):
             return JSONResponse(
                 status_code=401,
                 content={"detail": "Token revoked"},
             )
 
+        # ✅ استاندارد نهایی سیستم تو
         request.state.user_id = payload.get("sub")
         request.state.user_role = payload.get("role")
         request.state.user = payload

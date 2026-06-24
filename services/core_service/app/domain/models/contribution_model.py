@@ -10,7 +10,6 @@ from app.core.database import EntityBase
 
 
 class PaymentProvider(str, enum.Enum):
-    MOCK = "mock"
     ZARINPAL = "zarinpal"
 
 
@@ -61,7 +60,7 @@ class PaymentTransaction(EntityBase):
     user_id = Column(UUID(as_uuid=True), nullable=False, index=True)
     campaign_id = Column(UUID(as_uuid=True), ForeignKey("campaigns.id"), nullable=False, index=True)
 
-    provider = Column(Enum(PaymentProvider), nullable=False, default=PaymentProvider.MOCK)
+    provider = Column(Enum(PaymentProvider), nullable=False, default=PaymentProvider.ZARINPAL)
     status = Column(
         Enum(PaymentTransactionStatus),
         nullable=False,

@@ -29,24 +29,25 @@ class ContributionService:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Campaign is not active")
         return campaign
 
-    async def _assert_campaign_owner_or_staff(
+    async def _assert_campaign_owner(
         self,
         db: AsyncSession,
         *,
         campaign_id: UUID,
         user_id: UUID,
-        role: str,
     ):
-        if role.lower() in {"admin", "verifier"}:
-            return
-
         campaign = await campaign_repository.get_campaign_by_id(db, campaign_id)
         if campaign is None:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Campaign not found")
 
         profile = await charity_profile_repository.get_by_user_id(db, user_id)
         if profile is None or profile.id != campaign.charity_id:
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="You do not have access to this campaign")
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Only campaign owner can perform this action",
+            )
+
+        return campaign
 
     async def start_donation(
         self,
@@ -77,7 +78,7 @@ class ContributionService:
             donation_id=donation.id,
             user_id=user_id,
             campaign_id=campaign.id,
-            provider=PaymentProvider.MOCK,
+            provider=PaymentProvider.ZARINPAL,
             status=PaymentTransactionStatus.PENDING,
             amount=data.amount,
             authority=f"TEMP-{donation.id}",
@@ -185,7 +186,7 @@ class ContributionService:
         return await contribution_repository.list_user_donations(db, user_id)
 
     async def list_campaign_donations(self, db: AsyncSession, *, campaign_id: UUID, user_id: UUID, role: str):
-        await self._assert_campaign_owner_or_staff(db, campaign_id=campaign_id, user_id=user_id, role=role)
+        await self._assert_campaign_owner(db, campaign_id=campaign_id, user_id=user_id)
         return await contribution_repository.list_campaign_donations(db, campaign_id)
 
     async def create_skill_contribution(
@@ -201,7 +202,11 @@ class ContributionService:
         active_items = await contribution_repository.list_user_skill_contributions(db, user_id)
         active_count = sum(
             1 for item in active_items
-            if item.status in {SkillContributionStatus.PENDING, SkillContributionStatus.APPROVED, SkillContributionStatus.NEEDS_INFO}
+            if item.status in {
+                SkillContributionStatus.PENDING,
+                SkillContributionStatus.APPROVED,
+                SkillContributionStatus.NEEDS_INFO,
+            }
         )
         if active_count >= 10:
             raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="You cannot have more than 10 active skill contributions")
@@ -220,7 +225,7 @@ class ContributionService:
         return await contribution_repository.list_user_skill_contributions(db, user_id)
 
     async def list_campaign_skill_contributions(self, db: AsyncSession, *, campaign_id: UUID, user_id: UUID, role: str):
-        await self._assert_campaign_owner_or_staff(db, campaign_id=campaign_id, user_id=user_id, role=role)
+        await self._assert_campaign_owner(db, campaign_id=campaign_id, user_id=user_id)
         return await contribution_repository.list_campaign_skill_contributions(db, campaign_id)
 
     async def update_skill_status(
@@ -242,7 +247,7 @@ class ContributionService:
             if item.user_id != user_id:
                 raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Only contribution owner can cancel it")
         else:
-            await self._assert_campaign_owner_or_staff(db, campaign_id=campaign_id, user_id=user_id, role=role)
+            await self._assert_campaign_owner(db, campaign_id=campaign_id, user_id=user_id)
 
         item.status = next_status
         item.owner_note = note

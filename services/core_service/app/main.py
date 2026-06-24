@@ -105,7 +105,6 @@ PUBLIC_OPENAPI_PATHS = (
     "/api/v1/auth/verify-otp",
     "/api/v1/auth/refresh",
     "/api/v1/charities",
-    "/api/v1/payments/mock",
     "/api/v1/payments/callback",
 )
 
