@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     JWT_ALGORITHM: str
 
     IAM_URL: str
+    ZARINPAL_MERCHANT_ID: str
 
     # آدرس media_service برای ساخت لینک فایل‌ها
     MEDIA_SERVICE_URL: str = "http://127.0.0.1:8003"

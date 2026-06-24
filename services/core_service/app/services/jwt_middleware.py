@@ -1,14 +1,17 @@
-from fastapi import Request
+import os
+import uuid
+
+import jwt
+from fastapi import Request, HTTPException, status
 from fastapi.responses import JSONResponse
 from jwt import ExpiredSignatureError, InvalidTokenError
-import jwt
-import os
 
 from app.core.config import get_settings
 
 
 PUBLIC_ROUTES = (
     "/",
+    "/health",
     "/openapi.json",
     "/auth/login",
     "/auth/register",
@@ -21,8 +24,8 @@ PUBLIC_ROUTES = (
     "/api/v1/charities",
     "/charities",
     "/docs",
-    "/openapi.json",
     "/redoc",
+    "/api/v1/payments/callback",
 )
 
 
@@ -31,6 +34,60 @@ def is_public_route(path: str) -> bool:
         path == route or path.startswith(f"{route}/")
         for route in PUBLIC_ROUTES
     )
+
+
+def decode_access_token(token: str) -> dict:
+    settings = get_settings()
+
+    try:
+        payload = jwt.decode(
+            token,
+            settings.JWT_SECRET_KEY,
+            algorithms=[settings.JWT_ALGORITHM],
+        )
+
+        if payload.get("type") != "access":
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid token type",
+            )
+
+        user_id = payload.get("sub")
+        role = payload.get("role")
+
+        # 🔥 مهم: validation UUID برای جلوگیری از خراب شدن سیستم
+        try:
+            uuid.UUID(str(user_id))
+        except Exception:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid user_id format (must be UUID)",
+            )
+
+        if not user_id:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token missing subject",
+            )
+
+        if not role:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Token missing role",
+            )
+
+        return payload
+
+    except ExpiredSignatureError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token expired",
+        )
+    except InvalidTokenError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid token",
+        )
 
 
 async def jwt_middleware(request: Request, call_next):
@@ -50,57 +107,57 @@ async def jwt_middleware(request: Request, call_next):
         )
 
     token = auth_header.removeprefix("Bearer ").strip()
-    settings = get_settings()
 
     try:
-        payload = jwt.decode(
-            token,
-            settings.JWT_SECRET_KEY,
-            algorithms=[settings.JWT_ALGORITHM],
-        )
+        payload = decode_access_token(token)
 
-        if payload.get("type") != "access":
-            return JSONResponse(
-                status_code=401,
-                content={"detail": "Invalid token type"},
-            )
-
-        user_id = payload.get("sub")
-        role = payload.get("role")
         jti = payload.get("jti")
-
-        if not user_id:
-            return JSONResponse(
-                status_code=401,
-                content={"detail": "Token missing subject"},
-            )
-
-        if not role:
-            return JSONResponse(
-                status_code=401,
-                content={"detail": "Token missing role"},
-            )
-
         redis = getattr(request.app.state, "redis", None)
+
         if redis and jti and await redis.exists(f"blacklist:{jti}"):
             return JSONResponse(
                 status_code=401,
                 content={"detail": "Token revoked"},
             )
 
-        request.state.user_id = user_id
-        request.state.user_role = role
+        # ✅ استاندارد نهایی سیستم تو
+        request.state.user_id = payload.get("sub")
+        request.state.user_role = payload.get("role")
         request.state.user = payload
 
-    except ExpiredSignatureError:
+    except HTTPException as exc:
         return JSONResponse(
-            status_code=401,
-            content={"detail": "Token expired"},
-        )
-    except InvalidTokenError:
-        return JSONResponse(
-            status_code=401,
-            content={"detail": "Invalid token"},
+            status_code=exc.status_code,
+            content={"detail": exc.detail},
         )
 
     return await call_next(request)
+
+
+def get_current_user(request: Request) -> dict:
+    user = getattr(request.state, "user", None)
+
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing or invalid token",
+        )
+
+    return {
+        **user,
+        "user_id": user.get("sub"),
+        "role": user.get("role"),
+    }
+
+
+def get_optional_current_user(request: Request) -> dict | None:
+    user = getattr(request.state, "user", None)
+
+    if not user:
+        return None
+
+    return {
+        **user,
+        "user_id": user.get("sub"),
+        "role": user.get("role"),
+    }

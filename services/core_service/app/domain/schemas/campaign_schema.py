@@ -1,7 +1,8 @@
 from datetime import datetime
 from typing import Optional
-from pydantic import BaseModel, Field, UUID4, ConfigDict
 from decimal import Decimal
+
+from pydantic import BaseModel, Field, UUID4, ConfigDict, field_validator
 
 from app.domain.models.campaign_model import CampaignStatus, CampaignDonationStatus
 
@@ -12,16 +13,38 @@ class CampaignBase(BaseModel):
         ...,
         example="We need funds to build a school for underprivileged children",
     )
-    # فیلد گمشده که باعث خطا می‌شد:
     short_description: str = Field(
-        ..., 
-        max_length=500, 
-        example="Fundraising to build a school for children in need"
+        ...,
+        max_length=500,
+        example="Fundraising to build a school for children in need",
     )
     category: str = Field(..., max_length=100, example="Education")
     target_amount: Decimal = Field(..., gt=0, example=1000.0)
     start_date: Optional[datetime] = None
     end_date: Optional[datetime] = None
+
+    cover_image_file_id: Optional[int] = Field(
+        default=None,
+        example=1,
+        description="Media file id for campaign cover image",
+    )
+    gallery_file_ids: list[int] = Field(
+        default_factory=list,
+        example=[2, 3],
+        description="Media file ids for campaign gallery images",
+    )
+    attachment_file_ids: list[int] = Field(
+        default_factory=list,
+        example=[4, 5],
+        description="Media file ids for campaign attachments such as PDF documents",
+    )
+
+    @field_validator("gallery_file_ids", "attachment_file_ids")
+    @classmethod
+    def validate_file_ids(cls, value: list[int]) -> list[int]:
+        if any(file_id <= 0 for file_id in value):
+            raise ValueError("file ids must be positive integers")
+        return value
 
 
 class CampaignCreate(CampaignBase):
@@ -37,22 +60,34 @@ class CampaignUpdate(BaseModel):
     start_date: Optional[datetime] = None
     end_date: Optional[datetime] = None
 
+    cover_image_file_id: Optional[int] = None
+    gallery_file_ids: Optional[list[int]] = None
+    attachment_file_ids: Optional[list[int]] = None
+
+    @field_validator("gallery_file_ids", "attachment_file_ids")
+    @classmethod
+    def validate_optional_file_ids(cls, value: Optional[list[int]]) -> Optional[list[int]]:
+        if value is None:
+            return value
+        if any(file_id <= 0 for file_id in value):
+            raise ValueError("file ids must be positive integers")
+        return value
+
 
 class CampaignResponse(CampaignBase):
     id: UUID4
     charity_id: UUID4
     status: CampaignStatus
     collected_amount: Decimal
-    
-    # فیلدهای واقعی مربوط به بررسی (جایگزین review و suspension قدیمی)
+
     reviewed_by: Optional[UUID4] = None
     reviewed_at: Optional[datetime] = None
     review_note: Optional[str] = None
-    
+
     suspended_by: Optional[UUID4] = None
     suspended_at: Optional[datetime] = None
     suspension_reason: Optional[str] = None
-    
+
     created_at: datetime
     updated_at: datetime
 
@@ -82,7 +117,7 @@ class CampaignDonationResponse(BaseModel):
 class CampaignActionCreate(BaseModel):
     campaign_id: UUID4
     actor_id: UUID4
-    action: str  # این باید با CampaignActionType هماهنگ باشد
+    action: str
     reason: Optional[str] = None
 
 

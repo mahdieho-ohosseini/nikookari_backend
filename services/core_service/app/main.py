@@ -7,39 +7,32 @@ from fastapi.responses import JSONResponse
 from loguru import logger
 
 from app.api.RegInstitute_routes import router as RegInstitute
+from app.api.campaign_report_router import router as campaign_report_router
+from app.api.campaign_router import router as campaign_router
 from app.api.charity_profile_router import router as charity_profile_router
+from app.api.contribution_router import router as contribution_router
 from app.api.notification_router import router as notification_router
 from app.api.public_charity_router import router as public_charity_router
 from app.api.verifier_router import router as verifier_router
-from app.api.campaign_router import router as campaign_router
-
 from app.core.config import get_settings
 from app.core.database import create_db_and_tables
 from app.logging.logging_service import configure_logger
 from app.services.jwt_middleware import jwt_middleware
+from app.api.skill_document_router import router as skill_document_router
 
 
-# ============================================
-# 1. Logger
-# ============================================
 configure_logger()
 logger.info("Logger configured.")
 
 settings = get_settings()
 
 
-# ============================================
-# 2. Lifespan
-# ============================================
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await create_db_and_tables()
     yield
 
 
-# ============================================
-# 3. Create FastAPI App
-# ============================================
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.PROJECT_VERSION,
@@ -47,14 +40,9 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-logger.info(
-    f"{settings.PROJECT_NAME} v{settings.PROJECT_VERSION} is starting up..."
-)
+logger.info(f"{settings.PROJECT_NAME} v{settings.PROJECT_VERSION} is starting up...")
 
 
-# ============================================
-# 4. CORS
-# ============================================
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -68,16 +56,10 @@ app.add_middleware(
 logger.info("✅ CORS middleware configured")
 
 
-# ============================================
-# 5. JWT Middleware
-# ============================================
 app.middleware("http")(jwt_middleware)
 logger.info("✅ JWT middleware attached")
 
 
-# ============================================
-# 6. UTF-8 Middleware
-# ============================================
 @app.middleware("http")
 async def set_utf8_encoding(request: Request, call_next):
     response = await call_next(request)
@@ -86,20 +68,17 @@ async def set_utf8_encoding(request: Request, call_next):
     return response
 
 
-# ============================================
-# 7. Routes
-# ============================================
 app.include_router(RegInstitute, prefix="/api/v1")
 app.include_router(verifier_router, prefix="/api/v1")
 app.include_router(notification_router, prefix="/api/v1")
 app.include_router(charity_profile_router, prefix="/api/v1")
 app.include_router(public_charity_router, prefix="/api/v1")
 app.include_router(campaign_router, prefix="/api/v1")
+app.include_router(contribution_router, prefix="/api/v1")
+app.include_router(campaign_report_router, prefix="/api/v1")
+app.include_router(skill_document_router, prefix="/api/v1")
 
 
-# ============================================
-# 8. Health
-# ============================================
 @app.get("/", tags=["Health"])
 async def root():
     return {
@@ -109,16 +88,24 @@ async def root():
     }
 
 
-# ============================================
-# 9. Swagger JWT Config
-# ============================================
+@app.get("/health", tags=["Health"])
+async def health():
+    return {
+        "status": "ok",
+        "service": "core-service",
+        "version": settings.PROJECT_VERSION,
+    }
+
+
 PUBLIC_OPENAPI_PATHS = (
     "/",
+    "/health",
     "/api/v1/auth/login",
     "/api/v1/auth/register",
     "/api/v1/auth/verify-otp",
     "/api/v1/auth/refresh",
     "/api/v1/charities",
+    "/api/v1/payments/callback",
 )
 
 
@@ -149,10 +136,8 @@ def custom_openapi():
         }
     }
 
-    # By default, APIs are protected with Bearer token.
     openapi_schema["security"] = [{"BearerAuth": []}]
 
-    # Public APIs should not show the lock icon in Swagger.
     for path, path_config in openapi_schema.get("paths", {}).items():
         if is_public_openapi_path(path):
             for operation in path_config.values():
