@@ -160,6 +160,8 @@ class CampaignService:
         self,
         db: AsyncSession,
         campaign_id: UUID,
+        charity_id: UUID | None = None,
+
     ) -> Campaign:
         campaign = await campaign_repository.get_campaign_by_id(
             db,
@@ -171,6 +173,11 @@ class CampaignService:
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Campaign not found",
             )
+        if charity_id is not None and campaign.charity_id != charity_id:
+            raise HTTPException(
+                 status_code=status.HTTP_403_FORBIDDEN,
+                 detail="Not authorized to access this campaign",
+        )
 
         return campaign
 
@@ -506,6 +513,23 @@ class CampaignService:
         )
 
         return charity_profile is not None and charity_profile.id == charity_id
+    
+    async def get_campaigns_for_verifier(
+        self,
+        db: AsyncSession,
+        *,
+        status: CampaignStatus | None = None,
+        search: str | None = None,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> list[Campaign]:
+        return await campaign_repository.get_campaigns_for_verifier(
+            db=db,
+            status=status,
+            search=search,
+            limit=limit,
+            offset=offset,
+        )
 
 
 campaign_service = CampaignService()

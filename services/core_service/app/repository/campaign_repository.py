@@ -4,7 +4,7 @@ from typing import Sequence
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.domain.models.campaign_model import Campaign
+from app.domain.models.campaign_model import Campaign, CampaignStatus
 
 
 class CampaignRepository:
@@ -62,6 +62,34 @@ class CampaignRepository:
     ) -> None:
         await db.delete(campaign)
         await db.flush()
+
+    async def get_campaigns_for_verifier(
+        self,
+        db: AsyncSession,
+        *,
+        status: CampaignStatus | None = None,
+        search: str | None = None,
+        limit: int = 20,
+        offset: int = 0,
+    ) -> list[Campaign]:
+        stmt = select(Campaign).order_by(Campaign.created_at.desc())
+
+        if status is not None:
+            stmt = stmt.where(Campaign.status == status)
+
+        if search:
+            search_pattern = f"%{search}%"
+            stmt = stmt.where(
+                or_(
+                    Campaign.title.ilike(search_pattern),
+                    Campaign.description.ilike(search_pattern),
+                )
+            )
+
+        stmt = stmt.offset(offset).limit(limit)
+
+        result = await db.execute(stmt)
+        return result.scalars().all()
 
 
 campaign_repository = CampaignRepository()

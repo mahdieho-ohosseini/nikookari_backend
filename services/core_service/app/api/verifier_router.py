@@ -8,6 +8,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.campaign_router import _extract_user_id
 from app.core.database import get_db
 from app.core.dependencies import get_current_user, require_roles
+from app.domain.models.campaign_model import CampaignStatus
 from app.domain.schemas.campaign_schema import CampaignResponse
 from app.domain.schemas.verifier_schema import (
     VerifierDashboardResponse,
@@ -162,6 +163,27 @@ async def reject_charity_profile(
         "is_published": profile.is_published,
         "message": "Charity profile rejected successfully",
     }
+
+@router.get(
+    "/campaigns/dashboard",
+    response_model=list[CampaignResponse],
+     tags=["Campaign Management"],
+    dependencies=[Depends(require_roles("verifier", "admin"))],
+)
+async def get_campaigns_dashboard(
+    db: AsyncSession = Depends(get_db),
+    status: Optional[CampaignStatus] = None,
+    search: Optional[str] = None,
+    limit: int = 20,
+    offset: int = 0,
+) -> list[CampaignResponse]:
+    return await campaign_service.get_campaigns_for_verifier(
+        db=db,
+        status=status,
+        search=search,
+        limit=limit,
+        offset=offset,
+    )
 
 
 @router.patch(

@@ -9,6 +9,7 @@ from app.domain.schemas.campaign_schema import (
     CampaignResponse,
     CampaignUpdate,
 )
+from app.repository.charity_profile_repository import charity_profile_repository
 from app.services.campaign_service import campaign_service
 
 
@@ -24,6 +25,18 @@ def _extract_user_id(current_user: dict) -> uuid.UUID:
         )
     return uuid.UUID(str(raw_user_id))
 
+async def _resolve_charity_id(db: AsyncSession, current_user: dict) -> uuid.UUID:
+    user_id = _extract_user_id(current_user)
+    charity_profile = await charity_profile_repository.get_by_user_id(db, user_id)
+
+    if charity_profile is None:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Charity profile not found for this user",
+        )
+
+    return charity_profile.id
+
 
 @router.post("/", response_model=CampaignResponse, status_code=status.HTTP_201_CREATED)
 async def create_campaign(
@@ -34,13 +47,19 @@ async def create_campaign(
     user_id = _extract_user_id(current_user)
     return await campaign_service.create_campaign(db, campaign_data, user_id)
 
-
 @router.get("/{campaign_id}", response_model=CampaignResponse)
 async def get_campaign(
     campaign_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
 ):
-    return await campaign_service.get_campaign(db, campaign_id)
+    user_id = _extract_user_id(current_user)
+
+    return await campaign_service.get_campaign(
+        db,
+        campaign_id,
+        user_id=user_id,
+    )
 
 
 @router.get("/", response_model=list[CampaignResponse])
@@ -48,8 +67,10 @@ async def get_campaigns(
     db: AsyncSession = Depends(get_db),
     skip: int = 0,
     limit: int = 100,
-    charity_id: uuid.UUID | None = None,
+    current_user: dict = Depends(get_current_user),
 ):
+    charity_id = await _resolve_charity_id(db, current_user)
+
     return await campaign_service.get_campaigns(
         db,
         skip=skip,
@@ -58,15 +79,19 @@ async def get_campaigns(
     )
 
 
-@router.put("/{campaign_id}", response_model=CampaignResponse)
-async def update_campaign(
+@router.get("/{campaign_id}", response_model=CampaignResponse)
+async def get_campaign(
     campaign_id: uuid.UUID,
-    campaign_data: CampaignUpdate,
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
-    user_id = _extract_user_id(current_user)
-    return await campaign_service.update_campaign(db, campaign_id, campaign_data, user_id)
+    charity_id = await _resolve_charity_id(db, current_user)
+
+    return await campaign_service.get_campaign(
+        db,
+        campaign_id,
+        charity_id=charity_id,
+    )
 
 
 @router.delete("/{campaign_id}", status_code=status.HTTP_204_NO_CONTENT)
