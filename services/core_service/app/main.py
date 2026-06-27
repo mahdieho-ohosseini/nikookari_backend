@@ -19,6 +19,7 @@ from app.core.database import create_db_and_tables
 from app.logging.logging_service import configure_logger
 from app.services.jwt_middleware import jwt_middleware
 from app.api.skill_document_router import router as skill_document_router
+from app.api.public_campaign_router import router as public_campaign_router
 
 
 configure_logger()
@@ -77,6 +78,8 @@ app.include_router(campaign_router, prefix="/api/v1")
 app.include_router(contribution_router, prefix="/api/v1")
 app.include_router(campaign_report_router, prefix="/api/v1")
 app.include_router(skill_document_router, prefix="/api/v1")
+app.include_router(public_campaign_router, prefix="/api/v1")
+
 
 
 @app.get("/", tags=["Health"])
@@ -105,8 +108,10 @@ PUBLIC_OPENAPI_PATHS = (
     "/api/v1/auth/verify-otp",
     "/api/v1/auth/refresh",
     "/api/v1/charities",
+    "/api/v1/public/campaigns",
     "/api/v1/payments/callback",
 )
+
 
 
 def is_public_openapi_path(path: str) -> bool:
@@ -151,3 +156,4 @@ app.openapi = custom_openapi
 logger.info("✅ OpenAPI configured")
 
 logger.success("🚀 QForm CORE Service started successfully!")
+

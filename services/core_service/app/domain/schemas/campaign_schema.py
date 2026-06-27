@@ -130,3 +130,17 @@ class CampaignActionResponse(BaseModel):
     created_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
+
+class PublicCampaignResponse(BaseModel):
+    
+    id:UUID4
+    title: str
+    description: str | None = None
+    goal_amount: int | None = None
+    current_amount: int | None = None
+    status: str
+    start_date: datetime | None = None
+    end_date: datetime | None = None
+    created_at: datetime | None = None
+
+    model_config = {"from_attributes": True}

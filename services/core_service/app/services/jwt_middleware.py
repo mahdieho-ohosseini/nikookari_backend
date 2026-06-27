@@ -25,6 +25,7 @@ PUBLIC_ROUTES = (
     "/charities",
     "/docs",
     "/redoc",
+    "/api/v1/public/campaigns",
     "/api/v1/payments/callback",
 )
 
@@ -161,3 +162,4 @@ def get_optional_current_user(request: Request) -> dict | None:
         "user_id": user.get("sub"),
         "role": user.get("role"),
     }
+

@@ -284,7 +284,7 @@ class UserService(BaseService):
                  ex=24 * 60 * 60,
              )
      
-             frontend_url = os.getenv("FRONTEND_URL", "http://localhost:3000")
+             frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
              onboarding_link = f"{frontend_url}/onboarding?token={onboarding_token}"
      
              await self.email_service.send_verifier_welcome_email(

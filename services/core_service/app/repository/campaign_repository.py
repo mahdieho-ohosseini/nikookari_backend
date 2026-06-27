@@ -90,6 +90,37 @@ class CampaignRepository:
 
         result = await db.execute(stmt)
         return result.scalars().all()
+    
+    async def get_public_campaigns(
+        self,
+        db: AsyncSession,
+        *,
+        skip: int = 0,
+        limit: int = 10,
+    ):
+        stmt = (
+            select(Campaign)
+            .where(Campaign.status == CampaignStatus.ACTIVE)
+            .offset(skip)
+            .limit(limit)
+            .order_by(Campaign.created_at.desc())
+        )
+
+        result = await db.execute(stmt)
+        return result.scalars().all()
+
+    async def get_public_campaign_by_id(
+        self,
+        db: AsyncSession,
+        campaign_id: UUID,
+    ):
+        stmt = select(Campaign).where(
+            Campaign.id == campaign_id,
+            Campaign.status == CampaignStatus.ACTIVE,
+        )
+        result = await db.execute(stmt)
+        return result.scalar_one_or_none()
+    
 
 
 campaign_repository = CampaignRepository()

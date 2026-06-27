@@ -530,6 +530,34 @@ class CampaignService:
             limit=limit,
             offset=offset,
         )
+    
+    async def get_public_campaigns(
+        self,
+        db: AsyncSession,
+        *,
+        skip: int = 0,
+        limit: int = 10,
+    ):
+        return await campaign_repository.get_public_campaigns(
+            db=db,
+            skip=skip,
+            limit=limit,
+        )
+
+    async def get_public_campaign_by_id(
+        self,
+        db: AsyncSession,
+        campaign_id: UUID,
+    ):
+        campaign = await campaign_repository.get_public_campaign_by_id(
+            db=db,
+            campaign_id=campaign_id,
+        )
+
+        if campaign is None:
+            return None
+
+        return campaign
 
 
 campaign_service = CampaignService()

@@ -92,6 +92,15 @@ async def get_campaign(
         campaign_id,
         charity_id=charity_id,
     )
+@router.put("/{campaign_id}", response_model=CampaignResponse)
+async def update_campaign(
+    campaign_id: uuid.UUID,
+    campaign_data: CampaignUpdate,
+    db: AsyncSession = Depends(get_db),
+    current_user: dict = Depends(get_current_user),
+):
+    user_id = _extract_user_id(current_user)
+    return await campaign_service.update_campaign(db, campaign_id, campaign_data, user_id)
 
 
 @router.delete("/{campaign_id}", status_code=status.HTTP_204_NO_CONTENT)
