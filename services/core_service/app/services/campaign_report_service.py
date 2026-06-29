@@ -79,15 +79,11 @@ class CampaignReportService:
         campaign_id: UUID,
         current_user: dict | None = None,
     ):
-        campaign = await self._get_campaign(campaign_id)
-
-        can_manage = False
-        if current_user:
-            can_manage = await self._can_manage_campaign(campaign, current_user)
+        await self._get_campaign(campaign_id)
 
         return await self.repository.list_by_campaign(
             campaign_id=campaign_id,
-            public_only=not can_manage,
+            public_only=False,
         )
 
     async def get_report(
@@ -96,23 +92,13 @@ class CampaignReportService:
         report_id: UUID,
         current_user: dict | None = None,
     ) -> CampaignReport:
-        campaign = await self._get_campaign(campaign_id)
+        await self._get_campaign(campaign_id)
         report = await self.repository.get_by_id(report_id)
 
         if not report or report.campaign_id != campaign_id:
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND,
                 detail="Campaign report not found",
-            )
-
-        can_manage = False
-        if current_user:
-            can_manage = await self._can_manage_campaign(campaign, current_user)
-
-        if not report.is_public and not can_manage:
-            raise HTTPException(
-                status_code=status.HTTP_403_FORBIDDEN,
-                detail="This report is not public",
             )
 
         return report

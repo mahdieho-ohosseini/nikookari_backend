@@ -20,6 +20,8 @@ settings = get_settings()
 class MediaService:
     MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024  # 10MB
 
+    ADMIN_ROLES = {"admin", "super_admin"}
+
     ALLOWED_MIME_TYPES = {
         "image/jpeg",
         "image/png",
@@ -27,12 +29,11 @@ class MediaService:
         "application/pdf",
     }
 
-    VERIFIER_ALLOWED_FILE_USAGES = {
-        "charity_verification_articles",
-        "charity_verification_license",
-        "charity_verification_national_card",
-        "charity_verification_articles_of_association",
-        "charity_verification_activity_license",
+    VERIFIER_ALLOWED_FILE_USAGE_PREFIXES = ("charity_verification_",)
+
+    AUTHENTICATED_ALLOWED_FILE_USAGES = {
+        "campaign_report_image",
+        "campaign_report_attachment",
     }
 
     @staticmethod
@@ -160,7 +161,13 @@ class MediaService:
         role = current_user.get("role")
         user_id = current_user.get("user_id")
 
-        if role == "admin":
+        if media_file.is_public:
+            return
+
+        if media_file.file_usage in MediaService.AUTHENTICATED_ALLOWED_FILE_USAGES:
+            return
+
+        if role in MediaService.ADMIN_ROLES:
             return
 
         if media_file.owner_user_id and media_file.owner_user_id == user_id:
@@ -169,7 +176,9 @@ class MediaService:
         if (
             allow_verifier
             and role == "verifier"
-            and media_file.file_usage in MediaService.VERIFIER_ALLOWED_FILE_USAGES
+            and media_file.file_usage.startswith(
+                MediaService.VERIFIER_ALLOWED_FILE_USAGE_PREFIXES
+            )
         ):
             return
 
@@ -186,7 +195,7 @@ class MediaService:
         role = current_user.get("role")
         user_id = current_user.get("user_id")
 
-        if role == "admin":
+        if role in MediaService.ADMIN_ROLES:
             return
 
         if media_file.owner_user_id and media_file.owner_user_id == user_id:

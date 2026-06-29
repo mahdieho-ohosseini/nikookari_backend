@@ -1,9 +1,10 @@
-from loguru import logger
-import sys
 import os
+import sys
+
+from loguru import logger
 
 
-def configure_logger():
+def configure_logger() -> None:
     os.makedirs("logs", exist_ok=True)
 
     logger.remove()
@@ -15,38 +16,30 @@ def configure_logger():
     }
 
     logger.add(
-        "logs/core_service_info.log",
+        "logs/media_service_info.log",
         level="INFO",
         filter=lambda record: (
             not record["extra"].get("request_log")
             and not record["extra"].get("audit")
-            and not record["extra"].get("payment_error")
         ),
         **json_logging_format,
     )
 
     logger.add(
-        "logs/core_service_error.log",
+        "logs/media_service_error.log",
         level="ERROR",
         **json_logging_format,
     )
 
     logger.add(
-        "logs/core_request.log",
+        "logs/media_request.log",
         level="INFO",
         filter=lambda record: record["extra"].get("request_log") is True,
         **json_logging_format,
     )
 
     logger.add(
-        "logs/core_payment_error.log",
-        level="ERROR",
-        filter=lambda record: record["extra"].get("payment_error") is True,
-        **json_logging_format,
-    )
-
-    logger.add(
-        "logs/core_audit.log",
+        "logs/media_audit.log",
         level="INFO",
         filter=lambda record: record["extra"].get("audit") is True,
         **json_logging_format,

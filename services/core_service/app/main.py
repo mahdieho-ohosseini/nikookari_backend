@@ -1,24 +1,34 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.openapi.utils import get_openapi
 from fastapi.responses import JSONResponse
 from loguru import logger
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.api.RegInstitute_routes import router as RegInstitute
 from app.api.campaign_report_router import router as campaign_report_router
 from app.api.campaign_router import router as campaign_router
 from app.api.charity_profile_router import router as charity_profile_router
 from app.api.contribution_router import router as contribution_router
+from app.api.monitoring_router import monitoring_router
 from app.api.notification_router import router as notification_router
 from app.api.public_charity_router import router as public_charity_router
+from app.api.skill_document_router import router as skill_document_router
 from app.api.verifier_router import router as verifier_router
 from app.core.config import get_settings
-from app.core.database import create_db_and_tables
+from app.core.database import create_db_and_tables, db_health_check
+from app.core.exception_handlers import (
+    http_exception_handler,
+    unhandled_exception_handler,
+    validation_exception_handler,
+)
+from app.core.monitoring_middleware import RequestLoggingMiddleware
 from app.logging.logging_service import configure_logger
 from app.services.jwt_middleware import jwt_middleware
-from app.api.skill_document_router import router as skill_document_router
+from app.services.payment_provider import payment_provider
 
 
 configure_logger()
@@ -43,6 +53,21 @@ app = FastAPI(
 logger.info(f"{settings.PROJECT_NAME} v{settings.PROJECT_VERSION} is starting up...")
 
 
+app.add_exception_handler(
+    StarletteHTTPException,
+    http_exception_handler,
+)
+app.add_exception_handler(
+    RequestValidationError,
+    validation_exception_handler,
+)
+app.add_exception_handler(
+    Exception,
+    unhandled_exception_handler,
+)
+logger.info("Global exception handlers registered.")
+
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -54,6 +79,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 logger.info("✅ CORS middleware configured")
+
+
+app.add_middleware(RequestLoggingMiddleware)
+logger.info("✅ Request logging middleware enabled")
 
 
 app.middleware("http")(jwt_middleware)
@@ -77,6 +106,7 @@ app.include_router(campaign_router, prefix="/api/v1")
 app.include_router(contribution_router, prefix="/api/v1")
 app.include_router(campaign_report_router, prefix="/api/v1")
 app.include_router(skill_document_router, prefix="/api/v1")
+app.include_router(monitoring_router)
 
 
 @app.get("/", tags=["Health"])
@@ -97,9 +127,26 @@ async def health():
     }
 
 
+@app.get("/health/details", tags=["Health"])
+async def health_details():
+    db_ok = await db_health_check()
+
+    return {
+        "status": "ok" if db_ok else "error",
+        "service": "core-service",
+        "version": settings.PROJECT_VERSION,
+        "database": db_ok,
+        "payment_provider": {
+            "zarinpal": payment_provider.circuit_breaker.get_state(),
+        },
+    }
+
+
 PUBLIC_OPENAPI_PATHS = (
     "/",
     "/health",
+    "/health/details",
+    "/metrics",
     "/api/v1/auth/login",
     "/api/v1/auth/register",
     "/api/v1/auth/verify-otp",

@@ -8,6 +8,7 @@ from app.domain.schemas.MediaFile_schema import (
     MediaFileDeleteResponse,
     MediaFileResponse,
 )
+from app.logging.audit_logger import audit_log
 from app.services.media_service import MediaService
 
 
@@ -30,7 +31,7 @@ async def upload_file(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
-    return await MediaService.upload_file(
+    media_file = await MediaService.upload_file(
         db=db,
         file=file,
         source_service=source_service,
@@ -38,6 +39,23 @@ async def upload_file(
         owner_user_id=current_user["user_id"],
         is_public=is_public,
     )
+
+    audit_log(
+        event="media_upload_file",
+        outcome="success",
+        actor_id=str(current_user["user_id"]),
+        actor_role=str(current_user.get("role", "")),
+        target_id=str(media_file.id),
+        details={
+            "source_service": source_service,
+            "file_usage": file_usage,
+            "is_public": is_public,
+            "mime_type": media_file.mime_type,
+            "size_bytes": media_file.size_bytes,
+        },
+    )
+
+    return media_file
 
 
 @router.get(
@@ -97,8 +115,18 @@ async def delete_file(
     db: AsyncSession = Depends(get_db),
     current_user: dict = Depends(get_current_user),
 ):
-    return await MediaService.soft_delete_file(
+    result = await MediaService.soft_delete_file(
         db=db,
         file_id=file_id,
         current_user=current_user,
     )
+
+    audit_log(
+        event="media_delete_file",
+        outcome="success",
+        actor_id=str(current_user["user_id"]),
+        actor_role=str(current_user.get("role", "")),
+        target_id=str(file_id),
+    )
+
+    return result

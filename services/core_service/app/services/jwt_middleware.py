@@ -12,6 +12,8 @@ from app.core.config import get_settings
 PUBLIC_ROUTES = (
     "/",
     "/health",
+    "/health/details",
+    "/metrics",
     "/openapi.json",
     "/auth/login",
     "/auth/register",

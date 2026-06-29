@@ -10,7 +10,7 @@ from app.domain.schemas.campaign_report_schema import (
     CampaignReportUpdate,
 )
 from app.services.campaign_report_service import CampaignReportService
-from app.services.jwt_middleware import get_current_user, get_optional_current_user
+from app.services.jwt_middleware import get_current_user
 
 
 router = APIRouter(prefix="/campaigns", tags=["Campaign Reports"])
@@ -38,7 +38,7 @@ async def create_campaign_report(
 async def list_campaign_reports(
     campaign_id: UUID,
     db: AsyncSession = Depends(get_db),
-    current_user: dict | None = Depends(get_optional_current_user),
+    current_user: dict = Depends(get_current_user),
 ):
     service = CampaignReportService(db)
     return await service.list_reports(campaign_id, current_user)
@@ -52,7 +52,7 @@ async def get_campaign_report(
     campaign_id: UUID,
     report_id: UUID,
     db: AsyncSession = Depends(get_db),
-    current_user: dict | None = Depends(get_optional_current_user),
+    current_user: dict = Depends(get_current_user),
 ):
     service = CampaignReportService(db)
     return await service.get_report(campaign_id, report_id, current_user)
