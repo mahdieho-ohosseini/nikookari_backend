@@ -1,8 +1,10 @@
 import uuid
-
+from fastapi.responses import RedirectResponse
+from urllib.parse import urlencode
 from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from sqlalchemy.ext.asyncio import AsyncSession
-
+from app.core.config import get_settings
+settings = get_settings()
 from app.core.database import get_db
 from app.core.dependencies import get_current_user
 from app.domain.models.contribution_model import PaymentTransactionStatus, SkillContributionStatus
@@ -71,7 +73,10 @@ async def start_campaign_donation(
 
 
 
-@router.get("/payments/callback", response_model=PaymentResultResponse)
+
+# from app.core.config import settings   # اگر settings داری
+
+@router.get("/payments/callback")
 async def payment_callback(
     Authority: str = Query(...),
     Status: str = Query(...),
@@ -82,15 +87,23 @@ async def payment_callback(
         authority=Authority,
         callback_status=Status,
     )
-    return PaymentResultResponse(
-        status=transaction.status,
-        donation_id=donation.id,
-        transaction_id=transaction.id,
-        campaign_id=donation.campaign_id,
-        amount=donation.amount,
-        ref_id=transaction.ref_id,
-        message="Payment callback processed.",
+
+    params = urlencode(
+        {
+            "status": transaction.status.value,
+            "donation_id": str(donation.id),
+            "transaction_id": str(transaction.id),
+            "campaign_id": str(donation.campaign_id),
+            "amount": str(donation.amount),
+            "ref_id": str(transaction.ref_id or ""),
+        }
     )
+
+    return RedirectResponse(
+        url=f"{settings.FRONTEND_URL}/payment-result?{params}",
+        status_code=302,
+    )
+
 
 
 @router.get("/me/donations", response_model=list[DonationResponse])

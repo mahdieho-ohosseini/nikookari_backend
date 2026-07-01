@@ -1,7 +1,6 @@
 from datetime import datetime, timezone
 from hashlib import sha256
 from pathlib import Path
-from typing import Optional
 from uuid import UUID
 
 from fastapi import HTTPException, UploadFile, status
@@ -20,6 +19,8 @@ settings = get_settings()
 class MediaService:
     MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024  # 10MB
 
+    ADMIN_ROLES = {"admin", "verifier"}
+
     ALLOWED_MIME_TYPES = {
         "image/jpeg",
         "image/png",
@@ -27,12 +28,11 @@ class MediaService:
         "application/pdf",
     }
 
-    VERIFIER_ALLOWED_FILE_USAGES = {
-        "charity_verification_articles",
-        "charity_verification_license",
-        "charity_verification_national_card",
-        "charity_verification_articles_of_association",
-        "charity_verification_activity_license",
+    VERIFIER_ALLOWED_FILE_USAGE_PREFIXES = ("charity_verification_",)
+
+    AUTHENTICATED_ALLOWED_FILE_USAGES = {
+        "campaign_report",
+    
     }
 
     @staticmethod
@@ -44,6 +44,7 @@ class MediaService:
         owner_user_id: UUID,
         is_public: bool = False,
     ) -> MediaFile:
+
         if not file.filename:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -55,6 +56,14 @@ class MediaService:
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail="File type is not allowed. Allowed types: jpg, png, webp, pdf.",
             )
+
+        # ✅ normalize inputs
+        source_service = source_service.strip().lower()
+        file_usage = file_usage.strip().lower()
+
+        # ✅ اگر فایل مربوط به گزارش‌های کمپین باشد، به طور خودکار عمومی (is_public = True) ذخیره می‌شود
+        if file_usage in MediaService.AUTHENTICATED_ALLOWED_FILE_USAGES:
+            is_public = True
 
         file_bytes = await file.read()
         file_size = len(file_bytes)
@@ -74,15 +83,16 @@ class MediaService:
         stored_filename = generate_stored_filename(file.filename)
         extension = get_file_extension(file.filename)
 
-        today = datetime.utcnow()
+        now = datetime.now(timezone.utc)
 
         relative_dir = (
             Path(settings.UPLOAD_DIR)
             / source_service
             / file_usage
-            / str(today.year)
-            / str(today.month)
+            / str(now.year)
+            / str(now.month)
         )
+
         absolute_dir = PROJECT_ROOT / relative_dir
         absolute_dir.mkdir(parents=True, exist_ok=True)
 
@@ -135,6 +145,7 @@ class MediaService:
         db: AsyncSession,
         file_id: int,
     ) -> MediaFile:
+
         query = select(MediaFile).where(
             MediaFile.id == file_id,
             MediaFile.deleted_at.is_(None),
@@ -157,10 +168,17 @@ class MediaService:
         current_user: dict,
         allow_verifier: bool = True,
     ) -> None:
+
         role = current_user.get("role")
         user_id = current_user.get("user_id")
 
-        if role == "admin":
+        if media_file.is_public:
+            return
+
+        if media_file.file_usage in MediaService.AUTHENTICATED_ALLOWED_FILE_USAGES:
+            return
+
+        if role in MediaService.ADMIN_ROLES:
             return
 
         if media_file.owner_user_id and media_file.owner_user_id == user_id:
@@ -169,7 +187,9 @@ class MediaService:
         if (
             allow_verifier
             and role == "verifier"
-            and media_file.file_usage in MediaService.VERIFIER_ALLOWED_FILE_USAGES
+            and media_file.file_usage.startswith(
+                MediaService.VERIFIER_ALLOWED_FILE_USAGE_PREFIXES
+            )
         ):
             return
 
@@ -183,10 +203,11 @@ class MediaService:
         media_file: MediaFile,
         current_user: dict,
     ) -> None:
+
         role = current_user.get("role")
         user_id = current_user.get("user_id")
 
-        if role == "admin":
+        if role in MediaService.ADMIN_ROLES:
             return
 
         if media_file.owner_user_id and media_file.owner_user_id == user_id:
@@ -203,6 +224,7 @@ class MediaService:
         file_id: int,
         current_user: dict,
     ) -> dict:
+
         media_file = await MediaService.get_file_by_id(
             db=db,
             file_id=file_id,

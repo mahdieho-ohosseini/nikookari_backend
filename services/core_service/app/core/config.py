@@ -24,6 +24,7 @@ class Settings(BaseSettings):
 
     IAM_URL: str
     ZARINPAL_MERCHANT_ID: str
+    FRONTEND_URL: str = "http://localhost:5173"
 
     # آدرس media_service برای ساخت لینک فایل‌ها
     MEDIA_SERVICE_URL: str = "http://127.0.0.1:8003"
