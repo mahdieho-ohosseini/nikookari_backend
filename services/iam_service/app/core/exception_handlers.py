@@ -5,6 +5,24 @@ from loguru import logger
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 
+def make_validation_errors_json_safe(errors: list[dict]) -> list[dict]:
+    safe_errors = []
+
+    for error in errors:
+        safe_error = dict(error)
+
+        ctx = safe_error.get("ctx")
+        if isinstance(ctx, dict):
+            safe_error["ctx"] = {
+                key: str(value)
+                for key, value in ctx.items()
+            }
+
+        safe_errors.append(safe_error)
+
+    return safe_errors
+
+
 async def http_exception_handler(
     request: Request,
     exc: StarletteHTTPException,
@@ -28,9 +46,11 @@ async def validation_exception_handler(
     request: Request,
     exc: RequestValidationError,
 ):
+    safe_errors = make_validation_errors_json_safe(exc.errors())
+
     logger.warning(
         f"Validation error | path={request.url.path} | "
-        f"method={request.method} | errors={exc.errors()}"
+        f"method={request.method} | errors={safe_errors}"
     )
 
     return JSONResponse(
@@ -39,7 +59,7 @@ async def validation_exception_handler(
             "status": "error",
             "message": "Invalid request data",
             "path": request.url.path,
-            "errors": exc.errors(),
+            "errors": safe_errors,
         },
     )
 
