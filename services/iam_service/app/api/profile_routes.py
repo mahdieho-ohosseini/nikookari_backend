@@ -1,4 +1,5 @@
 from typing import Annotated, Any
+import jdatetime
 
 from fastapi import APIRouter, Depends, Security, status
 from fastapi.security import HTTPAuthorizationCredentials
@@ -11,8 +12,10 @@ from app.dependencies import (
     get_profile_service,
     get_redis_client,
 )
+from app.domain.models import User
 from app.domain.profile_schemas import (
     ChangePasswordRequest,
+    MembershipInfoResponse,
     UserProfileResponse,
 )
 from app.domain.token_schemas import LogoutRequest
@@ -101,3 +104,15 @@ async def logout(
     return {
         "message": "Logged out successfully",
     }
+
+@profile_router.get("/membership-info", response_model=MembershipInfoResponse)
+async def get_membership_info(current_user: User = Depends(get_current_user)):
+    # محاسبه سال شمسی از روی تاریخ میلادی
+    created_at = current_user.created_at
+    jalali_date = jdatetime.datetime.fromgregorian(datetime=created_at)
+    
+    return MembershipInfoResponse(
+        created_at=created_at,
+        member_since_gregorian=created_at.year,
+        member_since_jalali=jalali_date.year
+    )

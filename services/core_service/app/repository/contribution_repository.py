@@ -3,8 +3,9 @@ from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import joinedload
 
-from app.domain.models.campaign_model import CampaignDonation
+from app.domain.models.campaign_model import Campaign, CampaignDonation
 from app.domain.models.contribution_model import PaymentTransaction, SkillContribution
 
 
@@ -41,10 +42,15 @@ class ContributionRepository:
 
     async def list_user_donations(self, db: AsyncSession, user_id: UUID) -> Sequence[CampaignDonation]:
         result = await db.execute(
-            select(CampaignDonation)
-            .where(CampaignDonation.donor_id == user_id)
-            .order_by(CampaignDonation.created_at.desc())
-        )
+             select(CampaignDonation)
+            .options(
+            # اینجا داریم زنجیره‌ای Join می‌زنیم: Donation -> Campaign -> Institute
+            joinedload(CampaignDonation.campaign)
+            .joinedload(Campaign.institute) 
+           )
+        .where(CampaignDonation.donor_id == user_id)
+        .order_by(CampaignDonation.created_at.desc())
+          )
         return result.scalars().all()
 
     async def list_campaign_donations(self, db: AsyncSession, campaign_id: UUID) -> Sequence[CampaignDonation]:

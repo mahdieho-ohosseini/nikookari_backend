@@ -34,7 +34,9 @@ class DonationPaymentResponse(BaseModel):
 
 class DonationResponse(BaseModel):
     id: UUID4
+    title :str
     campaign_id: UUID4
+    charity_name: Optional[str] = None
     donor_id: Optional[UUID4] = None
     amount: Decimal
     status: CampaignDonationStatus

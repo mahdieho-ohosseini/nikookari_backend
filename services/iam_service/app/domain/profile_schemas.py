@@ -53,3 +53,13 @@ class ChangePasswordRequest(BaseModel):
 class SimpleSuccessResponse(BaseModel):
     success: bool = True
     message: str
+
+
+
+class MembershipInfoResponse(BaseModel):
+    created_at: datetime
+    member_since_gregorian: int
+    member_since_jalali: int
+
+    class Config:
+        from_attributes = True
